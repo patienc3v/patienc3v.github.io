@@ -29,7 +29,7 @@ for(var column of columnsOfInterest){generateTable(data,column,increasing.includ
 function processData(data){var lines=data.split("\n");var lastUpdated=document.getElementById("lastUpdate");lastUpdated.innerHTML+=lines[0];for(var index=2;index<lines.length;index++){var values=lines[index].split(',');if(values.length<10){continue;}
 var div=values[1];values.splice(1,1);if(tables[div]==undefined){tables[div]=[];divisions.push(div);}
 tables[div].push(values);}
-divisions.sort(function(a,b){var aIndex=-1;var bINdex=-1;for(var index=0;index<divOrder.length;index++){var divPre=divOrder[index];if(a.startsWith(divPre)){aIndex=index;}
+divisions.sort(function(a,b){var aIndex=-1;var bIndex=-1;for(var index=0;index<divOrder.length;index++){var divPre=divOrder[index];if(a.startsWith(divPre)){aIndex=index;}
 if(b.startsWith(divPre)){bIndex=index;}}
 if(aIndex>=0&&bIndex>=0){return aIndex-bIndex;}
 if(aIndex>=0){return-1;}
