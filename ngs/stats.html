@@ -22,7 +22,7 @@ tableElement.appendChild(theadElement);tableElement.appendChild(tbodyElement);di
 return;}
 function resetFilters(){document.getElementById("filter").value="";createTables();}
 function createTables(){updateConfiguration();var filters=document.getElementById("filter").value.split(/[ \t]+/);var validFilters=[];for(var filter of filters){if(filter.length>=3&&filter.length<=12){validFilters.push(filter.toLowerCase());}}
-var data=[];for(var div of included){if(data.length==0){console.log(tables[div]);data=Array.from(tables[div]);}else{data=data.concat(tables[div]);}}
+var data=[];for(var div of included){if(data.length==0){data=Array.from(tables[div]);}else{data=data.concat(tables[div]);}}
 var tableArea=document.getElementById("statsTables");while(tableArea.firstChild){tableArea.removeChild(tableArea.firstChild);}
 if(data.length==0){var hElement=document.createElement("H2");hElement.innerHTML="You must select at least one division.";tableArea.appendChild(hElement);return;}
 for(var column of columnsOfInterest){generateTable(data,column,increasing.includes(column),validFilters);}}
