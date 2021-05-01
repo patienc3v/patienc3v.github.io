@@ -2,11 +2,27 @@
 <head>
 <link rel="stylesheet" href="style/site.css">
 <link rel="stylesheet" href="style/profile.css">
+<style>
+@font-face {
+  font-family: 'Aldo';
+  src: url('style/AldotheApache.ttf') format('truetype');
+}
+.welcome {
+	padding-top: 30px;
+	text-align: center;
+	font-size: 160px;
+	font-weight: bold;
+	font-family: Aldo, Arial, Helvetica, sans-serif; 
+	-webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
+	-webkit-text-stroke-width: 1px;
+	-webkit-text-stroke-color: black;
+}
+</style>
 <title>Gen. M Esports</title>
 </head>
 <body>
 <div id="menu" class="menu">
-<img src="images/gen.m.png" class="topLogo" onclick="javascript:window.location.href = './index.html';">
+<img src="images/gen.m.png" class="topLogo">
 <a class="menuItem" href="roster.html">Roster</a>
 <a class="menuItem" href="stats.html">Stats</a>
 <a class="menuItem" href="schedule.html">Schedule</a>
@@ -15,8 +31,8 @@
 </div>
 <div class="divider">
 </div>
-<div class="content">
-<div style="margin: auto;">Coming soon...</div>
+<div class="content" style='background-image: url("images/genm.background.png"); background-repeat: repeat;'>
+<div class="welcome">WELCOME<br>TO GEN.M</div>
 </div>
 <div class="footer">
 Copyright © 2021 Patienc3. All Rights Reserved.
