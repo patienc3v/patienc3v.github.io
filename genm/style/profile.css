@@ -1,0 +1,34 @@
+.profile {
+	width: 180px;
+	padding: 10px;
+	background-color: #fff;
+	border-radius: 25px;
+	border: 2px solid #000;
+	margin: 10px;
+	display: inline-block;
+}
+
+.profilePicture {
+	display: block;
+	width: calc(100% - 20px);
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.profileText {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align: left;
+}
+.profileName {
+	font-size: large;
+}
+.profileRole {
+	font-size: small;
+}
+.profileFlag {
+	width: 50px;
+	height: 30px;
+	float: right;
+	margin-top: auto;
+	margin-bottom: auto;
+}
