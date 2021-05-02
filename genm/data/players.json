@@ -1,0 +1,28 @@
+[
+{
+	"name": "LeoRice",
+	"role": "Tank",
+	"country": "canada"
+},
+{
+	"name": "Majesty",
+	"role": "Assassin",
+	"country": "usa"
+},
+{
+	"name": "Yonners",
+	"role": "Assassin",
+	"country": "usa"
+},
+{
+	"name": "Patienc3",
+	"role": "Healer",
+	"country": "south.korea"
+},
+{
+	"role": "Offlane",
+},
+{
+	"role": "Sub",
+}
+]

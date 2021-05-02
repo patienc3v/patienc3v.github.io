@@ -1,0 +1,26 @@
+{
+  "Patienc3": {
+    "mostPlayed": [ "Deckard", "Ana", "Stukov", "Rehgar", "Lucio" ],
+    "KDA": 8.388975155279503,
+    "Win Rate": 52.00501253132832,
+    "MMR": 2735
+  },
+  "Majesty": {
+    "mostPlayed": [ "Mephisto", "Uther", "Abathur", "Lucio", "Hanzo" ],
+    "KDA": 5.440520446096654,
+    "Win Rate": 56.42201834862385,
+    "MMR": 2499
+  },
+  "Yonners": {
+    "mostPlayed": [ "Jaina", "Valla", "Tracer", "Hanzo", "Genji" ],
+    "KDA": 4.889114541023558,
+    "Win Rate": 52.844638949671776,
+    "MMR": 2528
+  },
+  "LeoRice": {
+    "mostPlayed": ["Mei", "E.T.C.", "Diablo", "Johanna", "Muradin" ],
+    "KDA": 3.669724770642202,
+    "Win Rate": 50,
+    "MMR": 2485
+  }
+}
