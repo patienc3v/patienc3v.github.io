@@ -9,7 +9,7 @@ function removeAllChildNodes(parent) {
 }
 
 var stats = {};
-//var stats = JSON.parse('{  "Patienc3": {    "mostPlayed": [ "Deckard", "Ana", "Stukov", "Rehgar", "Lucio" ],    "KDA": 8.388975155279503,    "Win Rate": 52.00501253132832,    "MMR": 2735  },  "Majesty": {    "mostPlayed": [ "Mephisto", "Uther", "Abathur", "Lucio", "Hanzo" ],    "KDA": 5.440520446096654,    "Win Rate": 56.42201834862385,    "MMR": 2499  },  "Yonners": {    "mostPlayed": [ "Jaina", "Valla", "Tracer", "Hanzo", "Genji" ],    "KDA": 4.889114541023558,    "Win Rate": 52.844638949671776,    "MMR": 2528  },  "LeoRice": {    "mostPlayed": ["Mei", "E.T.C.", "Diablo", "Johanna", "Muradin" ],    "KDA": 3.669724770642202,    "Win Rate": 50,    "MMR": 2485  }}');
+
 function loadPlayer(name) {
 	var details = stats[name];
 	var profiles = document.getElementsByClassName("profile");
@@ -136,126 +136,115 @@ function loadDetails() {
 }
 
 function processStats(e) {
+	// populate players
+	var playersElement = document.getElementById("players");
 	
-	var bytes = document.getElementById("loadingPercent");
-	bytes.innerHTML = e.loaded + " bytes";
-	if (e.type == "loadend") {
-		// populate players
-		var playersElement = document.getElementById("players");
-		
-//		var data = '[{	"name": "LeoRice",	"role": "Tank",	"country": "canada"},{	"name": "Majesty",	"role": "Assassin",	"country": "usa"},{	"name": "Yonners",	"role": "Assassin",	"country": "usa"},{	"name": "Patienc3",	"role": "Healer",	"country": "south.korea"},{	"name": "",	"role": "Offlane",	"country": ""},{	"name": "",	"role": "Sub",	"country": ""}]';
-		var players = JSON.parse(xhr.response);
-		
-		for (var player of players) {
-			var profileElement = document.createElement("div");
-			profileElement.classList.add("profile");
-			if (player["name"] == "") {
-				var pictureElement = document.createElement("img");
-				
+	stats = JSON.parse(xhr.response);
+	
+	for (var player of players) {
+		var profileElement = document.createElement("div");
+		profileElement.classList.add("profile");
+		if (player["name"] == "") {
+			var pictureElement = document.createElement("img");
+			
+			pictureElement.src = "images/profile/profile.generic.png";
+			pictureElement.alt = "https://www.clipartkey.com/view/ihRTmwR_clip-art-man-arms-crossed-professional-man-png/";
+			pictureElement.classList.add("profilePicture");
+			
+			profileElement.appendChild(pictureElement);
+
+			var textElement = document.createElement("div");
+			textElement.classList.add("profileText");
+			
+			var flagElement;
+			flagElement = document.createElement("div");
+			flagElement.style.backgroundColor = "#ccc";
+			
+			textElement.appendChild(flagElement);
+			
+			var nameElement = document.createElement("span");
+			nameElement.classList.add("profileName");
+			nameElement.innerHTML = "Open";
+			
+			textElement.appendChild(nameElement);
+			
+			var breakElement = document.createElement("br");
+			textElement.appendChild(breakElement);
+			
+			var roleElement = document.createElement("span");
+			roleElement.classList.add("profileRole");
+			roleElement.innerHTML = player["role"];
+			
+			textElement.appendChild(roleElement);
+			
+			profileElement.appendChild(textElement);
+
+		} else {
+			profileElement.id = player["name"];
+
+			var pictureElement = document.createElement("img");
+			
+			if (player["picture"] == undefined) {
 				pictureElement.src = "images/profile/profile.generic.png";
 				pictureElement.alt = "https://www.clipartkey.com/view/ihRTmwR_clip-art-man-arms-crossed-professional-man-png/";
-				pictureElement.classList.add("profilePicture");
-				
-				profileElement.appendChild(pictureElement);
-
-				var textElement = document.createElement("div");
-				textElement.classList.add("profileText");
-				
-				var flagElement;
+			}
+			pictureElement.classList.add("profilePicture");
+			
+			profileElement.appendChild(pictureElement);
+			
+			var textElement = document.createElement("div");
+			textElement.classList.add("profileText");
+			
+			var flagElement;
+			if (player["country"] == "") {
 				flagElement = document.createElement("div");
 				flagElement.style.backgroundColor = "#ccc";
-				
-				textElement.appendChild(flagElement);
-				
-				var nameElement = document.createElement("span");
-				nameElement.classList.add("profileName");
-				nameElement.innerHTML = "Open";
-				
-				textElement.appendChild(nameElement);
-				
-				var breakElement = document.createElement("br");
-				textElement.appendChild(breakElement);
-				
-				var roleElement = document.createElement("span");
-				roleElement.classList.add("profileRole");
-				roleElement.innerHTML = player["role"];
-				
-				textElement.appendChild(roleElement);
-				
-				profileElement.appendChild(textElement);
-
 			} else {
-				profileElement.id = player["name"];
-
-				var pictureElement = document.createElement("img");
-				
-				if (player["picture"] == undefined) {
-					pictureElement.src = "images/profile/profile.generic.png";
-					pictureElement.alt = "https://www.clipartkey.com/view/ihRTmwR_clip-art-man-arms-crossed-professional-man-png/";
-				}
-				pictureElement.classList.add("profilePicture");
-				
-				profileElement.appendChild(pictureElement);
-				
-				var textElement = document.createElement("div");
-				textElement.classList.add("profileText");
-				
-				var flagElement;
-				if (player["country"] == "") {
-					flagElement = document.createElement("div");
-					flagElement.style.backgroundColor = "#ccc";
-				} else {
-					flagElement = document.createElement("img");
-					flagElement.src = "images/flags/" + player["country"] + ".png";
-					flagElement.classList.add("profileFlag");
-					flagElement.alt = player["country"];
-				}
-				
-				textElement.appendChild(flagElement);
-				
-				var nameElement = document.createElement("span");
-				nameElement.classList.add("profileName");
-				nameElement.innerHTML = player["name"];
-				
-				textElement.appendChild(nameElement);
-				
-				var breakElement = document.createElement("br");
-				textElement.appendChild(breakElement);
-				
-				var roleElement = document.createElement("span");
-				roleElement.classList.add("profileRole");
-				roleElement.innerHTML = player["role"];
-				
-				textElement.appendChild(roleElement);
-				
-				profileElement.appendChild(textElement);
-				
-				profileElement.onclick = loadDetails;
+				flagElement = document.createElement("img");
+				flagElement.src = "images/flags/" + player["country"] + ".png";
+				flagElement.classList.add("profileFlag");
+				flagElement.alt = player["country"];
 			}
 			
-			playersElement.appendChild(profileElement);
+			textElement.appendChild(flagElement);
 			
+			var nameElement = document.createElement("span");
+			nameElement.classList.add("profileName");
+			nameElement.innerHTML = player["name"];
+			
+			textElement.appendChild(nameElement);
+			
+			var breakElement = document.createElement("br");
+			textElement.appendChild(breakElement);
+			
+			var roleElement = document.createElement("span");
+			roleElement.classList.add("profileRole");
+			roleElement.innerHTML = player["role"];
+			
+			textElement.appendChild(roleElement);
+			
+			profileElement.appendChild(textElement);
+			
+			profileElement.onclick = loadDetails;
 		}
+		
+		playersElement.appendChild(profileElement);
+		
 	}
 }
 	
 function processPlayers(e) {
-	
-	var bytes = document.getElementById("loadingPercent");
-	bytes.innerHTML = e.loaded + " bytes";
-	if (e.type == "loadend") {
-		
-		var url = "file:///C:/Users/Terminator/Dropbox/githubio/patienc3v.github.io/genm/data/stats.json";
-		xhr.addEventListener('loadend', processPlayers);
-		xhr.open("GET", url);
-		xhr.send();
+	players = JSON.parse(xhr.response);
+	var url = "https://raw.githubusercontent.com/patienc3v/patienc3v.github.io/master/genm/data/stats.json";
+	xhr.addEventListener('loadend', processStats);
+	xhr.open("GET", url);
+	xhr.send();
 
-	}
 }
 
 function loadPlayers() {
 	// URL
-	var url = "file:///C:/Users/Terminator/Dropbox/githubio/patienc3v.github.io/genm/data/players.json";
+	var url = "fhttps://raw.githubusercontent.com/patienc3v/patienc3v.github.io/master/genm/data/players.json";
     xhr.addEventListener('loadend', processPlayers);
     xhr.open("GET", url);
     xhr.send();
