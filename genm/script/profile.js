@@ -234,8 +234,12 @@ function processStats(e) {
 }
 	
 function processPlayers(e) {
+	console.log(xhr.response);
+	console.log(typeof xhr.response);
 	players = JSON.parse(xhr.response);
+	return;
 	var url = "https://raw.githubusercontent.com/patienc3v/patienc3v.github.io/master/genm/data/stats.json";
+	xhr = new XMLHttpRequest();
 	xhr.addEventListener('loadend', processStats);
 	xhr.open("GET", url);
 	xhr.send();
