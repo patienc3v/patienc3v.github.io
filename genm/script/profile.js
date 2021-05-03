@@ -144,7 +144,7 @@ function processStats(e) {
 	for (var player of players) {
 		var profileElement = document.createElement("div");
 		profileElement.classList.add("profile");
-		if (player["name"] == "") {
+		if (player["name"] == undefined) {
 			var pictureElement = document.createElement("img");
 			
 			pictureElement.src = "images/profile/profile.generic.png";
@@ -159,6 +159,7 @@ function processStats(e) {
 			var flagElement;
 			flagElement = document.createElement("div");
 			flagElement.style.backgroundColor = "#ccc";
+			flagElement.classList.add("profileFlag");
 			
 			textElement.appendChild(flagElement);
 			
@@ -202,9 +203,9 @@ function processStats(e) {
 			} else {
 				flagElement = document.createElement("img");
 				flagElement.src = "images/flags/" + player["country"] + ".png";
-				flagElement.classList.add("profileFlag");
 				flagElement.alt = player["country"];
 			}
+			flagElement.classList.add("profileFlag");
 			
 			textElement.appendChild(flagElement);
 			
@@ -234,10 +235,7 @@ function processStats(e) {
 }
 	
 function processPlayers(e) {
-	console.log(xhr.response);
-	console.log(typeof xhr.response);
 	players = JSON.parse(xhr.response);
-	return;
 	var url = "https://raw.githubusercontent.com/patienc3v/patienc3v.github.io/master/genm/data/stats.json";
 	xhr = new XMLHttpRequest();
 	xhr.addEventListener('loadend', processStats);
