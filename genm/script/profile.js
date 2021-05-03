@@ -244,7 +244,7 @@ function processPlayers(e) {
 
 function loadPlayers() {
 	// URL
-	var url = "fhttps://raw.githubusercontent.com/patienc3v/patienc3v.github.io/master/genm/data/players.json";
+	var url = "https://raw.githubusercontent.com/patienc3v/patienc3v.github.io/master/genm/data/players.json";
     xhr.addEventListener('loadend', processPlayers);
     xhr.open("GET", url);
     xhr.send();
