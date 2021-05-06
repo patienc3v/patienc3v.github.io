@@ -1,28 +1,35 @@
 [
 {
-	"name": "LeoRice",
 	"role": "Tank",
-	"country": "canada"
 },
 {
 	"name": "Majesty",
 	"role": "Assassin",
-	"country": "usa"
+	"country": "usa",
+	"bid": 6206532,
+	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
 },
 {
 	"name": "Yonners",
 	"role": "Assassin",
-	"country": "usa"
+	"country": "usa",
+	"bid": 5152170,
+	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
 },
 {
 	"name": "Patienc3",
 	"role": "Healer",
-	"country": "south.korea"
+	"country": "south.korea",
+	"bid":591263,
+	"roles": ["Healer"]
 },
 {
 	"role": "Offlane"
 },
 {
-	"role": "Sub"
+	"name": "LeoRice",
+	"role": "Sub",
+	"country": "canada",
+	"roles": ["Tank"]
 }
 ]
