@@ -1,6 +1,10 @@
 [
 {
-	"role": "Tank"
+	"name": "infafox",
+	"role": "Tank",
+	"country": "usa",
+	"bid": 690175,
+	"roles": ["Tank"]
 },
 {
 	"name": "Majesty",
