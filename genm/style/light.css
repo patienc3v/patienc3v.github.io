@@ -19,7 +19,7 @@ body {
 	width: 100%;
 	display: block;
 	padding: 20px;
-	text-align: left;
+	text-align: center;
 	height: calc(100% - 145px);
 	color: #000;
 }

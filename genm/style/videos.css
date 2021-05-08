@@ -1,0 +1,13 @@
+.mostRecentVideo {
+	width: calc(100%) - 20;
+	border: 2px solid #000;
+	padding: 0px;
+	margin: 10px;
+}
+
+.video {
+	width: calc(100%) / 4 - 20;
+	border: 2px solid #000;
+	padding: 0px;
+	margin: 10px;
+}
