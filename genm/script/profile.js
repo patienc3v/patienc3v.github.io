@@ -256,5 +256,4 @@ window.onload = function () {
 	playerDetailElement = document.getElementById("playerDetails");
 	// load players
 	loadPlayers();
-	
 }

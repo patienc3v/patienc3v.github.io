@@ -1,6 +1,7 @@
 .profile {
 	width: 180px;
 	padding: 10px;
+	color: #000;
 	background-color: #fff;
 	border-radius: 25px;
 	border: 2px solid #000;
@@ -39,6 +40,7 @@
 }
 .players {
 	width: 100%;
+	text-align: center;
 }
 .playerDetails {
 	margin: auto;
