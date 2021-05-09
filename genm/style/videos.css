@@ -33,3 +33,24 @@
 	padding: 0px;
 	margin: 10px;
 }
+.pageButton {
+	display: inline-block;
+	width: 20px;
+	height: 18px;
+	background-color: #fff;
+	border: 1px solid #000;
+	margin-left: 5px;
+	margin-right: 5px;
+	text-align: center;
+}
+.pageButtonSelected {
+	display: inline-block;
+	width: 20px;
+	height: 18px;
+	background-color: #000;
+	color: #fff;
+	border: 1px solid #000;
+	margin-left: 5px;
+	margin-right: 5px;
+	text-align: center;
+}

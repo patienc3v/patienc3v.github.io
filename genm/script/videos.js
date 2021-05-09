@@ -46,7 +46,7 @@ function loadPage(page) {
 }
 
 function createPageLink(character, page) {
-	var link = '<a onclick="javascript:loadPage(' + page + ')">' + character + "</a>";
+	var link = '<span class="pageButton" onclick="javascript:loadPage(' + page + ')">' + character + "</span>";
 	return link;
 }
 
@@ -63,12 +63,12 @@ function loadNavigator() {
 	if (currentPage > 1) {
 		finalHTML += createPageLink("<", currentPage - 1) + " ";
 	} else {
-		finalHTML += "< ";
+		finalHTML += "<span class='pageButton'>&lt;</span> ";
 	}
 	
 	for (var page = 1; page <= numOfPages; page++) {
 		if (page == currentPage) {
-			finalHTML += "<b>" + page + "</b> ";
+			finalHTML += "<span class='pageButtonSelected'><b>" + page + "</b></span> ";
 		} else {
 			finalHTML += createPageLink(page, page) + " ";
 		}
@@ -77,7 +77,7 @@ function loadNavigator() {
 	if (currentPage < numOfPages) {
 		finalHTML += createPageLink(">", currentPage + 1);
 	} else {
-		finalHTML += ">";
+		finalHTML += "<span class='pageButton'>&gt;</span>";
 	}
 	
 	pagesElement.innerHTML = finalHTML;
@@ -148,6 +148,13 @@ function createVideo(videoInfo, width, autoplay) {
 	return divElement;
 }
 
+function resetFilters() {
+	filters = "";
+	document.getElementById("filters").value = filters;
+	
+	filterVideos();
+}
+
 function processVideos() {
 	// just the most recent one
 	contentElement = document.getElementsByClassName("content")[0];
@@ -184,9 +191,16 @@ function processVideos() {
 	var buttonElement = document.createElement("button");
 	buttonElement.onclick = filterVideos;
 	buttonElement.innerHTML = "Search";
+	buttonElement.style.marginRight = "10px";
+
+	var resetElement = document.createElement("button");
+	resetElement.onclick = resetFilters;
+	resetElement.innerHTML = "Reset";
+
 	
 	searchElement.appendChild(inputElement);
 	searchElement.appendChild(buttonElement);
+	searchElement.appendChild(resetElement);
 	
 	navigatorElement.appendChild(pagesElement);
 	navigatorElement.appendChild(searchElement);
