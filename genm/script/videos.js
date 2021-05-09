@@ -33,6 +33,7 @@ function loadPage(page) {
 	
 	
 	var count = 0;
+	var listed = 0;
 	for (var video of filteredData) {
 		count++;
 		if (count <= (page - 1) * threshold) {
@@ -42,6 +43,12 @@ function loadPage(page) {
 			break;
 		} 
 		pagesElement.appendChild(createVideo(video, videoWidth / 4 - 6, false));
+		listed++;
+	}
+	if (listed == 0) {
+		var errorMessage = document.createElement("span");
+		errorMessage.innerHTML = "No videos matching your search terms";
+		pagesElement.appendChild(errorMessage);
 	}
 }
 
