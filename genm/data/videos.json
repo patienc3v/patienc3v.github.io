@@ -26,7 +26,7 @@
 	},
 	{
 		"video":"ocZiJ_upjxw",
-		"type": "twitch",
+		"type": "youtube",
 		"title": "NGS S8 vs. Feigned Competence"
 	},
 	{
@@ -56,37 +56,7 @@
 	},
 	{
 		"video":"ocZiJ_upjxw",
-		"type": "twitch",
-		"title": "NGS S8 vs. Feigned Competence"
-	},
-		{
-		"video":1015089733,
-		"type": "twitch",
-		"title": "Scrim vs Yellow Owls"
-	},
-	{
-		"video":"VEyxPFVzk70",
 		"type": "youtube",
-		"title": "NGS S9 vs Archon"
-	},
-	{
-		"video":1005646543,
-		"type": "twitch",
-		"title": "Scrim vs. Some Team"
-	},
-	{
-		"video":"Fg4ZAvS5i_A",
-		"type": "youtube",
-		"title": "NGS S8 vs Deviled Keggs"
-	},
-	{
-		"video":"nNugi1OqjxQ",
-		"type": "youtube",
-		"title": "NGS S8 vs. Soak Every Lane"
-	},
-	{
-		"video":"ocZiJ_upjxw",
-		"type": "twitch",
 		"title": "NGS S8 vs. Feigned Competence"
 	},
 		{
@@ -116,7 +86,67 @@
 	},
 	{
 		"video":"ocZiJ_upjxw",
+		"type": "youtube",
+		"title": "NGS S8 vs. Feigned Competence"
+	},
+		{
+		"video":1015089733,
 		"type": "twitch",
+		"title": "Scrim vs Yellow Owls"
+	},
+	{
+		"video":"VEyxPFVzk70",
+		"type": "youtube",
+		"title": "NGS S9 vs Archon"
+	},
+	{
+		"video":1005646543,
+		"type": "twitch",
+		"title": "Scrim vs. Some Team"
+	},
+	{
+		"video":"Fg4ZAvS5i_A",
+		"type": "youtube",
+		"title": "NGS S8 vs Deviled Keggs"
+	},
+	{
+		"video":"nNugi1OqjxQ",
+		"type": "youtube",
+		"title": "NGS S8 vs. Soak Every Lane"
+	},
+	{
+		"video":"ocZiJ_upjxw",
+		"type": "youtube",
+		"title": "NGS S8 vs. Feigned Competence"
+	},
+		{
+		"video":1015089733,
+		"type": "twitch",
+		"title": "Scrim vs Yellow Owls"
+	},
+	{
+		"video":"VEyxPFVzk70",
+		"type": "youtube",
+		"title": "NGS S9 vs Archon"
+	},
+	{
+		"video":1005646543,
+		"type": "twitch",
+		"title": "Scrim vs. Some Team"
+	},
+	{
+		"video":"Fg4ZAvS5i_A",
+		"type": "youtube",
+		"title": "NGS S8 vs Deviled Keggs"
+	},
+	{
+		"video":"nNugi1OqjxQ",
+		"type": "youtube",
+		"title": "NGS S8 vs. Soak Every Lane"
+	},
+	{
+		"video":"ocZiJ_upjxw",
+		"type": "youtube",
 		"title": "NGS S8 vs. Feigned Competence"
 	}
 ]
