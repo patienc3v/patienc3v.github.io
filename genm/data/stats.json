@@ -1,15 +1,1 @@
-{
-	"team": {
-		"NumGames": 43,
-		"TeamKDA":1.11124234,
-		"AvgKDA": 5.8,
-		"XP":1000,
-		"XPM": 1000,
-		"Takedowns":422,
-		"Deaths":368,
-		"NumHeroes": 43,
-		"AvgTimeDead": "1:15",
-		"AvgPctDead": 6.7
-	},
-	"players":{"infafox":{"mostPlayed":["Garrosh","Mei","Johanna","Diablo","Anub'arak"],"KDA":4.128070175438596,"Win Rate":60.122699386503065,"MMR":2834},"Patienc3":{"mostPlayed":["Deckard","Ana","Stukov","Rehgar","Brightwing"],"KDA":8.391944229279629,"Win Rate":52.05992509363296,"MMR":2739},"Majesty":{"mostPlayed":["Mephisto","Junkrat","Li-Ming","Sylvanas","Raynor"],"KDA":5.440520446096654,"Win Rate":56.42201834862385,"MMR":2499},"Yonners":{"mostPlayed":["Tracer","Hanzo","Jaina","Greymane","Junkrat"],"KDA":4.878738884397737,"Win Rate":52.78080697928026,"MMR":2526},"LeoRice":{"mostPlayed":["Mei","E.T.C.","Diablo","Johanna","Muradin"],"KDA":3.669724770642202,"Win Rate":50,"MMR":2485}}
-}
+{"infafox":{"mostPlayed":["Garrosh","Mei","Johanna","Diablo","Anub'arak"],"KDA":4.128070175438596,"Win Rate":60.122699386503065,"MMR":2834},"Patienc3":{"mostPlayed":["Deckard","Ana","Stukov","Rehgar","Brightwing"],"KDA":8.406661502711076,"Win Rate":52.054794520547944,"MMR":2739},"Majesty":{"mostPlayed":["Mephisto","Junkrat","Li-Ming","Sylvanas","Raynor"],"KDA":5.440520446096654,"Win Rate":56.42201834862385,"MMR":2499},"Yonners":{"mostPlayed":["Tracer","Hanzo","Jaina","Greymane","Junkrat"],"KDA":4.868951612903226,"Win Rate":52.723311546840954,"MMR":2523},"LeoRice":{"mostPlayed":["Mei","E.T.C.","Diablo","Johanna","Muradin"],"KDA":3.669724770642202,"Win Rate":50,"MMR":2485}}
