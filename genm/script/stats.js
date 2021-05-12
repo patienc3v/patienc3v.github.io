@@ -259,8 +259,19 @@ function processStats(e) {
 	
 	var playersElement = document.getElementById("playerStats");
 	
-	for (var player in playerStats) {
-		playersElement.appendChild(loadPlayer(player));
+	var playerNames = [];
+	
+	var mapping = {};
+	
+	for (var playerName of Object.keys(playerStats)) {
+		mapping[playerName.toLowerCase()] = playerName;
+		playerNames.push(playerName.toLowerCase());
+	}
+	
+	playerNames.sort();
+	
+	for (var player of playerNames) {
+		playersElement.appendChild(loadPlayer(mapping[player]));
 	}
 	
 	// load team stats
