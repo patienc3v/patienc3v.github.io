@@ -82,7 +82,9 @@ function loadPlayer(name) {
 	
 	var playerElement = document.createElement("div");
 	playerElement.classList.add("stat");
-	playerElement.style.width = "calc(" + (100 / Object.keys(playerStats).length) + "% - 20px)";
+//	playerElement.style.width = "calc(" + (100 / Object.keys(playerStats).length) + "% - 20px)";
+
+	playerElement.style.width = "300px";
 
 	var playerNameElement = document.createElement("div");
 	playerNameElement.classList.add("statHeader");
