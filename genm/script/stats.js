@@ -7,12 +7,75 @@ var teamStats = {};
 var description = {
 		"NumGames": "Games Played",
 		"TeamKDA": "Team KDA",
-		"AvgKDA": "Avg. KDA",
+		"AvgKDA": "Avg. Player KDA",
 		"XPM": "XP per Min",
 		"NumHeroes": "Heroes Played",
-		"AvgTimeDead": "Avg. Time Dead",
-		"AvgPctDead": "Avg. Time Dead (%)"
+		"AvgTimeDead": "Time Spent Dead",
+		"AvgHeroDamage": "Hero Damage",
+		"AvgHealing": "Healing",
+		"AvgTimeCCdEnemyHeroes": "CC Time",
+		"AvgTimeRootingEnemyHeroes": "Root Time",
+		"AvgTimeSilencingEnemyHeroes": "Silence Time",
+		"AvgTimeStunningEnemyHeroes": "Stun Time",
+		"numGames": "# of Games",
+		"KillParticipation": "Kill Participation",
+		"HeroDamage": "Hero Damage",
+		"DPM": "Hero Damage/Minute",
+		"DamageTaken": "Damage Taken",
+		"HPM": "Healing/Minute",
+		
+		"TeamfightHeroDamage": "Teamfight Hero Damage",
+		"TeamfightHealingDone": "Teamfight Healing",
+		"TeamfightDamageTaken": "Teamfight Damage Taken",
+		"ExperienceContribution": "XP Contribution",
+		"TimeCCdEnemyHeroes": "Avg. CC Time",
+		"TimeRootingEnemyHeroes": "Avg. Root Time",
+		"TimeSilencingEnemyHeroes": "Avg. Silence Time",
+		"TimeStunningEnemyHeroes": "Avg. Stun Time",
+		"TimeSpentDead": "Time Spent Dead",
+		"TimeSpentDeadPct": "Time Spend Dead (%)"
+
 };
+
+var floats = [
+		"TeamKDA",
+		"AvgKDA",
+		"KDA",
+		"HeroDamage",
+		"Healing",
+		"DamageTaken",
+		"DPM",
+		"HPM",
+		"SiegeDamage",
+		"TeamfightHeroDamage",
+		"TeamfightHealingDone",
+		"TeamfightDamageTaken",
+		"ExperienceContribution",
+		"XPM",
+		"AvgHeroDamage",
+		"AvgHealing"
+]
+
+var percents = [
+	"KillParticipation",
+	"TimeSpentDeadPct"
+]
+//		"AvgPctDead": "Avg. Time Dead (%)",
+
+function convertTime(time) {
+//	var roundedTime = Math.round(time);
+	
+	var minutes = Math.floor(time / 60);
+	var seconds = time % 60;
+	
+	if (seconds < 10) {
+		seconds = "0" + seconds.toFixed(2);
+	} else {
+		seconds = seconds.toFixed(2);
+	}
+	return minutes + ":" + seconds;
+}
+
 
 function loadPlayer(name) {
 	var details = playerStats[name];
@@ -116,7 +179,7 @@ function loadPlayer(name) {
 	tableElement.style.width = "100%";
 
 	for (var stat in details) {
-		if (stat == "mostPlayed") {
+		if (stat == "mostPlayed" || stat == "length") {
 			continue;
 		}
 		trElement = document.createElement("tr");
@@ -131,9 +194,25 @@ function loadPlayer(name) {
 		valueElement.style.padding = "5px";
 //		valueElement.classList.add("statValue");
 
-		nameElement.innerHTML = stat;
-		valueElement.innerHTML = details[stat];
-	
+		if (stat in description) {
+			nameElement.innerHTML = description[stat];
+		} else {
+			nameElement.innerHTML = stat;
+		}
+		
+		if (percents.includes(stat)) {
+			valueElement.innerHTML = (100.0 *details[stat]).toFixed(2) + "%";
+		} else {
+			if (stat.includes("Time")) {
+				valueElement.innerHTML = convertTime(details[stat]);
+			} else {
+				if (floats.includes(stat) || stat == "Takedowns") {
+					valueElement.innerHTML = details[stat].toFixed(2);
+				} else {
+					valueElement.innerHTML = details[stat];
+				}
+			}
+		}
 		trElement.appendChild(nameElement);
 		trElement.appendChild(valueElement);
 
@@ -203,6 +282,8 @@ function processStats(e) {
 		nameElement.classList.add("center");
 		nameElement.style.padding = "5px";
 
+
+
 		if (stat in description) {
 			nameElement.innerHTML = description[stat];
 		} else {
@@ -213,7 +294,21 @@ function processStats(e) {
 		valueElement.classList.add("center");
 		valueElement.style.padding = "5px";
 
-		valueElement.innerHTML = teamStats[stat];
+
+		if (percents.includes(stat)) {
+			valueElement.innerHTML = (100.0 * teamStats[stat]).toFixed(2) + "%";
+		} else {
+			if (stat.includes("Time")) {
+				valueElement.innerHTML = convertTime(teamStats[stat]);
+			} else {
+				if (floats.includes(stat)) {
+					valueElement.innerHTML = teamStats[stat].toFixed(2);
+				} else {
+					valueElement.innerHTML = teamStats[stat];
+				}
+			}
+		}
+
 		
 		if (stat == "AvgPctDead") {
 			valueElement.innerHTML += "%";
