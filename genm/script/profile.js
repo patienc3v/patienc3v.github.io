@@ -55,6 +55,9 @@ function processPlayers(e) {
 			if (player["picture"] == undefined) {
 				pictureElement.src = "images/profile/profile.generic.png";
 				pictureElement.alt = "https://www.clipartkey.com/view/ihRTmwR_clip-art-man-arms-crossed-professional-man-png/";
+			} else {
+				pictureElement.src = "images/profile/" + player["picture"];
+				pictureElement.alt = player["name"];
 			}
 			pictureElement.classList.add("profilePicture");
 			

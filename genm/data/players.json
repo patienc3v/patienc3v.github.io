@@ -24,7 +24,11 @@
 	"roles": ["Healer"]
 },
 {
-	"role": "Offlane"
+	"name": "IJustFizzed",
+	"role": "Offlane",
+	"country": "usa",
+	"bid":591263,
+	"roles": ["Bruiser"]
 },
 {
 	"role": "Sub"
