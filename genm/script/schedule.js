@@ -236,14 +236,22 @@ function processSchedule() {
 		
 		// scheduledTime
 		// --> startTime
+		console.log(match);
+		
 		var vods = match['vodLinks'];
 		
 		var datetime = match['scheduledTime']['startTime'];
 		var homeName = match['home']['teamName'];
 		var awayName = match['away']['teamName'];
 
-		var homeTicker = match['home']['ticker'].toUpperCase();
-		var awayTicker = match['away']['ticker'].toUpperCase();
+		var homeTicker = homeName;
+		if (match['home']['ticker'] != undefined) {
+			homeTicker = match['home']['ticker'].toUpperCase();
+		}
+		var awayTicker = awayName;
+		if (match['away']['ticker'] != undefined) {
+			awayTicker = match['away']['ticker'].toUpperCase();
+		}
 
 		var homeLogo = match['home']['logo'];
 		var awayLogo = match['away']['logo'];
