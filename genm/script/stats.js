@@ -240,6 +240,15 @@ function loadDetails() {
 	loadPlayer(name);
 }
 
+function resizeTeamStats() {
+	var contentElement = document.getElementsByClassName('content')[0];
+	var contentWidth = contentElement.offsetWidth;
+	var statElements = document.getElementsByClassName('stat');
+	var width = Math.min(statElements.length * 320, contentWidth);
+	var teamStatElement = document.getElementsByClassName('stats')[0];
+	teamStatElement.style.width = width + "px";
+}
+
 function processStats(e) {
 	stats = JSON.parse(xhr.response);
 
@@ -336,6 +345,8 @@ function processStats(e) {
 	tableElement.appendChild(headerElement);
 	tableElement.appendChild(bodyElement);
 	teamStatsElement.appendChild(tableElement);
+	
+	resizeTeamStats();
 }
 	
 function loadStats(e) {
@@ -350,3 +361,5 @@ window.onload = function () {
 	// load players
 	loadStats();
 }
+
+window.onresize = resizeTeamStats;

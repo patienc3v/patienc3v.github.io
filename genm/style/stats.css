@@ -10,7 +10,7 @@
 }
 .stats {
 	display: block;
-	margin: 10px;
+	margin: auto;
 	padding: 0px;
 	width: calc(100% - 20px);
 }
