@@ -236,8 +236,6 @@ function processSchedule() {
 		
 		// scheduledTime
 		// --> startTime
-		console.log(match);
-		
 		var vods = match['vodLinks'];
 		
 		var datetime = match['scheduledTime']['startTime'];
