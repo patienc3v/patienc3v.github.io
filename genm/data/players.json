@@ -7,7 +7,8 @@
 	"role": "Assassin",
 	"country": "usa",
 	"bid": 6206532,
-	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
+	"roles": ["Melee%20Assassin", "Ranged+Assassin"],
+	"picture": "majesty.png"
 },
 {
 	"name": "Yonners",
@@ -21,7 +22,8 @@
 	"role": "Healer",
 	"country": "south.korea",
 	"bid":591263,
-	"roles": ["Healer"]
+	"roles": ["Healer"],
+	"picture": "patienc3.png"
 },
 {
 	"name": "IJustFizzed",
