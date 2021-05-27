@@ -244,7 +244,7 @@ function resizeTeamStats() {
 	var contentElement = document.getElementsByClassName('content')[0];
 	var contentWidth = contentElement.offsetWidth;
 	var statElements = document.getElementsByClassName('stat');
-	var width = Math.min(statElements.length * 320, contentWidth);
+	var width = Math.min(statElements.length * 320, contentWidth - 40);
 	var teamStatElement = document.getElementsByClassName('stats')[0];
 	teamStatElement.style.width = width + "px";
 }
