@@ -1,3 +1,6 @@
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+
 var xhr = new XMLHttpRequest();
 
 var stats = {};
@@ -350,7 +353,11 @@ function processStats(e) {
 }
 	
 function loadStats(e) {
-	var url = "https://raw.githubusercontent.com/patienc3v/patienc3v.github.io/master/genm/data/stats.json";
+	var url = "https://raw.githubusercontent.com/patienc3v/patienc3v.github.io/master/genm/data/stats";
+	if (urlParams.get('source') != null) {
+		url += "." + urlParams.get('source');
+	}
+	url += ".json";
 	xhr = new XMLHttpRequest();
 	xhr.addEventListener('loadend', processStats);
 	xhr.open("GET", url);
