@@ -44,6 +44,7 @@ var floats = [
 		"TeamKDA",
 		"AvgKDA",
 		"KDA",
+		"Deaths",
 		"HeroDamage",
 		"Healing",
 		"DamageTaken",
