@@ -45,6 +45,7 @@
             }
             function process(data) {
                 var today = Date.now(); var teamID = {}; var matches = {}; for (var match of data) {
+                    if (!('home' in match) || !('away' in match)) { continue; }
                     homeTeam = match['home']['teamName']; awayTeam = match['away']['teamName']; if (!(teamsToFollow.includes(homeTeam.replace("'", "")) || teamsToFollow.includes(awayTeam.replace("'", "")))) { continue; }
                     if (teamID[homeTeam] == undefined) { teamID[homeTeam] = match['home']['id']; }
                     if (teamID[awayTeam] == undefined) { teamID[awayTeam] = match['away']['id']; }
