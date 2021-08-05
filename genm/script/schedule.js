@@ -239,6 +239,10 @@ function processSchedule() {
 		var vods = match['vodLinks'];
 		
 		var datetime = match['scheduledTime']['startTime'];
+		
+		if (!('home' in match) || !('away' in match)) {
+			continue;
+		}
 		var homeName = match['home']['teamName'];
 		var awayName = match['away']['teamName'];
 
