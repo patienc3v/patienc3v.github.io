@@ -2,7 +2,7 @@ var xhr = new XMLHttpRequest();
 
 var season = 11;
 
-var teamname = "ProBUs";
+var teamname = "Gen.M Esports";
 
 var contentElement = null;
 
