@@ -36,6 +36,9 @@ VS
 
 var spoilers = false;
 
+var today = Date.now();
+
+
 function toggleScores(className) {
 	var scores = document.getElementsByClassName(className);
 
@@ -141,9 +144,6 @@ function createMatch(matchID, datetime, reported, homeLogo, homeName, homeScore,
 			}
 			vodElement.innerHTML += "Casted by <a class='vodLink' href='" + casterURL + "'>" + caster + "</a> ";
 		} else {
-			var today = Date.now();
-			console.log("today: " + today);
-			console.log("date:  " + datetime);
 			if (datetime < today) {
 				vodElement.innerHTML += "No VoD available";
 			} else {
