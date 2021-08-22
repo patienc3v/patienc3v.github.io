@@ -1,6 +1,6 @@
 var xhr = new XMLHttpRequest();
 
-var season = 11;
+var season = 12;
 
 var teamname = "Gen.M Esports";
 
@@ -141,7 +141,14 @@ function createMatch(matchID, datetime, reported, homeLogo, homeName, homeScore,
 			}
 			vodElement.innerHTML += "Casted by <a class='vodLink' href='" + casterURL + "'>" + caster + "</a> ";
 		} else {
-			vodElement.innerHTML += "No VoD available";
+			var today = Date.now();
+			console.log("today: " + today);
+			console.log("date:  " + datetime);
+			if (datetime < today) {
+				vodElement.innerHTML += "No VoD available";
+			} else {
+				vodElement.innerHTML += "No caster assigned";
+			}
 		}
 	} else {
 		if (vods.length == 1) {
