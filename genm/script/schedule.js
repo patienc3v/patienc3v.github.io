@@ -226,7 +226,21 @@ function processSchedule() {
 	var matches = JSON.parse(xhr.response)['returnObject'];
 	
 	var matchElements = [];
+	
+	var teamMatches = {};
+	
 	for (var match of matches) {
+		var homeName = match['home']['teamName'];
+		var awayName = match['away']['teamName'];
+		if (homeName == teamname || awayName == teamname) {
+			var datetime = match['scheduledTime']['startTime'];
+			teamMatches[datetime] = match;
+		}
+	}
+	var dates = Object.keys(teamMatches);
+	dates.sort(function(a, b){return a-b});
+	
+	for (var datetime of dates) {
 		// vodLinks -> list of links
 		// home or away
 		// --> teamName
@@ -236,9 +250,12 @@ function processSchedule() {
 		
 		// scheduledTime
 		// --> startTime
+		
+		var match = teamMatches[datetime];
+		
 		var vods = match['vodLinks'];
 		
-		var datetime = match['scheduledTime']['startTime'];
+		// var datetime = match['scheduledTime']['startTime'];
 		
 		if (!('home' in match) || !('away' in match)) {
 			continue;
