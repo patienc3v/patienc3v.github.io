@@ -36,7 +36,8 @@ var description = {
 		"TimeSilencingEnemyHeroes": "Avg. Silence Time",
 		"TimeStunningEnemyHeroes": "Avg. Stun Time",
 		"TimeSpentDead": "Time Spent Dead",
-		"TimeSpentDeadPct": "Time Spend Dead (%)"
+		"TimeSpentDeadPct": "Time Spend Dead (%)",
+		"TimeTo10": "Time to Level 10"
 
 };
 
