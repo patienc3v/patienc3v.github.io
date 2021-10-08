@@ -44,6 +44,7 @@ var description = {
 var floats = [
 		"TeamKDA",
 		"AvgKDA",
+		"Takedowns",
 		"KDA",
 		"Deaths",
 		"HeroDamage",
