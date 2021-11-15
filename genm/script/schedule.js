@@ -323,6 +323,7 @@ function processSchedule() {
 function loadSchedule() {
 	// URL
 	var url = "https://www.nexusgamingseries.org/api/schedule/get/matches/scheduled?season=" + season;
+	url = "https://patienc3v.github.io/genm/data/scheduleS12.json";
     xhr.addEventListener('loadend', processSchedule);
     xhr.open("GET", url);
     xhr.send();
