@@ -14,8 +14,15 @@
 	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
 },
 {
-	"name": "infafox",
+	"name": "RandyNewman",
 	"role": "Assassin",
+	"country": "usa",
+	"bid": 8421631,
+	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
+},
+{
+	"name": "infafox",
+	"role": "Offlane",
 	"country": "usa",
 	"bid": 690175,
 	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
