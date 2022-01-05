@@ -1,29 +1,36 @@
 [
 {
-	"name": "infafox",
+	"name": "Logicalia",
 	"role": "Tank",
 	"country": "usa",
-	"bid": 690175,
+	"bid": 1880026,
 	"roles": ["Tank"]
 },
 {
-	"name": "Majesty",
+	"name": "French",
 	"role": "Assassin",
+	"country": "usa",
+	"bid": 3754476,
+	"roles": ["Melee%20Assassin", "Ranged+Assassin"],
+},
+{
+	"name": "infafox",
+	"role": "Assassin",
+	"country": "usa",
+	"bid": 690175,
+	"roles": ["Melee%20Assassin", "Ranged+Assassin"],
+},
+{
+	"name": "Majesty",
+	"role": "Healer",
 	"country": "usa",
 	"bid": 6206532,
 	"roles": ["Melee%20Assassin", "Ranged+Assassin"],
 	"picture": "majesty.png"
 },
 {
-	"name": "Yonners",
-	"role": "Assassin",
-	"country": "usa",
-	"bid": 5152170,
-	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
-},
-{
 	"name": "Patienc3",
-	"role": "Healer",
+	"role": "Sub",
 	"country": "south.korea",
 	"bid":591263,
 	"roles": ["Healer"],
@@ -31,16 +38,23 @@
 },
 {
 	"name": "IJustFizzed",
-	"role": "Offlane",
+	"role": "Former Member",
 	"country": "usa",
 	"bid":591263,
 	"roles": ["Bruiser"]
 },
 {
 	"name": "Tax1k",
-	"role": "Sub",
+	"role": "Former Member",
 	"country": "usa",
 	"bid": 507986,
 	"picture": "tax1k.png"
+},
+{
+	"name": "Yonners",
+	"role": "Former Member",
+	"country": "usa",
+	"bid": 5152170,
+	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
 }
 ]
