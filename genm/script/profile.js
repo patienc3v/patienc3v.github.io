@@ -47,7 +47,7 @@ function addPlayers(playerType, players) {
 		} else {
 			profileElement.id = player["name"];
 
-			if ((playerType == "active" && player["active"]) || (playerType != "active" && !player["active"])) {
+			if ((playerType == "active" && !player["active"]) || (playerType != "active" && player["active"])) {
 				continue;
 			}
 
