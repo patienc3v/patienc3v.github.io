@@ -4,6 +4,7 @@
 	"role": "Tank",
 	"country": "usa",
 	"bid": 1880026,
+	"active": true,
 	"roles": ["Tank"]
 },
 {
@@ -11,6 +12,7 @@
 	"role": "Assassin",
 	"country": "usa",
 	"bid": 3754476,
+	"active": true,
 	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
 },
 {
@@ -18,6 +20,7 @@
 	"role": "Assassin",
 	"country": "usa",
 	"bid": 8421631,
+	"active": true,
 	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
 },
 {
@@ -25,43 +28,57 @@
 	"role": "Offlane",
 	"country": "usa",
 	"bid": 690175,
+	"active": true,
 	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
 },
 {
 	"name": "Majesty",
-	"role": "Healer",
+	"role": "Assassin",
 	"country": "usa",
 	"bid": 6206532,
+	"active": false,
 	"roles": ["Melee%20Assassin", "Ranged+Assassin"],
 	"picture": "majesty.png"
+},
+{
+	"name": "Desdaa",
+	"role": "Healer",
+	"country": "usa",
+	"bid":591263,
+	"active": true,
+	"roles": ["Healer"]
 },
 {
 	"name": "Patienc3",
 	"role": "Sub",
 	"country": "south.korea",
 	"bid":591263,
+	"active": true,
 	"roles": ["Healer"],
 	"picture": "patienc3.png"
 },
 {
 	"name": "IJustFizzed",
-	"role": "Former Member",
+	"role": "Offlane",
 	"country": "usa",
 	"bid":591263,
+	"active": false,
 	"roles": ["Bruiser"]
 },
 {
 	"name": "Tax1k",
-	"role": "Former Member",
+	"role": "Tank",
 	"country": "usa",
 	"bid": 507986,
+	"active": false,
 	"picture": "tax1k.png"
 },
 {
 	"name": "Yonners",
-	"role": "Former Member",
+	"role": "Assassin",
 	"country": "usa",
 	"bid": 5152170,
+	"active": false,
 	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
 }
 ]

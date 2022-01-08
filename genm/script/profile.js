@@ -1,12 +1,9 @@
 var xhr = new XMLHttpRequest();
 
-function processPlayers(e) {
-	var players = JSON.parse(xhr.response);
+function addPlayers(playerType, players) {
 
 	// populate players
-	var playersElement = document.getElementById("players");
-	
-	stats = JSON.parse(xhr.response);
+	var playersElement = document.getElementById(playerType);
 	
 	for (var player of players) {
 		var profileElement = document.createElement("div");
@@ -49,6 +46,10 @@ function processPlayers(e) {
 
 		} else {
 			profileElement.id = player["name"];
+
+			if ((playerType == "active" && player["active"]) || (playerType != "active" && !player["active"])) {
+				continue;
+			}
 
 			var pictureElement = document.createElement("img");
 			
@@ -101,6 +102,16 @@ function processPlayers(e) {
 		playersElement.appendChild(profileElement);
 		
 	}
+
+}
+
+function processPlayers(e) {
+	var players = JSON.parse(xhr.response);
+
+	stats = JSON.parse(xhr.response);
+
+	addPlayers("active", stats);
+	addPlayers("former", stats);
 }
 	
 function loadPlayers() {
