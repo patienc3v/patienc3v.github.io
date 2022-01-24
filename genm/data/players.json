@@ -49,11 +49,28 @@
 	"roles": ["Healer"]
 },
 {
-	"name": "Patienc3",
+	"name": "Jooin",
 	"role": "Sub",
+	"country": "usa",
+	"bid": 3754476,
+	"active": true,
+	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
+},
+{
+	"name": "RandiNuMan",
+	"role": "Sub",
+	"country": "usa",
+	"bid": 3754476,
+	"active": true,
+	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
+},
+
+{
+	"name": "Patienc3",
+	"role": "Healer",
 	"country": "south.korea",
 	"bid":591263,
-	"active": true,
+	"active": false,
 	"roles": ["Healer"],
 	"picture": "patienc3.png"
 },
