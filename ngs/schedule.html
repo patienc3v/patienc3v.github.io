@@ -1,7 +1,7 @@
 <html>
 <head>
     <title>NGS Match Schedule</title>
-    <script>/*<![CDATA[*/var season = 12; var divisions = ["Storm", "Heroic", "Nexus", "A", "B-NorthEast", "B-SouthEast", "B-West", "C-East", "C-West", "D-NorthEast", "D-SouthEast", "D-West", "E-East", "E-West"]; const version = 2.2; var teamsToFollow = []; var teams = {}; var teamToggle = {}; var buffer = 60; buffer *= 60000; var currentStep = 0; var totalSteps = divisions.length + 1; var data; var configuration; function updatePercentage() { currentStep++; var progress = currentStep / totalSteps * 100.0; var percentage = progress.toFixed(1); document.getElementById("loadingPercent").innerHTML = percentage + "%"; }
+    <script>/*<![CDATA[*/var season = 13; var divisions = ["Storm", "Heroic", "Nexus", "A-East", "A-West", "B-East", "B-West", "C-East", "C-West", "D-East", "D-West", "E-East", "E-West"]; const version = 2.2; var teamsToFollow = []; var teams = {}; var teamToggle = {}; var buffer = 60; buffer *= 60000; var currentStep = 0; var totalSteps = divisions.length + 1; var data; var configuration; function updatePercentage() { currentStep++; var progress = currentStep / totalSteps * 100.0; var percentage = progress.toFixed(1); document.getElementById("loadingPercent").innerHTML = percentage + "%"; }
             function loadLocalStorage() {
                 var storageVersion = parseFloat(localStorage.getItem('ngssVer')); if (isNaN(storageVersion) || (storageVersion != null && Math.floor(storageVersion) < Math.floor(version))) { localStorage.setItem('ngssVer', version); localStorage.setItem('ngssConfig' + season, null); }
                 configuration = localStorage.getItem('ngssConfig' + season); if (configuration == undefined || configuration == "null") {
