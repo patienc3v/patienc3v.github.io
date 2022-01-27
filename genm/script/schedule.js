@@ -1,6 +1,6 @@
 var xhr = new XMLHttpRequest();
 
-var season = 12;
+var season = 13;
 
 var teamname = "Gen.M Esports";
 
@@ -323,7 +323,7 @@ function processSchedule() {
 function loadSchedule() {
 	// URL
 	var url = "https://www.nexusgamingseries.org/api/schedule/get/matches/scheduled?season=" + season;
-	url = "https://patienc3v.github.io/genm/data/scheduleS12.json";
+//	url = "https://patienc3v.github.io/genm/data/scheduleS12.json";
     xhr.addEventListener('loadend', processSchedule);
     xhr.open("GET", url);
     xhr.send();
