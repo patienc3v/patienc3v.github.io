@@ -1,7 +1,15 @@
 [
 {
-	"name": "Logicalia",
+	"name": "infafox",
 	"role": "Tank",
+	"country": "usa",
+	"bid": 690175,
+	"active": true,
+	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
+},
+{
+	"name": "Logicalia",
+	"role": "Flex",
 	"country": "usa",
 	"bid": 1880026,
 	"active": true,
@@ -9,7 +17,7 @@
 },
 {
 	"name": "French",
-	"role": "Assassin",
+	"role": "Flex",
 	"country": "usa",
 	"bid": 3754476,
 	"active": true,
@@ -17,17 +25,9 @@
 },
 {
 	"name": "RandyNewman",
-	"role": "Assassin",
+	"role": "Flex",
 	"country": "usa",
 	"bid": 8421631,
-	"active": true,
-	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
-},
-{
-	"name": "infafox",
-	"role": "Offlane",
-	"country": "usa",
-	"bid": 690175,
 	"active": true,
 	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
 },
