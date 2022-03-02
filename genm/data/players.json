@@ -41,14 +41,6 @@
 	"picture": "majesty.png"
 },
 {
-	"name": "Desdaa",
-	"role": "Healer",
-	"country": "usa",
-	"bid":5117675,
-	"active": true,
-	"roles": ["Healer"]
-},
-{
 	"name": "Joonin",
 	"role": "Sub",
 	"country": "usa",
@@ -58,7 +50,7 @@
 },
 {
 	"name": "RandiNuMan",
-	"role": "Sub",
+	"role": "Healer",
 	"country": "usa",
 	"bid": 3754476,
 	"active": true,
