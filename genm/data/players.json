@@ -8,18 +8,10 @@
 	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
 },
 {
-	"name": "Logicalia",
-	"role": "Flex",
+	"name": "Ace",
+	"role": "Assassin",
 	"country": "usa",
-	"bid": 1880026,
-	"active": true,
-	"roles": ["Tank"]
-},
-{
-	"name": "French",
-	"role": "Flex",
-	"country": "usa",
-	"bid": 3754476,
+	"bid": 279912,
 	"active": true,
 	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
 },
@@ -32,31 +24,22 @@
 	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
 },
 {
+	"name": "Ectar",
+	"role": "Healer",
+	"country": "usa",
+	"bid": 369687,
+	"active": true,
+	"roles": ["Healer"]
+},
+{
 	"name": "Majesty",
-	"role": "Assassin",
+	"role": "Offlane",
 	"country": "usa",
 	"bid": 6206532,
-	"active": false,
+	"active": true,
 	"roles": ["Melee%20Assassin", "Ranged+Assassin"],
 	"picture": "majesty.png"
 },
-{
-	"name": "Joonin",
-	"role": "Sub",
-	"country": "usa",
-	"bid": 3754476,
-	"active": true,
-	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
-},
-{
-	"name": "RandiNuMan",
-	"role": "Healer",
-	"country": "usa",
-	"bid": 3754476,
-	"active": true,
-	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
-},
-
 {
 	"name": "Patienc3",
 	"role": "Healer",
@@ -67,12 +50,44 @@
 	"picture": "patienc3.png"
 },
 {
+	"name": "French",
+	"role": "Flex",
+	"country": "usa",
+	"bid": 3754476,
+	"active": false,
+	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
+},
+{
 	"name": "IJustFizzed",
 	"role": "Offlane",
 	"country": "usa",
 	"bid":591263,
 	"active": false,
 	"roles": ["Bruiser"]
+},
+{
+	"name": "Joonin",
+	"role": "Sub",
+	"country": "usa",
+	"bid": 3754476,
+	"active": false,
+	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
+},
+{
+	"name": "Logicalia",
+	"role": "Flex",
+	"country": "usa",
+	"bid": 1880026,
+	"active": false,
+	"roles": ["Tank"]
+},
+{
+	"name": "RandiNuMan",
+	"role": "Healer",
+	"country": "usa",
+	"bid": 3754476,
+	"active": false,
+	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
 },
 {
 	"name": "Tax1k",
