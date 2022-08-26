@@ -21,7 +21,8 @@
 	"country": "usa",
 	"bid": 8421631,
 	"active": true,
-	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
+	"roles": ["Melee%20Assassin", "Ranged+Assassin"],
+	"picture": "randynewman.png"
 },
 {
 	"name": "Ectar",
