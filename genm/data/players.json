@@ -30,7 +30,8 @@
 	"country": "usa",
 	"bid": 369687,
 	"active": true,
-	"roles": ["Healer"]
+	"roles": ["Healer"],
+	"picture": "ectar.png"
 },
 {
 	"name": "Majesty",
