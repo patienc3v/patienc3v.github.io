@@ -44,12 +44,20 @@
 },
 {
 	"name": "Patienc3",
-	"role": "Healer",
+	"role": "Sub",
 	"country": "south.korea",
 	"bid":591263,
 	"active": false,
 	"roles": ["Healer"],
 	"picture": "patienc3.png"
+},
+{
+	"name": "LeoRice",
+	"role": "Sub",
+	"country": "canada",
+	"bid":6690503,
+	"active": true,
+	"roles": ["Tank"]
 },
 {
 	"name": "French",
