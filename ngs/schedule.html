@@ -14,7 +14,7 @@
             function loadDivisions(index) {
                 var xhttp = new XMLHttpRequest(); xhttp.onreadystatechange = function () {
                     if (this.readyState == 4 && this.status == 200) {
-                        var teamData = JSON.parse(xhttp.responseText)['returnObject']['teams']; teamData.sort(); for (var idx = 0; idx < teamData.length; idx++) { teamData[idx] = teamData[idx].replace("'", ""); }
+                        var teamData = JSON.parse(xhttp.responseText)['returnObject']['teams']; teamData.sort(); for (var idx = 0; idx < teamData.length; idx++) { teamData[idx] = teamData[idx].replaceAll("'", ""); }
                         teams[divisions[index]] = teamData; teamToggle[divisions[index]] = []; for (var team of teamData) { teamToggle[divisions[index]][team] = false; }
                         if (index == (divisions.length - 1)) { updatePercentage(); loadLocalStorage(); loadFilter(); loadSchedule(); } else { updatePercentage(); loadDivisions(index + 1); }
                     } else {
