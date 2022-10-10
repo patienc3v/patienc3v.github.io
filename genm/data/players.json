@@ -47,7 +47,7 @@
 	"role": "Sub",
 	"country": "south.korea",
 	"bid":591263,
-	"active": false,
+	"active": true,
 	"roles": ["Healer"],
 	"picture": "patienc3.png"
 },
