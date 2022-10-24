@@ -1,7 +1,39 @@
 <html>
 <head>
     <title>NGS Match Schedule</title>
-    <script>/*<![CDATA[*/var season = 14; var divisions = ["Storm", "Heroic", "Nexus", "A-East", "A-West", "B-East", "B-West", "C-East", "C-West", "D-East", "D-West", "E-East", "E-West"]; const version = 2.2; var teamsToFollow = []; var teams = {}; var teamToggle = {}; var buffer = 60; buffer *= 60000; var currentStep = 0; var totalSteps = divisions.length + 1; var data; var configuration; function updatePercentage() { currentStep++; var progress = currentStep / totalSteps * 100.0; var percentage = progress.toFixed(1); document.getElementById("loadingPercent").innerHTML = percentage + "%"; }
+    <script>/*<![CDATA[*/var season = 14; var divisions = ["Storm", "Heroic", "Nexus", "A-East", "A-West", "B-East", "B-West", "C-East", "C-West", "D-East", "D-West", "E-East", "E-West"]; const version = 2.2; var teamsToFollow = []; var teams = {}; var teamToggle = {}; var buffer = 60; buffer *= 60000; var currentStep = 0; var totalSteps = divisions.length + 1; var data; var configuration;
+      var loaded = false;
+      function updatePercentage() {
+        if (!loaded) {
+          loaded = true;
+          for (var index = 0; index < 2; index++) {
+            var teamElement = document.createElement("div");
+            teamElement.className = "loadingLine";
+            teamElement.innerHTML = "NGS ";
+            if (index == 0) {
+              teamElement.innerHTML += "teams"
+            } else {
+              teamElement.innerHTML += "schedule"
+            }
+            var progressElement = document.createElement("div");
+            progressElement.className = "lds-ring";
+            progressElement.innerHTML = "<div></div><div></div><div></div><div></div>";
+            teamElement.appendChild(progressElement);
+            if (index > 0) {
+              progressElement.style.display = "none";
+            }
+            loadingElement.appendChild(teamElement);
+          }
+        }
+        if (currentStep == divisions.length - 1) {
+          loadingElement.childNodes[3].childNodes[1].className = "lds-ring-complete";
+          loadingElement.childNodes[4].childNodes[1].style.display = "inline-block";
+        }
+        if (currentStep > divisions.length - 1) {
+          loadingElement.childNodes[4].childNodes[1].className = "lds-ring-complete";
+        }
+        currentStep++;
+      }
             function loadLocalStorage() {
                 var storageVersion = parseFloat(localStorage.getItem('ngssVer')); if (isNaN(storageVersion) || (storageVersion != null && Math.floor(storageVersion) < Math.floor(version))) { localStorage.setItem('ngssVer', version); localStorage.setItem('ngssConfig' + season, null); }
                 configuration = localStorage.getItem('ngssConfig' + season); if (configuration == undefined || configuration == "null") {
@@ -10,7 +42,7 @@
                 }
                 var configData = configuration.split(','); for (var divIndex = 0; divIndex < configData.length; divIndex++) { var divConfig = configData[divIndex]; for (var index = 0; index < divConfig.length; index++) { teamToggle[divisions[divIndex]][teams[divisions[divIndex]][index]] = (divConfig[index] == "1"); if (teamToggle[divisions[divIndex]][teams[divisions[divIndex]][index]]) { teamsToFollow.push(teams[divisions[divIndex]][index]); } } }
             }
-            function updateTitle() { document.getElementById('title').innerHTML += " S" + season; loadDivisions(0); }
+            function updateTitle() { loadingElement = document.getElementById("loadingProgress"); document.getElementById('title').innerHTML += " S" + season; loadDivisions(0); }
             function loadDivisions(index) {
                 var xhttp = new XMLHttpRequest(); xhttp.onreadystatechange = function () {
                     if (this.readyState == 4 && this.status == 200) {
@@ -115,7 +147,9 @@
             position: relative;
             top: 50%;
             left: 50%;
+            width: 75%;
             font-size: 30px;
+            background-color: #fff;
             -ms-transform: translate(-50%,-50%);
             transform: translate(-50%,-50%)
         }
@@ -232,10 +266,69 @@
             background-color: #2c3531;
             color: #fff
         }
+        .lds-ring {
+          display: inline-block;
+          position: relative;
+          width: 32px;
+          height: 32px;
+        }
+        .lds-ring div {
+          box-sizing: border-box;
+          display: block;
+          position: absolute;
+          width: 24px;
+          height: 24px;
+          margin: 8px;
+          border: 4px solid #fff;
+          border-radius: 50%;
+          animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+          border-color: #000 transparent transparent transparent;
+        }
+        .lds-ring div:nth-child(1) {
+          animation-delay: -0.45s;
+        }
+        .lds-ring div:nth-child(2) {
+          animation-delay: -0.3s;
+        }
+        .lds-ring div:nth-child(3) {
+          animation-delay: -0.15s;
+        }
+        @keyframes lds-ring {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+        .lds-ring-complete {
+          display: inline-block;
+          position: relative;
+          width: 32px;
+          height: 32px;
+        }
+        .lds-ring-complete div {
+          box-sizing: border-box;
+          display: block;
+          position: absolute;
+          width: 24px;
+          height: 24px;
+          margin: 8px;
+          border: 4px solid #fff;
+          border-radius: 50%;
+          border-color: #000;
+        }
+        .loadingLine {
+          font-size: 80%;
+        }
     </style>
 </head>
 <body onLoad="javascript:updateTitle()">
-    <div id="loading"><div id="loadingProgress">L O A D I N G<br><div id="loadingPercent">0.0%</div><img src="Spin-1s-40px.png" alt="https://loading.io/spinner/spin/-spinner-ball-circle-rotate-rosary-loader-ajax"></div></div>
+    <div id="loading">
+      <div id="loadingProgress">
+        <div>L O A D I N G</div>
+      </div>
+    </div>
     <div class="title" id="title">Nexus Gaming Series</div>
     <div class="schedule">
         <button class='collapsible'>NGS Teams &#9661;</button>
