@@ -12,7 +12,7 @@
 	"role": "Assassin",
 	"country": "usa",
 	"bid": 279912,
-	"active": true,
+	"active": false,
 	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
 },
 {
@@ -20,7 +20,7 @@
 	"role": "Flex",
 	"country": "usa",
 	"bid": 8421631,
-	"active": true,
+	"active": false,
 	"roles": ["Melee%20Assassin", "Ranged+Assassin"],
 	"picture": "randynewman.png"
 },
@@ -29,7 +29,7 @@
 	"role": "Healer",
 	"country": "usa",
 	"bid": 369687,
-	"active": true,
+	"active": false,
 	"roles": ["Healer"],
 	"picture": "ectar.png"
 },
@@ -44,7 +44,7 @@
 },
 {
 	"name": "Patienc3",
-	"role": "Sub",
+	"role": "Healer",
 	"country": "south.korea",
 	"bid":591263,
 	"active": true,
@@ -53,7 +53,7 @@
 },
 {
 	"name": "LeoRice",
-	"role": "Sub",
+	"role": "Flex",
 	"country": "canada",
 	"bid":6690503,
 	"active": true,
