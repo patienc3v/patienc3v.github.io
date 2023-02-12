@@ -17,6 +17,7 @@ var rankThreshold = 10;
 var gameThreshold = 1;
 var divOrder = ["Storm", "Heroic", "Nexus"];
 var tables = {};
+var showDiv = false;
 
 for (var div of divisions) {
 	tables[div] = [];
@@ -117,11 +118,15 @@ function generateTable(data, interest, increase, filters) {
 			var nameData = valueDict[value]['players'][index].split("#");
 			var playerName = nameData[0];
 			var blizzardID = nameData[1];
+			var playerDiv = nameData[2];
+			var playerElement = document.createElement("DIV");
 			var linkElement = document.createElement("A");
 			linkElement.href = "https://heroesprofile.com/Profile/?blizz_id=" + blizzardID + "&battletag=" + encodeURIComponent(playerName) + "&region=1";
 			linkElement.target = "_blank";
 			linkElement.innerHTML = playerName;
-			tdElement.appendChild(linkElement);
+			playerElement.appendChild(linkElement);
+			playerElement.innerHTML += (showDiv ? "[" + playerDiv + "]" : "");
+			tdElement.appendChild(playerElement);
 			trElement.appendChild(tdElement);
 			var tdElement = document.createElement("TD");
 			tdElement.classList.add("right");
@@ -194,6 +199,7 @@ function createTables() {
 		tableArea.appendChild(hElement);
 		return;
 	}
+	showDiv = (included.size > 1);
 	for (var column of columnsOfInterest) {
 		generateTable(data, column, increasing.includes(column), validFilters);
 	}
@@ -210,6 +216,7 @@ function processData(data) {
 		}
 		var div = values[1];
 		values.splice(1,1);
+		values[0] += "#" + div;
 		if (tables[div] == undefined) {
 			tables[div] = [];
 			divisions.push(div);
