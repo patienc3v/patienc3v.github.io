@@ -125,7 +125,7 @@ function generateTable(data, interest, increase, filters) {
 			linkElement.target = "_blank";
 			linkElement.innerHTML = playerName;
 			playerElement.appendChild(linkElement);
-			playerElement.innerHTML += (showDiv ? "[" + playerDiv + "]" : "");
+			playerElement.innerHTML += (showDiv ? "&nbsp;&nbsp;[" + playerDiv + "]" : "");
 			tdElement.appendChild(playerElement);
 			trElement.appendChild(tdElement);
 			var tdElement = document.createElement("TD");
