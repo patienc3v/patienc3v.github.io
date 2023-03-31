@@ -122,7 +122,7 @@
                 process(data);
             }
             function timeConverter(UNIX_timestamp) {
-                var a = new Date(parseFloat(UNIX_timestamp)); var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']; var year = a.getFullYear(); var month = months[a.getMonth()]; var date = a.getDate(); var am = false; var hour = a.getHours(); if (hour >= 12) { am = false; hour -= 12; }
+                var a = new Date(parseFloat(UNIX_timestamp)); var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']; var year = a.getFullYear(); var month = months[a.getMonth()]; var date = a.getDate(); var am = true; var hour = a.getHours(); if (hour >= 12) { am = false; hour -= 12; }
                 if (hour == 0) { hour = 12; }
                 var min = a.getMinutes(); var sec = a.getSeconds(); var timezone = a.toLocaleTimeString('en-us', { timeZoneName: 'short' }).split(' '); var zone = timezone[timezone.length - 1]; var weekDay = a.toLocaleString('en-us', {weekday: 'short'});
                 var time = month + ' ' + date + ', ' + year + ' (' + weekDay + ') @ ' + ('' + hour).padStart(2, '0') + ':' + ('' + min).padStart(2, '0') + " " + (am ? "AM" : "PM") + " " + zone; return time;
