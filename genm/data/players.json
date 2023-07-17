@@ -76,6 +76,14 @@
 	"roles": ["Bruiser"]
 },
 {
+	"name": "JohnBunyan",
+	"role": "Sub",
+	"country": "usa",
+	"bid":7845610,
+	"active": true,
+	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
+},
+{
 	"name": "French",
 	"role": "Flex",
 	"country": "usa",
