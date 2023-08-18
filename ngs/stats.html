@@ -353,33 +353,20 @@ function initialize() {
 }
 
 function loadSeasonButtons(){
-	var seasonMenu = document.getElementById('seasonMenu');
-	var size = 0;
-	var buttons = [];
-	for(var s = minSeason; s <= defaultSeason; s++) {
-		var button=document.createElement("BUTTON");
-		button.innerHTML="S"+s;
-		button.classList.add("seasonButton");
-		if (s == season) {
-			button.classList.add("tabOn");
-		} else {
-			button.classList.add("tabOff");
-		}
-		seasonMenu.appendChild(button);
-		if (button.clientWidth > size) {
-			size = button.clientWidth;
-		}
-		button.setAttribute("onclick", "javascript:loadSeason("+s+");");
-		buttons.push(button);
-	}
-	for (var button of buttons) {
-		button.style.width = size + "px";
-		button.style.height = size+"px";
+	var seasonMenu = document.getElementById('seasons');
+
+	for(var s = defaultSeason; s >= minSeason; s--) {
+		var option = document.createElement("option");
+		option.text = "Season " + s;
+		option.value = s;
+		option.selected = (s == season);
+		seasonMenu.add(option);
 	}
 }
 
-function loadSeason(s) {
-	window.location.href = window.location.protocol + "//" + window.location.hostname + window.location.pathname + "?season=" + s;
+function loadSeason() {
+	var seasonMenu = document.getElementById('seasons');
+	window.location.href = window.location.protocol + "//" + window.location.hostname + window.location.pathname + "?season=" + seasonMenu.value;
 }
 
 function loadButtons() {
@@ -577,7 +564,7 @@ a {
 }
 #seasonMenu{
   font-size:medium;
-  margin:5px;
+  margin:15px;
   text-align:center
 }
 #dataSource{
@@ -687,10 +674,12 @@ a {
 <div class="sliderValue"><span class="sliderValue" id="rankThreshold">Max Rank: 10</span><input type="range" min="10" max="100" value="10" class="slider" id="rankRange" step="5" oninput="javascript:updateThreshold('rank', true);" onmouseup="javascript:updateThreshold('rank',false)"></div>
 </div>
 <div id="title"><span onclick="javascript:window.open('https://www.nexusgamingseries.org/','_blank')">Nexus Gaming Series</span>
-<div id="seasonMenu"></div>
+<div id="seasonMenu">
+<select name="season" id="seasons" onchange="javascript:loadSeason();" style="font-size:large;">
+</select>
+</div>
 <div id="dataSource">
-<span>Season 6-12 data compiled with <a href="https://ebshimizu.github.io/stats-of-the-storm/" target="_blank">Stats of the Storm</a> by <a href="http://falindrith.me/" target="_blank">Falindrith</a>.</span><br>
-<span>Season 13- data compiled with <a href="https://ebshimizu.github.io/stats-of-the-storm/" target="_blank">Stats of the Storm</a> by Ectar.</span><br>
+<span>Season 16+ data by <a href="https://nexusgamingseries.net/">NGS</a>. Season 13-15 data by Ectar. Season 6-12 data by <a href="http://falindrith.me/" target="_blank">Falindrith</a>.</span><br>
 <span id="lastUpdate">Last updated: </span><br>
 <span>Copyright &copy; 2021 Patienc3. All Rights Reserved.</span>
 </div>
