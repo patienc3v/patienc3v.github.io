@@ -1,6 +1,6 @@
 var xhr = new XMLHttpRequest();
 
-var season = 13;
+var season = 16;
 
 var teamname = "Gen.M Esports";
 
@@ -99,6 +99,10 @@ function createMatch(matchID, datetime, reported, homeLogo, homeName, homeScore,
 	homeLogoElement.src = "https://s3.amazonaws.com/ngs-image-storage/" + homeLogo;
 	homeLogoElement.alt = homeName;
 	homeLogoElement.classList.add('logo');
+	homeLogoElement.onerror = function () {
+		this.onerror = null;
+		this.src = "https://s3.amazonaws.com/ngs-image-storage/defaultTeamLogo.png";
+	};
 	
 	var homeNameElement = document.createElement("p");
 	homeNameElement.classList.add("homeName");
@@ -115,7 +119,11 @@ function createMatch(matchID, datetime, reported, homeLogo, homeName, homeScore,
 	awayLogoElement.src = "https://s3.amazonaws.com/ngs-image-storage/" + awayLogo;
 	awayLogoElement.alt = homeName;
 	awayLogoElement.classList.add('logo');
-	
+	awayLogoElement.onerror = function () {
+		this.onerror = null;
+		this.src = "https://s3.amazonaws.com/ngs-image-storage/defaultTeamLogo.png";
+	};
+		
 	var awayNameElement = document.createElement("p");
 	awayNameElement.classList.add("awayName");
 	awayNameElement.innerHTML = awayName;
