@@ -84,20 +84,68 @@
                     matchTime = match['scheduledTime']['startTime']; if (matches[matchTime] == undefined) { matches[matchTime] = []; }
                     matches[matchTime].push([homeTeam, awayTeam, match['matchId'], match['casterUrl'], match['vodLinks']]);
                 }
-                var times = Object.keys(matches); times.sort(); var upcoming = ""; for (var time of times) {
+                var times = Object.keys(matches);
+                times.sort(); 
+                var upcoming = "";
+                var rowDate = null;
+                for (var time of times) {
                     if (time >= today - buffer) {
-                        upcoming += "<table width='100%'>\n"; upcoming += "<thead>\n"; upcoming += "<tr><td class='padding' colspan='3'>" + timeConverter(time) + "</td></tr>\n"; upcoming += "</thead>\n"; upcoming += "<tbody>\n"; for (var match of matches[time]) {
-                            var home = match[0]; var away = match[1]; var id = match[2]; var caster = match[3]; upcoming += "<tr>\n"; upcoming += '<td class="padding" width="50%"><a rel="noreferrer noopener" target="_blank" href="https://www.nexusgamingseries.org/teamProfile/' + home.replace(" ", "_") + '">' + home + "</a>"; upcoming += " vs. "; upcoming += '<a rel="noreferrer noopener" target="_blank" href="https://www.nexusgamingseries.org/teamProfile/' + away.replace(" ", "_") + '">' + away + "</a></td>"; upcoming += '<td class="padding" width="15%"><a rel="noreferrer noopener" target="_blank" href="https://www.nexusgamingseries.org/match/view/' + id + '">Match Info</a></td>'; if (caster == undefined || caster.length == 0) { upcoming += "<td class='padding'>No caster yet</td>"; } else { var url = caster; if (!url.includes("/")) { url = "https://twitch.tv/" + url; } if (!url.toLowerCase().startsWith("http")) { url = "https://" + url; } upcoming += '<td class="padding"><a rel="noreferrer noopener" target="_blank" href="' + url + '">Caster</a></td>'; }
+                        var matchDate = dateConverter(time);
+                        if ((rowDate == null) || (rowDate !== matchDate)) {
+                            if (rowDate !== matchDate) {
+                                rowDate = matchDate;
+                                upcoming += "</tbody></table>\n";
+                            }
+                            upcoming += "<table width='100%'>\n"; upcoming += "<thead>\n";
+                            upcoming += "<tr><td class='padding' colspan='4'>" + matchDate + "</td></tr>\n";
+                            upcoming += "</thead>\n"; upcoming += "<tbody>\n";
+                        }
+                        for (var match of matches[time]) {
+                            var home = match[0];
+                            var away = match[1];
+                            var id = match[2];
+                            var caster = match[3];
+                            upcoming += "<tr>\n";
+                            upcoming += '<td width="10%" style="padding-left: 15px">' + timeConverter(time) + "</td>";
+                            upcoming += '<td class="padding" width="50%"><a rel="noreferrer noopener" target="_blank" href="https://www.nexusgamingseries.org/teamProfile/' + home.replace(" ", "_") + '">' + home + "</a>";
+                            upcoming += " vs. ";
+                            upcoming += '<a rel="noreferrer noopener" target="_blank" href="https://www.nexusgamingseries.org/teamProfile/' + away.replace(" ", "_") + '">' + away + "</a></td>";
+                            upcoming += '<td class="padding" width="15%"><a rel="noreferrer noopener" target="_blank" href="https://www.nexusgamingseries.org/match/view/' + id + '">Match Info</a></td>';
+                            if (caster == undefined || caster.length == 0) {
+                                upcoming += "<td class='padding'>No caster yet</td>";
+                            } else {
+                                var url = caster;
+                                if (!url.includes("/")) {
+                                    url = "https://twitch.tv/" + url;
+                                }
+                                if (!url.toLowerCase().startsWith("http")) {
+                                    url = "https://" + url;
+                                }
+                                upcoming += '<td class="padding"><a rel="noreferrer noopener" target="_blank" href="' + url + '">Caster</a></td>'; }
                             upcoming += "</tr>\n"
                         }
-                        upcoming += "</table>\n"
                     }
                 }
-                if (upcoming.length > 0) { document.getElementById("upcomingMatches").innerHTML = upcoming; } else { document.getElementById("upcomingMatches").innerHTML = "No upcoming matches scheduled yet."; }
+                if (upcoming.length > 0) {  upcoming += "</tbody></table>\n"; document.getElementById("upcomingMatches").innerHTML = upcoming; } else { document.getElementById("upcomingMatches").innerHTML = "No upcoming matches scheduled yet."; }
+               
+                var rowDate = null;
                 var past = ""; for (var index = times.length - 1; index >= 0; index--) {
                     var time = times[index]; if (time >= today - buffer) { continue; }
-                    past += "<table width='100%'>\n"; past += "<thead>\n"; past += "<tr><td class='padding' colspan='3'>" + timeConverter(time) + "</td></tr>\n"; past += "</thead>\n"; past += "<tbody>\n"; for (var match of matches[time]) {
-                        var home = match[0]; var away = match[1]; var id = match[2]; var caster = match[3]; var vods = match[4]; past += "<tr>\n"; past += '<td class="padding" width="50%"><a rel="noreferrer noopener" target="_blank" href="https://www.nexusgamingseries.org/teamProfile/' + home.replace(" ", "_") + '">' + home + "</a>"; past += " vs. "; past += '<a rel="noreferrer noopener" target="_blank" href="https://www.nexusgamingseries.org/teamProfile/' + away.replace(" ", "_") + '">' + away + "</a></td>"; past += '<td class="padding" width="15%"><a rel="noreferrer noopener" target="_blank" href="https://www.nexusgamingseries.org/match/view/' + id + '">Match Info</a></td>'; if (caster == undefined || caster.length == 0) { past += "<td class='padding'>Not casted"; } else { var url = caster; if (!url.includes("/")) { url = "https://twitch.tv/" + url; } if (!url.toLowerCase().startsWith("http")) { url = "https://" + url; } past += '<td class="padding"><a rel="noreferrer noopener" target="_blank" href="' + url + '">Caster</a>'; }
+
+                    var matchDate = dateConverter(time);
+                        if ((rowDate == null) || (rowDate !== matchDate)) {
+                            if (rowDate !== matchDate) {
+                                rowDate = matchDate;
+                                past += "</tbody></table>\n";
+                            }
+                            past += "<table width='100%'>\n"; past += "<thead>\n";
+                            past += "<tr><td class='padding' colspan='4'>" + matchDate + "</td></tr>\n";
+                            past += "</thead>\n"; past += "<tbody>\n";
+                        }
+                    for (var match of matches[time]) {
+                        var home = match[0]; var away = match[1]; var id = match[2]; var caster = match[3]; var vods = match[4]; past += "<tr>\n"; 
+                        past += '<td width="10%" style="padding-left: 15px">' + timeConverter(time) + "</td>";
+                        past += '<td class="padding" width="50%"><a rel="noreferrer noopener" target="_blank" href="https://www.nexusgamingseries.org/teamProfile/' + home.replace(" ", "_") + '">' + home + "</a>"; past += " vs. "; past += '<a rel="noreferrer noopener" target="_blank" href="https://www.nexusgamingseries.org/teamProfile/' + away.replace(" ", "_") + '">' + away + "</a></td>"; past += '<td class="padding" width="15%"><a rel="noreferrer noopener" target="_blank" href="https://www.nexusgamingseries.org/match/view/' + id + '">Match Info</a></td>'; if (caster == undefined || caster.length == 0) { past += "<td class='padding'>Not casted"; } else { var url = caster; if (!url.includes("/")) { url = "https://twitch.tv/" + url; } if (!url.toLowerCase().startsWith("http")) { url = "https://" + url; } past += '<td class="padding"><a rel="noreferrer noopener" target="_blank" href="' + url + '">Caster</a>'; }
                         if (vods.length > 0) {
                             past += "<br>"; var validVods = []; for (var vod of vods) { if (vod.substring(0, 8) == "https://") { validVods.push(vod); } }
                             var count = 0; for (var vod of validVods) {
@@ -107,9 +155,8 @@
                         }
                         past += "</td>"; past += "</tr>\n"
                     }
-                    past += "</table>\n"
                 }
-                if (past.length > 0) { document.getElementById("pastMatches").innerHTML = past; } else { document.getElementById("pastMatches").innerHTML = "No matches played yet."; }
+                if (past.length > 0) {                     past += "</tbody></table>\n"; document.getElementById("pastMatches").innerHTML = past; } else { document.getElementById("pastMatches").innerHTML = "No matches played yet."; }
             }
             function toggleTeam(divIndex, team) {
                 teamToggle[divisions[divIndex]][team] = !teamToggle[divisions[divIndex]][team]; if (teamToggle[divisions[divIndex]][team]) { teamsToFollow.push(team); } else { for (var index = 0; index < teamsToFollow.length; index++) { if (teamsToFollow[index] == team) { teamsToFollow.splice(index, 1); break; } } }
@@ -121,11 +168,15 @@
                 configuration = configuration.substr(0, configuration.length - 1); localStorage.setItem('ngssConfig' + season, configuration); var button = document.getElementById(team); if (button != undefined) { if (teamToggle[divisions[divIndex]][team]) { button.classList.remove('buttonOff'); button.classList.add('buttonOn'); } else { button.classList.remove('buttonOn'); button.classList.add('buttonOff'); } }
                 process(data);
             }
+            function dateConverter(UNIX_timestamp) {
+                var a = new Date(parseFloat(UNIX_timestamp)); var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']; var year = a.getFullYear(); var month = months[a.getMonth()]; var date = a.getDate(); var weekDay = a.toLocaleString('en-us', {weekday: 'short'});
+                var time = month + ' ' + date + ', ' + year + ' (' + weekDay + ')'; return time;
+            }
             function timeConverter(UNIX_timestamp) {
-                var a = new Date(parseFloat(UNIX_timestamp)); var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']; var year = a.getFullYear(); var month = months[a.getMonth()]; var date = a.getDate(); var am = true; var hour = a.getHours(); if (hour >= 12) { am = false; hour -= 12; }
+                var a = new Date(parseFloat(UNIX_timestamp)); var am = true; var hour = a.getHours(); if (hour >= 12) { am = false; hour -= 12; }
                 if (hour == 0) { hour = 12; }
-                var min = a.getMinutes(); var sec = a.getSeconds(); var timezone = a.toLocaleTimeString('en-us', { timeZoneName: 'short' }).split(' '); var zone = timezone[timezone.length - 1]; var weekDay = a.toLocaleString('en-us', {weekday: 'short'});
-                var time = month + ' ' + date + ', ' + year + ' (' + weekDay + ') @ ' + ('' + hour).padStart(2, '0') + ':' + ('' + min).padStart(2, '0') + " " + (am ? "AM" : "PM") + " " + zone; return time;
+                var min = a.getMinutes(); var sec = a.getSeconds(); var timezone = a.toLocaleTimeString('en-us', { timeZoneName: 'short' }).split(' '); var zone = timezone[timezone.length - 1]; 
+                var time = ('' + hour).padStart(2, '0') + ':' + ('' + min).padStart(2, '0') + " " + (am ? "AM" : "PM") + " " + zone; return time;
             }/*]]>*/</script>
     <style>
         #loading {
