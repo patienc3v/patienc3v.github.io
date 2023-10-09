@@ -81,8 +81,9 @@
                     homeTeam = match['home']['teamName']; awayTeam = match['away']['teamName']; if (!(teamsToFollow.includes(homeTeam.replace("'", "")) || teamsToFollow.includes(awayTeam.replace("'", "")))) { continue; }
                     if (teamID[homeTeam] == undefined) { teamID[homeTeam] = match['home']['id']; }
                     if (teamID[awayTeam] == undefined) { teamID[awayTeam] = match['away']['id']; }
+                    matchDiv = match['divisionDisplayName'];
                     matchTime = match['scheduledTime']['startTime']; if (matches[matchTime] == undefined) { matches[matchTime] = []; }
-                    matches[matchTime].push([homeTeam, awayTeam, match['matchId'], match['casterUrl'], match['vodLinks']]);
+                    matches[matchTime].push([homeTeam, awayTeam, match['matchId'], match['casterUrl'], match['vodLinks'], matchDiv]);
                 }
                 var times = Object.keys(matches);
                 times.sort(); 
@@ -97,7 +98,7 @@
                                 upcoming += "</tbody></table>\n";
                             }
                             upcoming += "<table width='100%'>\n"; upcoming += "<thead>\n";
-                            upcoming += "<tr><td class='padding' colspan='4'>" + matchDate + "</td></tr>\n";
+                            upcoming += "<tr><td class='padding' colspan='5'>" + matchDate + "</td></tr>\n";
                             upcoming += "</thead>\n"; upcoming += "<tbody>\n";
                         }
                         for (var match of matches[time]) {
@@ -105,8 +106,10 @@
                             var away = match[1];
                             var id = match[2];
                             var caster = match[3];
+                            var div = match[5];
                             upcoming += "<tr>\n";
                             upcoming += '<td width="10%" style="padding-left: 15px">' + timeConverter(time) + "</td>";
+                            upcoming += '<td width="5%" style="padding-left: 15px; padding-right: 15px; text-align: center;">[' + div + "]</td>";
                             upcoming += '<td class="padding" width="50%"><a rel="noreferrer noopener" target="_blank" href="https://www.nexusgamingseries.org/teamProfile/' + home.replace(" ", "_") + '">' + home + "</a>";
                             upcoming += " vs. ";
                             upcoming += '<a rel="noreferrer noopener" target="_blank" href="https://www.nexusgamingseries.org/teamProfile/' + away.replace(" ", "_") + '">' + away + "</a></td>";
@@ -143,9 +146,15 @@
                             past += "</thead>\n"; past += "<tbody>\n";
                         }
                     for (var match of matches[time]) {
-                        var home = match[0]; var away = match[1]; var id = match[2]; var caster = match[3]; var vods = match[4]; past += "<tr>\n"; 
+                        var home = match[0]; var away = match[1]; var id = match[2]; var caster = match[3]; var vods = match[4]; var div = match[5]; past += "<tr>\n"; 
                         past += '<td width="10%" style="padding-left: 15px">' + timeConverter(time) + "</td>";
-                        past += '<td class="padding" width="50%"><a rel="noreferrer noopener" target="_blank" href="https://www.nexusgamingseries.org/teamProfile/' + home.replace(" ", "_") + '">' + home + "</a>"; past += " vs. "; past += '<a rel="noreferrer noopener" target="_blank" href="https://www.nexusgamingseries.org/teamProfile/' + away.replace(" ", "_") + '">' + away + "</a></td>"; past += '<td class="padding" width="15%"><a rel="noreferrer noopener" target="_blank" href="https://www.nexusgamingseries.org/match/view/' + id + '">Match Info</a></td>'; if (caster == undefined || caster.length == 0) { past += "<td class='padding'>Not casted"; } else { var url = caster; if (!url.includes("/")) { url = "https://twitch.tv/" + url; } if (!url.toLowerCase().startsWith("http")) { url = "https://" + url; } past += '<td class="padding"><a rel="noreferrer noopener" target="_blank" href="' + url + '">Caster</a>'; }
+                        past += '<td width="5%" style="padding-left: 15px; padding-right: 15px; text-align: center;">[' + div + "]</td>";
+                        past += '<td class="padding" width="50%"><a rel="noreferrer noopener" target="_blank" href="https://www.nexusgamingseries.org/teamProfile/' + home.replace(" ", "_") + '">' + home + "</a>";
+                        past += " vs. "; past += '<a rel="noreferrer noopener" target="_blank" href="https://www.nexusgamingseries.org/teamProfile/' + away.replace(" ", "_") + '">' + away + "</a></td>"; 
+                        past += '<td class="padding" width="15%"><a rel="noreferrer noopener" target="_blank" href="https://www.nexusgamingseries.org/match/view/' + id + '">Match Info</a></td>'; 
+                        if (caster == undefined || caster.length == 0) { past += "<td class='padding'>Not casted"; } else { var url = caster; if (!url.includes("/")) { url = "https://twitch.tv/" + url; } 
+                        if (!url.toLowerCase().startsWith("http")) { url = "https://" + url; } 
+                        past += '<td class="padding"><a rel="noreferrer noopener" target="_blank" href="' + url + '">Caster</a>'; }
                         if (vods.length > 0) {
                             past += "<br>"; var validVods = []; for (var vod of vods) { if (vod.substring(0, 8) == "https://") { validVods.push(vod); } }
                             var count = 0; for (var vod of validVods) {
