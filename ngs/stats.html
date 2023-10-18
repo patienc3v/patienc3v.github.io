@@ -125,7 +125,7 @@ function generateTable(data, interest, increase, filters) {
 			playerElement.style.height = "100%";
 			playerElement.style.lineHeight = "100%";
 			playerElement.style.display = "inline";
-			playerElement.innerHTML += playerName + (showDiv ? "&nbsp;&nbsp;[" + playerDiv + "]" : "");
+			playerElement.innerHTML += playerName + (showDiv ? " [" + playerDiv + "]" : "");
 			
 			tdElement.appendChild(playerElement);
 			
@@ -136,7 +136,7 @@ function generateTable(data, interest, increase, filters) {
 			var hotsElement = document.createElement("IMG");
 			hotsElement.src = "images/hots.png";
 			hotsElement.alt = playerName + " general profile";
-			hotsElement.style.marginLeft = "5px";
+			hotsElement.style.marginLeft = "10px";
 			hotsLinkElement.appendChild(hotsElement);
 			tdElement.appendChild(hotsLinkElement);
 			
@@ -147,7 +147,7 @@ function generateTable(data, interest, increase, filters) {
 			var ngsElement = document.createElement("IMG");
 			ngsElement.src = "images/ngs.png";
 			ngsElement.alt = playerName + " NGS profile";
-			ngsElement.style.marginLeft = "5px";
+			ngsElement.style.marginLeft = "10px";
 			ngsLinkElement.appendChild(ngsElement);
 			tdElement.appendChild(ngsLinkElement);
 			
