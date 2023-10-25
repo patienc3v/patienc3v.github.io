@@ -48,7 +48,8 @@
 	"country": "usa",
 	"bid": 846273,
 	"active": true,
-	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
+	"roles": ["Melee%20Assassin", "Ranged+Assassin"],
+	"picture": "duffmcwhalen.png"
 },
 {
 	"name": "Patienc3",
