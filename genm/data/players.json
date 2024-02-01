@@ -20,7 +20,7 @@
 	"role": "Flex",
 	"country": "usa",
 	"bid": 8421631,
-	"active": false,
+	"active": true,
 	"roles": ["Melee%20Assassin", "Ranged+Assassin"],
 	"picture": "randynewman.png"
 },
@@ -38,7 +38,7 @@
 	"role": "Assasin",
 	"country": "usa",
 	"bid": 6206532,
-	"active": true,
+	"active": false,
 	"roles": ["Melee%20Assassin", "Ranged+Assassin"],
 	"picture": "majesty.png"
 },
@@ -47,7 +47,7 @@
 	"role": "Assasin",
 	"country": "usa",
 	"bid": 846273,
-	"active": true,
+	"active": false,
 	"roles": ["Melee%20Assassin", "Ranged+Assassin"],
 	"picture": "duffmcwhalen.png"
 },
@@ -56,13 +56,13 @@
 	"role": "Healer",
 	"country": "south.korea",
 	"bid":591263,
-	"active": true,
+	"active": false,
 	"roles": ["Healer"],
 	"picture": "patienc3.png"
 },
 {
 	"name": "LeoRice",
-	"role": "Offlane",
+	"role": "Assassin",
 	"country": "canada",
 	"bid":6690503,
 	"active": true,
@@ -81,7 +81,7 @@
 	"role": "Sub",
 	"country": "usa",
 	"bid":7845610,
-	"active": true,
+	"active": false,
 	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
 },
 {
@@ -138,6 +138,30 @@
 	"country": "usa",
 	"bid": 5152170,
 	"active": false,
+	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
+},
+{
+	"name": "Cauthon",
+	"role": "Offlane",
+	"country": "usa",
+	"bid": 2004752,
+	"active": true,
+	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
+},
+{
+	"name": "GreekFire",
+	"role": "Healer",
+	"country": "usa",
+	"bid": 10725023,
+	"active": true,
+	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
+},
+{
+	"name": "Kobo",
+	"role": "Sub",
+	"country": "usa",
+	"bid": 8007331,
+	"active": true,
 	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
 }
 ]
