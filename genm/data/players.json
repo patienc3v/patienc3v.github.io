@@ -1,7 +1,7 @@
 [
 {
 	"name": "infafox",
-	"role": "Tank",
+	"role": "Assassin",
 	"country": "usa",
 	"bid": 690175,
 	"active": true,
@@ -20,7 +20,7 @@
 	"role": "Flex",
 	"country": "usa",
 	"bid": 8421631,
-	"active": true,
+	"active": false,
 	"roles": ["Melee%20Assassin", "Ranged+Assassin"],
 	"picture": "randynewman.png"
 },
@@ -53,16 +53,16 @@
 },
 {
 	"name": "Patienc3",
-	"role": "Healer",
+	"role": "Sub",
 	"country": "south.korea",
 	"bid":591263,
-	"active": false,
+	"active": true,
 	"roles": ["Healer"],
 	"picture": "patienc3.png"
 },
 {
 	"name": "LeoRice",
-	"role": "Assassin",
+	"role": "Sub",
 	"country": "canada",
 	"bid":6690503,
 	"active": true,
@@ -70,7 +70,7 @@
 },
 {
 	"name": "bmeduho",
-	"role": "Sub",
+	"role": "Offlaner",
 	"country": "usa",
 	"bid":6895524,
 	"active": true,
@@ -142,7 +142,7 @@
 },
 {
 	"name": "Cauthon",
-	"role": "Offlane",
+	"role": "Tank",
 	"country": "usa",
 	"bid": 2004752,
 	"active": true,
@@ -150,7 +150,7 @@
 },
 {
 	"name": "GreekFire",
-	"role": "Healer",
+	"role": "Sub",
 	"country": "usa",
 	"bid": 10725023,
 	"active": true,
@@ -158,10 +158,18 @@
 },
 {
 	"name": "Kobo",
-	"role": "Sub",
+	"role": "Assassin",
 	"country": "usa",
 	"bid": 8007331,
 	"active": true,
 	"roles": ["Melee%20Assassin", "Ranged+Assassin"]
+},
+{
+        "name": "SrMacofCheez",
+        "role": "Healer",
+        "country": "usa",
+        "bid": 4973177,
+        "active": true,
+        "roles": ["Melee%20Assassin", "Ranged+Assassin"]
 }
 ]
