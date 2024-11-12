@@ -1,226 +1,136 @@
-var threshold = 8;
+var videoData = [];
 
-var videoData = null;
-
-var videoWidth = 0;
-
-var contentElement = null;
-
-var filters = "";
-
-var filteredData = [];
-
-var currentPage = 1;
-
-function loadPage(page) {
-	currentPage = page;
-
-	loadNavigator();
-
-	var pagesElement = document.getElementsByClassName("page")[0];
-	while (pagesElement.firstChild) {
-        pagesElement.removeChild(pagesElement.firstChild);
-    }
-	var videoData = JSON.parse(xhr.response);
-	
-	var firstVideo = true;
-	var videoWidth = Math.min(240 * 4 + 24 * 4, contentElement.offsetWidth);
-	var padding = Math.floor((contentElement.offsetWidth - videoWidth) / 2);
-	contentElement.style.paddingLeft = padding + "px";
-	contentElement.style.paddingRight = padding + "px";
-	
-	// load the navigator
-	
-	
-	var count = 0;
-	var listed = 0;
-	for (var video of filteredData) {
-		count++;
-		if (count <= (page - 1) * threshold) {
-			continue;
-		}
-		if (count > page* threshold) {
-			break;
-		} 
-		pagesElement.appendChild(createVideo(video, videoWidth / 4 - 6, false));
-		listed++;
-	}
-	if (listed == 0) {
-		var errorMessage = document.createElement("span");
-		errorMessage.innerHTML = "No videos matching your search terms";
-		pagesElement.appendChild(errorMessage);
-	}
-}
-
-function createPageLink(character, page) {
-	var link = '<span class="pageButton" onclick="javascript:loadPage(' + page + ')">' + character + "</span>";
-	return link;
-}
-
-function loadNavigator() {
-	var numOfVideos = filteredData.length;
-	var numOfPages = Math.ceil(numOfVideos / threshold);
-	
-	var pagesElement = document.getElementsByClassName("pages")[0];
-	
-	var finalHTML = "";
-	
-	var page = 1;
-	
-	if (currentPage > 1) {
-		finalHTML += createPageLink("<", currentPage - 1) + " ";
-	} else {
-		finalHTML += "<span class='pageButton'>&lt;</span> ";
-	}
-	
-	for (var page = 1; page <= numOfPages; page++) {
-		if (page == currentPage) {
-			finalHTML += "<span class='pageButtonSelected'><b>" + page + "</b></span> ";
-		} else {
-			finalHTML += createPageLink(page, page) + " ";
-		}
-	}
-
-	if (currentPage < numOfPages) {
-		finalHTML += createPageLink(">", currentPage + 1);
-	} else {
-		finalHTML += "<span class='pageButton'>&gt;</span>";
-	}
-	
-	pagesElement.innerHTML = finalHTML;
-	
-}
-
-function filterVideos() {
-	filters = document.getElementById("filters").value;
-	
-	var filterWords = filters.trim().split(/[ ,]+/);
-	if (filterWords[0] == "") {
-		filteredData = JSON.parse(JSON.stringify(videoData));
-	} else {
-		filteredData = [];
-		for (var video of videoData) {
-			var include = true;
-			for (var filter of filterWords) {
-				if (!video['title'].toLowerCase().includes(filter.toLowerCase())) {
-					include = false;
-					break;
-				}
-			}
-			if (include) {
-				filteredData.push(JSON.parse(JSON.stringify(video)));
-			}
-		}
-	}
-	
-	loadPage(1);
-}
-
-/*
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/VEyxPFVzk70" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-*/
 function createVideo(videoInfo, width, autoplay) {
-	var divElement = document.createElement("div");
-	divElement.classList.add("video");
-	
-	var iFrameElement = document.createElement("iframe");
-	iFrameElement.classList.add("videoContent");
-	iFrameElement.width = width - 24;
-	iFrameElement.height = iFrameElement.width / 16 * 9;
-	if (videoInfo["type"] == "twitch") {
-		iFrameElement.src = "https://player.twitch.tv/?video=" + videoInfo["video"] + "&parent=patienc3v.github.io&autoplay=" + autoplay;
-	}
-	if (videoInfo["type"] == "youtube") {
-		iFrameElement.src = "https://www.youtube.com/embed/" + videoInfo["video"];
-	}
-	
-	iFrameElement.style.frameborder = "0";
-	iFrameElement.allowfullscreen = "true";
-	iFrameElement.allow="fullscreen;"
-	iFrameElement.scrolling = "no";
+	var divElements = document.getElementsByClassName("video");
 
-	divElement.appendChild(iFrameElement);
+	var divElement;
 
-	var textElement = document.createElement("div");
-	textElement.classList.add("videoText");
-	if (videoInfo["title"].length > 24) {
-		textElement.innerHTML = videoInfo["title"].substring(0, 24) + "...";
-	} else {
-		textElement.innerHTML = videoInfo["title"];
-	}
+	if (divElements.length == 0) {
+		divElement = document.createElement("div");
+		divElement.classList.add("video");
+
+		var iFrameElement = document.createElement("iframe");
+		iFrameElement.classList.add("videoContent");
+		iFrameElement.width = width - 24;
+		iFrameElement.height = iFrameElement.width / 16 * 9;
 	
-	divElement.appendChild(textElement);
+		iFrameElement.style.frameborder = "0";
+		iFrameElement.allowfullscreen = "true";
+		iFrameElement.allow = "fullscreen;"
+		iFrameElement.scrolling = "no";
+	
+		divElement.appendChild(iFrameElement);
+	
+		var textElement = document.createElement("div");
+		textElement.classList.add("videoText");
+			
+		divElement.appendChild(textElement);
+
+	} else { 
+		divElement = divElements[0];
+		var iFrameElement = divElement.childNodes[0];
+		var textElement = divElement.childNodes[1];
+	}
+
+	iFrameElement.src = "https://www.youtube.com/embed/" + videoInfo["video"];
+
 	return divElement;
 }
 
-function resetFilters() {
-	filters = "";
-	document.getElementById("filters").value = filters;
-	
-	filterVideos();
+function createTable() {
+	//	tableElement = document.getElementById("page");
+
+	//initialize table
+	var table = new Tabulator("#videos", {
+		data: videoData, //assign data to table
+		layout:"fitColumns",      //fit columns to width of table
+		responsiveLayout:"hide",  //hide columns that don't fit on the table
+		addRowPos:"top",          //when adding a new row, add it to the top of the table
+		history:false,             //allow undo and redo actions on the table
+		pagination:"local",       //paginate the data
+		paginationSize:10,         //allow 7 rows per page of data
+		paginationCounter:"rows", //display count of paginated rows in footer
+		movableColumns:false,      //allow column order to be changed
+		initialSort:[             //set the initial sort order of the data
+			{column:"Season", dir:"asc"},
+		],
+		columnDefaults:{
+			tooltip:true,         //show tool tips on cells
+		},
+		columns:[                 //define the table columns
+			{title:"Season", field:"season", editor:false},
+			{title:"Game", field:"game", editor:false},
+			{title:"Opponent", field:"opponent", editor:false},
+		],
+	});
+
+	table.on("rowClick", function(e, row){
+		createVideo(row.getData());
+	});
 }
 
 function processVideos() {
 	// just the most recent one
 	contentElement = document.getElementsByClassName("content")[0];
 
-	videoData = JSON.parse(xhr.response);
+	var jsonDATA = JSON.parse(xhr.response);
 	
-	if (videoData.length == 0) {
+	if (jsonDATA.length == 0) {
 		contentElement.innerHTML = "Videos coming soon...";
 		return;
 	}
+
+	for (var id = 1; id <= jsonDATA.length; id++) {
+		var currentVideo = {};
+		currentVideo['id'] = id;
+		currentVideo['season'] = jsonDATA[id - 1]['season'];
+		if ('week' in jsonDATA[id - 1]) {
+			// weekly match
+			if (jsonDATA[id - 1]['week'] == 0) {
+				currentVideo['game'] = "Week Flex";
+			} else {
+				currentVideo['game'] = "Week " + jsonDATA[id - 1]['week'];
+			}
+		} else {
+			// playoff
+			switch (jsonDATA[id - 1]['playoff']) {
+				case 1:
+					currentVideo['game'] = "Quarterfinal";
+					break;
+				case 2:
+					currentVideo['game'] = "Semifinal";
+					break;
+				case 3:
+					currentVideo['game'] = "Final";
+					break;
+				case 4:
+					currentVideo['game'] = "Grand Final";
+					break;
+				default:
+					currentVideo['game'] = "!!!";
+
+			}
+		}
+		currentVideo['opponent'] = jsonDATA[id - 1]['opponent'];
+		currentVideo['video'] = jsonDATA[id - 1]['video'];
+		videoData.push(currentVideo);
+	}
+
 	videoWidth = Math.min(240 * 4 + 24 * 4, contentElement.offsetWidth);
 	var padding = Math.floor((contentElement.offsetWidth - videoWidth) / 2);
 	contentElement.style.paddingLeft = padding + "px";
 	contentElement.style.paddingRight = padding + "px";
-	
+
 	contentElement.appendChild(createVideo(videoData[0], videoWidth, false));
 
-	var navigatorElement = document.createElement("div");
-	navigatorElement.classList.add("navigator");
-	navigatorElement.styleWidth = videoWidth;
-	
-	var pagesElement = document.createElement("div");
-	pagesElement.classList.add("pages");
-	pagesElement.styleWidth = videoWidth;
-
-	var searchElement = document.createElement("div");
-	searchElement.classList.add("searchBox");
-	
-	var inputElement = document.createElement("input");
-	inputElement.value = "";
-	inputElement.id = "filters";
-	inputElement.style.marginRight = "10px";
-	
-	var buttonElement = document.createElement("button");
-	buttonElement.onclick = filterVideos;
-	buttonElement.innerHTML = "Search";
-	buttonElement.style.marginRight = "10px";
-
-	var resetElement = document.createElement("button");
-	resetElement.onclick = resetFilters;
-	resetElement.innerHTML = "Reset";
-
-	
-	searchElement.appendChild(inputElement);
-	searchElement.appendChild(buttonElement);
-	searchElement.appendChild(resetElement);
-	
-	navigatorElement.appendChild(pagesElement);
-	navigatorElement.appendChild(searchElement);
-	
-	contentElement.appendChild(navigatorElement);
-	
 	var pageElement = document.createElement("div");
+	pageElement.id = "videos";
 	pageElement.classList.add("page");
 	pageElement.styleWidth = videoWidth;
-	
+
 	contentElement.appendChild(pageElement);
-	
-	filterVideos();
+
+	createTable();
 }
 
 window.addEventListener("load",function(event) {
@@ -232,7 +142,7 @@ var xhr = new XMLHttpRequest();
 function loadVideos() {
 	// URL
 	var url = "https://raw.githubusercontent.com/patienc3v/patienc3v.github.io/master/genm/data/videos.json";
-    xhr.addEventListener('loadend', processVideos);
-    xhr.open("GET", url);
-    xhr.send();
+	xhr.addEventListener('loadend', processVideos);
+	xhr.open("GET", url);
+	xhr.send();
 }

@@ -1,268 +1,321 @@
 [
 {
 	"video": "dqEdOkd6VV0",
-	"type": "youtube",
-	"title": "NGS S18 Playoffs Semifinal Match vs. Can't Pause Won't Pause"
+	"season": 18,
+	"playoff": 2,
+	"opponent": "Can't Pause Won't Pause"
 },
 {
 	"video": "9-Ga7oXjTdI",
-	"type": "youtube",
-	"title": "NGS S18 Playoffs Quarterfinal Match vs. Ground Up"
+	"season": 18,
+	"playoff": 1,
+	"opponent": "Ground Up"
 },
 {
 	"video": "lXlHiHGccUs",
-	"type": "youtube",
-	"title": "NGS S18 Week 10 Match vs. High Inquisitors"
+	"season": 18,
+	"week": 10,
+	"opponent": "High Inquisitors"
 },
 {
 	"video": "pjLdwFxhLEM",
-	"type": "youtube",
-	"title": "NGS S18 Week 9 Match vs. Can't Pause Wont Pause"
+	"season": 18,
+	"week": 9,
+	"opponent": "Can't Pause Won't Pause"
 },
 {
 	"video": "2tk1kqHJ-Nc",
-	"type": "youtube",
-	"title": "NGS S18 Week 8 Match vs. Hot(s) Dads"
+	"season": 18,
+	"week": 8,
+	"opponent": "Hot(s) Dads"
 },
 {
 	"video": "__jTWWeaDDo",
-	"type": "youtube",
-	"title": "NGS S18 Week 7 Match vs. CM Daybreak"
+	"season": 18,
+	"week": 7,
+	"opponent": "CM Daybreak"
 },
 {
 	"video": "aBd-CCaZuRw",
-	"type": "youtube",
-	"title": "NGS S18 Week Flex Match vs. Leoric Jenkins"
+	"season": 18,
+	"week": 0,
+	"opponent": "Leoric Jenkins"
 },
 {
 	"video": "H9JxtFM4600",
-	"type": "youtube",
-	"title": "NGS S18 Week 6 Match vs. Hard Stuck Support Group"
+	"season": 18,
+	"week": 6,
+	"opponent": "Hard Stuck Support Group"
 },
 {
 	"video": "gE4WANFj_38",
-	"type": "youtube",
-	"title": "NGS S18 Week 3 Match vs. Protectors of Aiur"
+	"season": 18,
+	"week": 3,
+	"opponent": "Protectors of Aiur"
 },
 {
 	"video": "nUerfq1G7-o",
-	"type": "youtube",
-	"title": "NGS S18 Week 2 Match vs. Trolls4Aiur"
+	"season": 18,
+	"week": 2,
+	"opponent": "Trolls4Aiur"
 },
 {
 	"video": "BlhPtXCzork",
-	"type": "youtube",
-	"title": "NGS S18 Week 1 Match vs. Ground Up"
+	"season": 18,
+	"week": 1,
+	"opponent": "Ground Up"
 },
 {
 	"video": "xBaymtzvwSA",
-	"type": "youtube",
-	"title": "NGS S17 Week 4 Match vs. CM After Dark"
+	"season": 17,
+	"week": 4,
+	"opponent": "CM After Dark"
 },
 {
 	"video":"v3NXj85quBI",
-	"type": "youtube",
-	"title": "NGS S17 Week 3 Match vs. gillyShark at !Bingo night"
+	"season": 17,
+	"week": 3,
+	"opponent": "gillyShark at !Bingo night"
 },
 {
 	"video":"-ZkLcOIv_eI",
-	"type": "youtube",
-	"title": "NGS S17 Week 2 Match vs. Thanks for Checking In"
+	"season": 17,
+	"week": 2,
+	"opponent": "Thanks for Checking In"
 },
 {
 	"video":"dENVgW73sl8",
-	"type": "youtube",
-	"title": "NGS S17 Week 1 Match vs. OnePunchMonk:Return 2 Monk"
+	"season": 17,
+	"week": 1,
+	"opponent": "OnePunchMonk:Return 2 Monk"
 },
 {
 	"video":"Zoxn_udg-6U",
-	"type": "youtube",
-	"title": "NGS S16 Playoffs Final Match vs. Unity"
+	"season": 16,
+	"playoff": 3,
+	"opponent": "Unity"
 },
 {
 	"video":"L_Q9_3RiIUc",
-	"type": "youtube",
-	"title": "NGS S16 Playoffs Semifinal Match vs. 2+2"
+	"season": 16,
+	"playoff": 2,
+	"opponent": "2+2"
 },
 {
 	"video":"Sq_RhzyiPyk",
-	"type": "youtube",
-	"title": "NGS S16 Playoffs Quarterfinal Match vs. Citrus Colored Squash"
+	"season": 16,
+	"playoff": 1,
+	"opponent": "Citrus Colored Squash"
 },
 {
 	"video":"ealx7_OeG6w",
-	"type": "youtube",
-	"title": "NGS S16 Week 10 Match vs. Unity"
+	"season": 16,
+	"week": 10,
+	"opponent": "Unity"
 },
 {
 	"video":"q0z5oyUo634",
-	"type": "youtube",
-	"title": "NGS S16 Week 8 Match vs. Citrus Colored Squash"
+	"season": 16,
+	"week": 8,
+	"opponent": "Citrus Colored Squash"
 },
 {
 	"video":"y_04AEbzF1g",
-	"type": "youtube",
-	"title": "NGS S16 Week 7 Match vs. 2+2"
+	"season": 16,
+	"week": 7,
+	"opponent": "2+2"
 },
 {
 	"video":"3PFG-Dxlj18",
-	"type": "youtube",
-	"title": "NGS S16 Week 6 Match vs. Brickhouse"
+	"season": 16,
+	"week": 6,
+	"opponent": "Brickhouse"
 },
 {
 	"video":"Zp0T0F-SfUc",
-	"type": "youtube",
-	"title": "NGS S16 Week 5 Match vs. gillyShark at !Bingo night"
+	"season": 16,
+	"week": 5,
+	"opponent": "gillyShark at !Bingo night"
 },
 {
 	"video":"YqvexmRLUuM",
-	"type": "youtube",
-	"title": "NGS S16 Week 4 Match vs. Boogans Forever"
+	"season": 16,
+	"week": 4,
+	"opponent": "Boogans Forever"
 },
 {
 	"video":"xNKwmPYc-RQ",
-	"type": "youtube",
-	"title": "NGS S16 Week 3 Match vs. Lox it in"
+	"season": 16,
+	"week": 3,
+	"opponent": "Lox it in"
 },
 {
 	"video":"SvY10V48CFY",
-	"type": "youtube",
-	"title": "NGS S16 Week 1 Match vs. Enemy on Scren"
+	"season": 16,
+	"week": 1,
+	"opponent": "Enemy on Scren"
 },
 {
 	"video":"jTP0X1nOX0s",
-	"type": "youtube",
-	"title": "NGS S14 Week 7 Match vs. Phoenix Rising Ruby"
+	"season": 14,
+	"week": 7,
+	"opponent": "Phoenix Rising Ruby"
 },
 {
 	"video":"JEDkqRyKkj4",
-	"type": "youtube",
-	"title": "NGS S14 Week 5 Match vs. Academic Probation"
+	"season": 14,
+	"week": 5,
+	"opponent": "Academic Probation"
 },
 {
 	"video":"6MNr33K-isM",
-	"type": "youtube",
-	"title": "NGS S14 Week 3 Match vs. Wimzie's House"
+	"season": 14,
+	"week": 3,
+	"opponent": "Wimzie's House"
 },
 {
 	"video":"Jw15iwH4yFc",
-	"type": "youtube",
-	"title": "NGS S14 Week 2 Match vs. La Resistance"
+	"season": 14,
+	"week": 2,
+	"opponent": "La Resistance"
 },
 {
 	"video":"PE0zxW9a8pI",
-	"type": "youtube",
-	"title": "NGS S14 Week 1 Match vs. Cho'gall's Angels"
+	"season": 14,
+	"week": 1,
+	"opponent": "Cho'gall's Angels"
 },
 {
 	"video":"qJcTQbMdI-g",
-	"type": "youtube",
-	"title": "NGS S13 Playoffs B East Semifinal vs. Psistorm Banshees"
+	"season": 13,
+	"playoff": 2,
+	"opponent": "Psistorm Banshees"
 },
 {
 	"video":"CvphXYiYWHY",
-	"type": "youtube",
-	"title": "NGS S13 Playoffs B East Quarterfinal vs. House of Chez"
+	"season": 13,
+	"playoff": 1,
+	"opponent": "House of Chez"
 },
 {
 	"video":"8BRWcrVQOE4",
-	"type": "youtube",
-	"title": "NGS S13 Flex Match vs. Psistorm Banshees"
+	"season": 13,
+	"week": 0,
+	"opponent": "Psistorm Banshees"
 },
 {
 	"video":"xTSWC5MhuyQ",
-	"type": "youtube",
-	"title": "NGS S13 Week 8 Match vs. House of Chez"
+	"season": 13,
+	"week": 8,
+	"opponent": "House of Chez"
 },
 {
 	"video":"JC2HLtOD2vU",
-	"type": "youtube",
-	"title": "NGS S13 Week 7 Match vs. Durotan's Couch"
+	"season": 13,
+	"week": 7,
+	"opponent": "Durotan's Couch"
 },
 {
 	"video":"J_0CfukwF7s",
-	"type": "youtube",
-	"title": "NGS S13 Week 6 Match vs. Wimzie's House"
+	"season": 13,
+	"week": 6,
+	"opponent": "Wimzie's House"
 },
 {
 	"video":"onL_Ods_hA8",
-	"type": "youtube",
-	"title": "NGS S13 Flex Match vs. Almost Legends Gold"
+	"season": 13,
+	"week": 0,
+	"opponent": "Almost Legends Gold"
 },
 {
 	"video":"kwwrM0UbZWc",
-	"type": "youtube",
-	"title": "NGS S13 Week 5 Match vs. Furious George"
+	"season": 13,
+	"week": 5,
+	"opponent": "Furious George"
 },
 {
 	"video":"IQQYzLJIV8A",
-	"type": "youtube",
-	"title": "NGS S13 Week 4 Match vs. Cho'gall's Angels"
+	"season": 13,
+	"week": 4,
+	"opponent": "Cho'gall's Angels"
 },
 {
 	"video":"QEgKhRIIZrM",
-	"type": "youtube",
-	"title": "NGS S13 Week 3 Match vs. POG Squad"
+	"season": 13,
+	"week": 3,
+	"opponent": "POG Squad"
 },
 {
 	"video":"R3tZmZWG-K4",
-	"type": "youtube",
-	"title": "NGS S13 Week 2 Match vs. The Fallen Lords"
+	"season": 13,
+	"week": 2,
+	"opponent": "The Fallen Lords"
 },
 {
 	"video":"tX4-E9Qg4Xo",
-	"type": "youtube",
-	"title": "NGS S13 Week 1 Match vs. Masters of Mayhem"
+	"season": 13,
+	"week": 1,
+	"opponent": "Masters of Mayhem"
 },
 {
 	"video":"ILzKL24S-HU",
-	"type": "youtube",
-	"title": "NGS S12 Playoffs Grand Finals Match vs. Phoenix Rising Xanthite"
+	"season": 12,
+	"playoff": 4,
+	"opponent": "Phoenix Rising Xanthite"
 },
 {
 	"video":"LdxU9edHFo8",
-	"type": "youtube",
-	"title": "NGS S12 Playoffs Semifinal Match vs. gillyShark"
+	"season": 12,
+	"playoff": 2,
+	"opponent": "gillyShark"
 },
 {
 	"video":"h2Np9_VOtbE",
-	"type": "youtube",
-	"title": "NGS S12 Playoffs Quarterfinal Match vs. Caffeinated Knights"
+	"season": 12,
+	"playoff": 1,
+	"opponent": "Caffeinated Knights"
 },
 {
 	"video":"_10ztZbw3ZQ",
-	"type": "youtube",
-	"title": "NGS S12 Match #10 vs. gillyShark"
+	"season": 12,
+	"week": 10,
+	"opponent": "gillyShark"
 },
 {
 	"video":"fXIA0C2Y2EM",
-	"type": "youtube",
-	"title": "NGS S12 Match #9 vs. Small Potatoes"
+	"season": 12,
+	"week": 9,
+	"opponent": "Small Potatoes"
 },
 {
 	"video":"pqlGbm0OhTw",
-	"type": "youtube",
-	"title": "NGS S12 Match #8 vs. The Wild Squad"
+	"season": 12,
+	"week": 8,
+	"opponent": "The Wild Squad"
 },
 {
 	"video":"4KHUn9ZHfjk",
-	"type": "youtube",
-	"title": "NGS S12 Match #6 vs. Running Wild"
+	"season": 12,
+	"week": 6,
+	"opponent": "Running Wild"
 },
 {
 	"video":"OB1VJH5FKDQ",
-	"type": "youtube",
-	"title": "NGS S12 Match #4 vs. Match Ready"
+	"season": 12,
+	"week": 4,
+	"opponent": "Match Ready"
 },
 {
 	"video":"bka2fFCzFWw",
-	"type": "youtube",
-	"title": "NGS S12 Match #3 vs. Caffeinated Knights"
+	"season": 12,
+	"week": 3,
+	"opponent": "Caffeinated Knights"
 },
 {
 	"video":"p5s_LXCLYTA",
-	"type": "youtube",
-	"title": "NGS S12 Match #1 vs. Phoenix Rising Ruby"
+	"season": 12,
+	"week": 1,
+	"opponent": "Phoenix Rising Ruby"
 }
 ]
 
