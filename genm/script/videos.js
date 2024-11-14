@@ -13,27 +13,27 @@ function createVideo(videoInfo, width, autoplay) {
 		iFrameElement.classList.add("videoContent");
 		iFrameElement.width = width - 24;
 		iFrameElement.height = iFrameElement.width / 16 * 9;
-	
+
 		iFrameElement.style.frameborder = "0";
 		iFrameElement.allowfullscreen = "true";
 		iFrameElement.allow = "fullscreen;"
 		iFrameElement.scrolling = "no";
-	
+
 		divElement.appendChild(iFrameElement);
-	
+
 		var textElement = document.createElement("div");
 		textElement.classList.add("videoText");
-			
+
 		divElement.appendChild(textElement);
 
-	} else { 
+	} else {
 		divElement = divElements[0];
 		var iFrameElement = divElement.childNodes[0];
 		var textElement = divElement.childNodes[1];
 	}
 
 	iFrameElement.src = "https://www.youtube.com/embed/" + videoInfo["video"];
-
+	textElement.innerHTML = "Season " + videoInfo["season"] + " " + videoInfo["game"] + " match vs. " + videoInfo["opponent"];
 	return divElement;
 }
 
@@ -74,7 +74,7 @@ function processVideos() {
 	contentElement = document.getElementsByClassName("content")[0];
 
 	var jsonDATA = JSON.parse(xhr.response);
-	
+
 	if (jsonDATA.length == 0) {
 		contentElement.innerHTML = "Videos coming soon...";
 		return;
