@@ -92,7 +92,10 @@ const version = 2.2; var teamsToFollow = []; var teams = {}; var teamToggle = {}
                         }
                         matchDiv = divisionData.join("");
                     } else {
-                        matchDiv = "";
+                        // rely on the title instead
+                        var matchTitle = match['title'].split(" ");
+                        var divPos = matchTitle.indexOf("Division");
+                        matchDiv = matchTitle[divPos + 1];
                     }
                     matchTime = match['scheduledTime']['startTime']; if (matches[matchTime] == undefined) { matches[matchTime] = []; }
                     matches[matchTime].push([homeTeam, awayTeam, match['matchId'], match['casterUrl'], match['vodLinks'], matchDiv]);
