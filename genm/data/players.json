@@ -62,18 +62,18 @@
 },
 {
 	"name": "LeoRice",
-	"role": "Sub",
+	"role": "Offlaner",
 	"country": "canada",
 	"bid":6690503,
 	"active": true,
-	"roles": ["Tank"]
+	"roles": ["Bruiser"]
 },
 {
 	"name": "bmeduho",
 	"role": "Offlaner",
 	"country": "usa",
 	"bid":6895524,
-	"active": true,
+	"active": false,
 	"roles": ["Bruiser"]
 },
 {
