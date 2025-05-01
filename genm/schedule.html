@@ -1,34 +1,262 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<link rel="stylesheet" href="style/common.css">
-<link rel="stylesheet" href="style/light.css">
-<link rel="stylesheet" href="style/schedule.css">
 <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
 <link rel="manifest" href="images/favicon/site.webmanifest">
-<script src="script/site.js"></script>
-<script src="script/schedule.js"></script>
-<title>Gen. M Esports: Schedule</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gen. M Esports Schedule</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background-color: #111;
+      color: #f0f0f0;
+    }
+    a {
+      color: #ff5500;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    nav {
+      background: #ff5500;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 2rem;
+    }
+    .nav-left img {
+      max-height: 60px;
+    }
+    .nav-right {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .nav-right a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .nav-right a:hover {
+      text-decoration: underline;
+    }
+    main {
+      padding: 2rem;
+    }
+    h2 {
+      border-bottom: 2px solid #ff5500;
+      padding-bottom: 0.5rem;
+    }
+    .match-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .match-card {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .match-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .team-logo {
+      width: 75px;
+      height: 75px;
+      object-fit: contain;
+    }
+    .team-name {
+      font-weight: bold;
+    }
+    .match-info {
+      margin-top: 1rem;
+      text-align: center;
+    }
+    .spoiler {
+      filter: blur(4px);
+      transition: filter 0.3s;
+    }
+    .spoiler.revealed {
+      filter: none;
+    }
+    .reveal-btn {
+      margin-top: 0.5rem;
+      background: #ff5500;
+      border: none;
+      color: #fff;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-<div id="menu" class="menu">
-<img src="images/gen.m.png" class="topLogo" onclick="javascript:window.location.href ='index.html';">
-<a class="menuItem" href="roster.html">Roster</a>
-<a class="menuItem" href="stats.html">Stats</a>
-<a class="menuItem" href="schedule.html">Schedule</a>
-<a class="menuItem" href="videos.html">Videos</a>
-<!--a class="menuItem" href="sponsors.html">Sponsors</a-->
-<div class="colorSwitch">
-  <input id="darkMode" class="cmn-toggle cmn-toggle-round" type="checkbox" onclick="javascript:toggleDarkMode();">
-  <label for="darkMode"></label>
-</div>
-</div>
-<div class="divider">
-</div>
-<div class="content">
-<span>Loading schedule...</span>
-</div>
+  <nav>
+    <div class="nav-left">
+      <img src="gen.m.png" alt="Gen. M Esports Logo">
+    </div>
+    <div class="nav-right">
+      <a href="index.html">Home</a>
+      <a href="news.html">News</a>
+      <a href="roster.html">Roster</a>
+      <a href="stats.html">Statistics</a>
+      <a href="schedule.html">Schedule</a>
+      <a href="videos.html">Videos</a>
+    </div>
+  </nav>
+
+  <main>
+    <h2>Match Schedule</h2>
+    <div class="match-grid" id="matchGrid"></div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Gen. M Esports. All rights reserved.</p>
+  </footer>
+
+  <script>
+    var xhr = new XMLHttpRequest();
+
+    var matches = [];
+
+    function loadSchedule() {
+        // URL
+        var url = "https://www.nexusgamingseries.org/api/schedule/get/matches/scheduled";
+        xhr.addEventListener('loadend', displaySchedule);
+        xhr.open("GET", url);
+        xhr.send();
+    }
+
+    window.addEventListener("load",function(event) {
+        contentElement = document.getElementsByClassName("content")[0];
+        loadSchedule();
+    },false);
+
+    function formatUnixTimestamp(unixTimestamp) {
+        const options = {
+            weekday: 'short',
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true,
+            timeZoneName: 'short'
+        };
+
+        const date = new Date(parseInt(unixTimestamp));
+        return date.toLocaleString('en-US', options).replace(/:\d{2}/, match => match === ':00' ? ':00' : match);
+    }
+
+    function displaySchedule() {
+        var jsonMatches = JSON.parse(xhr.response)['returnObject'];
+
+        const teamname = "Gen.M Esports";
+	
+        var today = Date.now();
+
+        var teamMatches = {};
+
+        for (var match of jsonMatches) {
+            var homeName = match['home']['teamName'];
+            var awayName = match['away']['teamName'];
+            if (homeName == teamname || awayName == teamname) {
+                var datetime = match['scheduledTime']['startTime'];
+                teamMatches[datetime] = match;
+            }
+        }
+        var dates = Object.keys(teamMatches);
+        dates.sort(function(a, b){return b - a});
+        
+        for (var datetime of dates) {
+            var match = teamMatches[datetime];
+            
+            if (!('home' in match) || !('away' in match)) {
+                continue;
+            }
+            var homeName = match['home']['teamName'];
+            var awayName = match['away']['teamName'];
+
+            if (homeName == teamname || awayName == teamname) {
+                var matchItem = {};
+
+                matchItem["date"] = formatUnixTimestamp(datetime);
+
+                matchItem["homeName"] = homeName;
+                matchItem["awayName"] = awayName;
+
+                var homeTicker = homeName;
+                if (match['home']['ticker'] != undefined) {
+                    homeTicker = match['home']['ticker'].toUpperCase();
+                }
+                var awayTicker = awayName;
+                if (match['away']['ticker'] != undefined) {
+                    awayTicker = match['away']['ticker'].toUpperCase();
+                }
+
+                matchItem["home"] = homeTicker;
+                matchItem["away"] = awayTicker;
+
+                matchItem["homeLogo"] = encodeURIComponent(match['home']['logo']);
+                matchItem["awayLogo"] = encodeURIComponent(match['away']['logo']);
+             
+                if (match['reported']) {
+                    matchItem["score"] = match['home']['score'] + " - " + match['away']['score'];
+                }
+                
+                matchItem["caster"] = match['casterName'];
+                matchItem["casterURL"] = match['casterUrl']
+                
+                matchItem["matchID"] = match['matchId'];
+
+                matchItem["vod"] = match['vodLinks'] ? match['vodLinks'][0] : null;
+            
+                matches.push(matchItem);
+            }
+        }
+
+        const matchGrid = document.getElementById('matchGrid');
+
+        if (matches.length > 0) {
+
+            matches.forEach((match, index) => {
+                const card = document.createElement('div');
+                card.className = 'match-card';
+                var homeLogo = match.homeLogo ? match.homeLogo : "defaultTeamLogo.png";
+                var awayLogo = match.homeLogo ? match.awayLogo : "defaultTeamLogo.png";
+                card.innerHTML = `
+                    <div class="match-header">
+                    <img src="https://s3.amazonaws.com/ngs-image-storage/${homeLogo}" class="team-logo" alt="${match.homeName} Logo">
+                    <span class="team-name">${match.home}</span>
+                    <span>vs</span>
+                    <span class="team-name">${match.away}</span>
+                    <img src="https://s3.amazonaws.com/ngs-image-storage/${awayLogo}" class="team-logo" alt="${match.awayName} Logo">
+                    </div>
+                    <div class="match-info">
+                    <div>${match.date}</div>
+                    <div class="spoiler" id="spoiler-${index}" onclick="document.getElementById('spoiler-${index}').classList.add('revealed')"><strong>Score:</strong> ${match.score || "TBD"}</div>
+                    ${match.vod ? `<a href="${match.vod}" target="_blank">Watch VOD</a>` : ''}
+                    </div>
+                    </div>
+                `;
+
+                matchGrid.appendChild(card);
+            });
+        } else {
+            matchGrid.innerHTML = "The battleground is quiet... No matches are scheduled yet. Stay tuned!";
+        }
+    }
+  </script>
 </body>
 </html>

@@ -1,39 +1,315 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<link rel="stylesheet" href="style/common.css">
-<link rel="stylesheet" href="style/light.css">
-<link rel="stylesheet" href="style/profile.css">
-<script src="script/site.js"></script>
-<script src="script/profile.js"></script>
-<link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
-<link rel="manifest" href="images/favicon/site.webmanifest">
-<title>Gen. M Esports: Roster</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="images/favicon/site.webmanifest">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gen. M Esports Roster</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background-color: #111;
+      color: #f0f0f0;
+    }
+    nav {
+      background: #ff5500;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 2rem;
+    }
+    .nav-left img {
+      max-height: 60px;
+    }
+    .nav-right {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .nav-right a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    main {
+      padding: 2rem;
+    }
+    h2 {
+      border-bottom: 2px solid #ff5500;
+      padding-bottom: 0.5rem;
+    }
+    .roster-section {
+      margin-bottom: 2rem;
+    }
+    .player-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    .player-card {
+      background-color: #222;
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+      border: 2px solid rgba(255, 85, 0, 0.5);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .player-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
+    .player-card img.profile {
+      width: 150px;
+      height: 180px;
+      border-radius: 15px;
+      object-fit: cover;
+      margin-bottom: 0.5rem;
+    }
+    .player-card img.flag {
+      width: 34px;
+      height: 20px;
+      vertical-align: middle;
+      margin-left: 5px;
+      object-fit: contain;
+      float: right;
+    }
+    .player-name {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin: 0.5rem 0 0.25rem;
+    }
+    .player-role {
+      font-size: 0.9rem;
+      color: #aaa;
+      text-align: left;
+    }
+    footer {
+      background: #222;
+      text-align: center;
+      padding: 1rem;
+      color: #999;
+    }
+  </style>
 </head>
 <body>
-<div id="menu" class="menu">
-<img src="images/gen.m.png" class="topLogo" onclick="javascript:window.location.href ='index.html';">
-<a class="menuItem" href="roster.html">Roster</a>
-<a class="menuItem" href="stats.html">Stats</a>
-<a class="menuItem" href="schedule.html">Schedule</a>
-<a class="menuItem" href="videos.html">Videos</a>
-<!--a class="menuItem" href="sponsors.html">Sponsors</a-->
-<div class="colorSwitch">
-  <input id="darkMode" class="cmn-toggle cmn-toggle-round" type="checkbox" onclick="javascript:toggleDarkMode();">
-  <label for="darkMode"></label>
-</div>
-</div>
-<div class="divider">
-</div>
-<div class="content center">
-<div class="players center" id="active">
-<h3>Active Squad</h3>
-</div>
-<div class="players center" id="former">
-<h3>Former Players</h3>
-</div>
-</div>
+  <nav>
+    <div class="nav-left">
+      <img src="images/gen.m.png" alt="Gen. M Esports Logo">
+    </div>
+    <div class="nav-right">
+      <a href="index.html">Home</a>
+      <a href="news.html">News</a>
+      <a href="roster.html">Roster</a>
+      <a href="stats.html">Statistics</a>
+      <a href="schedule.html">Schedule</a>
+      <a href="videos.html">Videos</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="roster-section">
+      <h2>Current Roster</h2>
+      <div class="player-grid" id="active">
+      </div>
+    </section>
+
+    <section class="roster-section">
+      <h2>Past Players</h2>
+      <div class="player-grid" id="inactive">
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Gen. M Esports. All rights reserved.</p>
+  </footer>
+  <script>
+    const roster = [
+{
+	"name": "infafox",
+	"role": "Assassin",
+	"country": "usa",
+	"bid": 690175,
+	"active": true,
+},
+{
+	"name": "Ace",
+	"role": "Assassin",
+	"country": "usa",
+	"bid": 279912,
+	"active": false,
+},
+{
+	"name": "RandyNewman",
+	"role": "Flex",
+	"country": "usa",
+	"bid": 8421631,
+	"active": false,
+	"picture": "randynewman.png"
+},
+{
+	"name": "Ectar",
+	"role": "Healer",
+	"country": "usa",
+	"bid": 369687,
+	"active": false,
+	"picture": "ectar.png"
+},
+{
+	"name": "Majesty",
+	"role": "Assasin",
+	"country": "usa",
+	"bid": 6206532,
+	"active": false,
+	"picture": "majesty.png"
+},
+{
+	"name": "DuffMcWhalen",
+	"role": "Assasin",
+	"country": "usa",
+	"bid": 846273,
+	"active": false,
+	"picture": "duffmcwhalen.png"
+},
+{
+	"name": "Patienc3",
+	"role": "Sub",
+	"country": "south.korea",
+	"bid":591263,
+	"active": true,
+	"picture": "patienc3.png"
+},
+{
+	"name": "LeoRice",
+	"role": "Offlaner",
+	"country": "canada",
+	"bid":6690503,
+	"active": true,
+},
+{
+	"name": "bmeduho",
+	"role": "Offlaner",
+	"country": "usa",
+	"bid":6895524,
+	"active": false,
+},
+{
+	"name": "JohnBunyan",
+	"role": "Sub",
+	"country": "usa",
+	"bid":7845610,
+	"active": false,
+},
+{
+	"name": "French",
+	"role": "Flex",
+	"country": "usa",
+	"bid": 3754476,
+	"active": false,
+},
+{
+	"name": "IJustFizzed",
+	"role": "Offlane",
+	"country": "usa",
+	"bid":591263,
+	"active": false,
+},
+{
+	"name": "Joonin",
+	"role": "Sub",
+	"country": "usa",
+	"bid": 3754476,
+	"active": false,
+},
+{
+	"name": "Logicalia",
+	"role": "Flex",
+	"country": "usa",
+	"bid": 1880026,
+	"active": false,
+},
+{
+	"name": "RandiNuMan",
+	"role": "Healer",
+	"country": "usa",
+	"bid": 3754476,
+	"active": false,
+},
+{
+	"name": "Tax1k",
+	"role": "Tank",
+	"country": "usa",
+	"bid": 507986,
+	"active": false,
+  "picture": "tax1k.png"
+},
+{
+	"name": "Yonners",
+	"role": "Assassin",
+	"country": "usa",
+	"bid": 5152170,
+	"active": false,
+},
+{
+	"name": "Cauthon",
+	"role": "Tank",
+	"country": "usa",
+	"bid": 2004752,
+	"active": true,
+},
+{
+	"name": "GreekFire",
+	"role": "Sub",
+	"country": "usa",
+	"bid": 10725023,
+	"active": true,
+},
+{
+	"name": "Kobo",
+	"role": "Assassin",
+	"country": "usa",
+	"bid": 8007331,
+	"active": true,
+},
+{
+  "name": "SrMacofCheez",
+  "role": "Healer",
+  "country": "usa",
+  "bid": 4973177,
+  "active": true,
+},
+]
+
+const sections = [true, false];
+
+sections.forEach((section) => {
+  console.log(section);
+  const container = document.getElementById(section ? "active" : "inactive");
+
+  roster.forEach((player) => {
+    if (player.active == section) {
+      const card = document.createElement("div");
+      card.className = "player-card";
+      if (!player.picture) {
+        console.log(player.name);
+        player.picture = "profile.generic.png";
+      }
+      card.innerHTML = `
+        <img class="profile" src="images/profile/${player.picture}" alt="${player.name}">
+        <div class="player-name">${player.name}</div>
+        <div class="player-role">${player.role} <img class="flag" src="images/flags/${player.country}.png" alt="BR"></div>
+      `;
+      container.appendChild(card);
+    } 
+  });
+});
+
+  </script>
 </body>
 </html>
+

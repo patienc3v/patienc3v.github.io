@@ -1,75 +1,74 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<link rel="stylesheet" href="style/common.css">
-<link rel="stylesheet" href="style/light.css">
-<link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
-<link rel="manifest" href="images/favicon/site.webmanifest">
-<style>
-@font-face {
-  font-family: 'Aldo';
-  src: url('style/AldotheApache.ttf') format('truetype');
-}
-.welcome {
-	padding-top: 30px;
-	text-align: center;
-	font-size: 60px;
-	font-weight: bold;
-	font-family: Aldo, Arial, Helvetica, sans-serif;
-	-webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
-	-webkit-text-stroke-width: 1px;
-	-webkit-text-stroke-color: black;
-}
-.teamportrait {
-  border: 10px solid #fff;
-}
-.content {
-  color: #333;
-}
-</style>
-<script src="script/site.js"></script>
-<title>Gen. M Esports</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="images/favicon/site.webmanifest">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gen. M Esports</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background-color: #111;
+      color: #f0f0f0;
+    }
+    nav {
+      background: #ff5500;  
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 2rem;
+    }
+    .nav-left img {
+      max-height: 60px;
+    }
+    .nav-right {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .nav-right a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    main {
+      padding: 2rem;
+      text-align: center;
+    }
+    footer {
+      background: #222;
+      text-align: center;
+      padding: 1rem;
+      color: #999;
+    }
+  </style>
 </head>
 <body>
-<div id="menu" class="menu">
-<img src="images/gen.m.png" class="topLogo" onclick="javascript:window.location.href ='index.html';">
-<a class="menuItem" href="roster.html">Roster</a>
-<a class="menuItem" href="stats.html">Stats</a>
-<a class="menuItem" href="schedule.html">Schedule</a>
-<a class="menuItem" href="videos.html">Videos</a>
-<!--a class="menuItem" href="sponsors.html">Sponsors</a-->
-<div class="colorSwitch">
-  <input id="darkMode" class="cmn-toggle cmn-toggle-round" type="checkbox" onclick="javascript:toggleDarkMode();">
-  <label for="darkMode"></label>
-</div>
-</div>
-<div class="divider">
-</div>
-<div class="content" style='background-image: url("images/genm.background.png"); background-repeat: repeat;'>
-<div class="welcome">WELCOME TO GEN.M ESPORTS</div>
-<h3>NGS Season 19</h3>
-<p>Good luck to Cauthon, infafox, Kobo, SrMacofCheez, LeoRice, GreekFire, and Patienc3!</p>
-<h3>NGS Season 18</h3>
-<p>Good luck to Cauthon, infafox, Kobo, SrMacofCheez, bmeduho, LeoRice, GreekFire, and Patienc3!</p>
-<p>And congratulations to SrMacofCheez, Patienc3, Cauthon, GreekFire, Kobo, infafox, bmeduho, and LeoRice (pictured left to right below) on winning the grand championship in Division B!</p>
-<img src="images/gen.m.team.ngs.s18.jpg" class="teamportrait" alt="Created by pencilbleed https://www.fiverr.com/pencilbleed">
-<h3>NGS Season 17</h3>
-<p>RandyNewman returns!</p>
-<p>And welcome, Cauthon, GreekFire, and Kobo!</p>
-<h3>NGS Season 16</h3>
-<p>Gen. M is back! Welcome, DuffMcWhalen, LeoRice, bmeduho, and JohnBunyan!</p>
-<p>Gen. M finished the season in second place in Division A!</p>
-<h3>NGS Season 15</h3>
-<p>Gen. M is taking a break for NGS Season 15! We will be back!</p>
-<h3>NGS Season 14</h3>
-<p>Ace, Ectar, and LeoRice join the team for NGS Season 14!</p>
-<h3>NGS Season 13</h3>
-<p>Logicalia, French, RandyNewman, Joonin, and RandiNuMan join the team for NGS Season 13!</p>
-<h3>NGS Season 12</h3>
-<p>Congratulations to infafox, IJustFizzed, Majesty, Patienc3, Tax1k, and Yonners (pictured left to right below) on winning the grand championship in the Nexus division!</p>
-<img src="images/gen.m.team.ngs.s12.jpg" class="teamportrait" alt="Created by pencilbleed https://www.fiverr.com/pencilbleed">
-</div>
+  <nav>
+    <div class="nav-left">
+      <img src="images/gen.m.png" alt="Gen. M Esports Logo">
+    </div>
+    <div class="nav-right">
+      <a href="news.html">News</a>
+      <a href="roster.html">Roster</a>
+      <a href="stats.html">Statistics</a>
+      <a href="schedule.html">Schedule</a>
+      <a href="videos.html">Videos</a>
+    </div>
+  </nav>
+
+  <main>
+    <h1>Welcome to GEN M Esports</h1>
+    <p>Select a section above to explore our team.</p>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 GEN M Esports. All rights reserved.</p>
+  </footer>
 </body>
 </html>
+
