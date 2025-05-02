@@ -23,7 +23,7 @@
       <a href="schedule.html">Schedule</a>
       <a href="videos.html">Videos</a>
     </div>
-    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <a href="javascript:void(0);" class="icon" onclick="javascript:toggleMenu();">
     <i class="fa fa-bars"></i>
     </a>
   </nav>
@@ -36,6 +36,17 @@
   <footer>
     <p>&copy; 2025 GEN M Esports. All rights reserved.</p>
   </footer>
+
+  <script>
+    const menu = document.getElementById("menu");
+    function toggleMenu() {
+      if (menu.style.display === "block") {
+        menu.style.display = "none";
+      } else {
+        menu.style.display = "block";
+      }
+    } 
+  </script>
 </body>
 </html>
 
