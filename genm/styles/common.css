@@ -40,7 +40,7 @@ nav a {
   padding: 10px;
 }
 nav a.icon {
-  background: black;
+/*  background: black; */
   display: block;
   position: absolute;
   right: 0;
@@ -48,9 +48,10 @@ nav a.icon {
   padding: 30px 20px 31px;
 }
 nav a.icon:hover {
-  background-color: #333;
+  background: #ff5500;  
   color: #fff;
 }
+
 nav a:hover {
   background-color: #222;
   color: #fff;
