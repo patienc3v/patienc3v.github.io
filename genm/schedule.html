@@ -124,7 +124,7 @@
 
   <main>
     <h2>Match Schedule</h2>
-    <div class="match-grid" id="matchGrid"></div>
+    <div class="match-grid" id="matchGrid">Loading matches...</div>
   </main>
 
   <footer>
@@ -236,6 +236,7 @@
         const matchGrid = document.getElementById('matchGrid');
 
         if (matches.length > 0) {
+            matchGrid.innerHTML = "";
 
             matches.forEach((match, index) => {
                 const card = document.createElement('div');
