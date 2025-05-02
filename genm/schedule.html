@@ -151,7 +151,6 @@
 
     function formatUnixTimestamp(unixTimestamp) {
         const options = {
-            weekday: 'short',
             year: 'numeric',
             month: 'short',
             day: 'numeric',
@@ -162,7 +161,9 @@
         };
 
         const date = new Date(parseInt(unixTimestamp));
-        return date.toLocaleString('en-US', options).replace(/:\d{2}/, match => match === ':00' ? ':00' : match);
+        const dateStr = date.toLocaleString('en-US', options).replace(/:\d{2}/, match => match === ':00' ? ':00' : match);
+        const dateParts = dateStr.split(', ');
+        return dateParts[0] + ', ' + dateParts[1] + ' @ ' + dateParts[2];
     }
 
     function displaySchedule() {
@@ -251,7 +252,7 @@
                     </div>
                     <div class="match-info">
                     <div>${match.date}</div>
-                    <div class="spoiler" id="spoiler-${index}" onclick="document.getElementById('spoiler-${index}').classList.add('revealed')"><strong>Score:</strong> ${match.score || "TBD"}</div>
+                    ${match.score ? `<div class="spoiler" id="spoiler-${index}" onclick="document.getElementById('spoiler-${index}').classList.add('revealed')"><strong>Score:</strong> ${match.score}</div>` : ''}
                     ${match.vod ? `<a href="${match.vod}" target="_blank">Watch VOD</a>` : ''}
                     </div>
                     </div>
