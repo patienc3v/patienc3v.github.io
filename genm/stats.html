@@ -5,102 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gen. M Esports Statistics</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Orbitron', sans-serif;
-      background-color: #111;
-      color: #f0f0f0;
-    }
-    a {
-      color: #ff5500;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    nav {
-      background: #ff5500;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.5rem 2rem;
-    }
-    .nav-left img {
-      max-height: 60px;
-    }
-    .nav-right {
-      display: flex;
-      gap: 1.5rem;
-    }
-    .nav-right a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .nav-right a:hover {
-      text-decoration: underline;
-    }
-    main {
-      padding: 2rem;
-    }
-    h2 {
-      border-bottom: 2px solid #ff5500;
-      padding-bottom: 0.5rem;
-    }
-    .stats-section {
-      margin-bottom: 2rem;
-    }
-    .team-stats, .player-stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(345px, 1fr));
-      gap: 1rem;
-    }
-    .stat-card {
-      background: #1a1a1a;
-      padding: 1rem;
-      border-radius: 8px;
-      border: 1px solid #333;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .stat-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-    }
-    .stat-card h3 {
-      margin-top: 0;
-      border-bottom: 1px solid #ff5500;
-      padding-bottom: 0.3rem;
-    }
-    .stat-row {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 0.3rem;
-      transition: font-size 0.3s ease;
-    }
-    .stat-row:hover {
-      font-size: 125%;
-    }
-    .top-heroes {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-    .top-heroes img {
-      width: 90px;
-      height: 90px;
-      object-fit: contain;
-      margin: auto;
-    }
-  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="styles/common.css">
+  <link rel="stylesheet" href="styles/stats.css">
 </head>
 <body>
   <nav>
-    <div class="nav-left">
-      <img src="images/gen.m.png" alt="Gen. M Esports Logo">
-    </div>
-    <div class="nav-right">
+    <img src="images/gen.m.png" alt="Gen. M Esports Logo">
+    <span>Gen. M Esports</span>
+    <div id="menu">
       <a href="index.html">Home</a>
       <a href="news.html">News</a>
       <a href="roster.html">Roster</a>
@@ -108,6 +21,9 @@
       <a href="schedule.html">Schedule</a>
       <a href="videos.html">Videos</a>
     </div>
+    <a href="javascript:void(0);" class="icon" onclick="javascript:toggleMenu();">
+    <i class="fa fa-bars"></i>
+    </a>
   </nav>
 
   <main>
@@ -130,6 +46,15 @@
 
   <script>
     const data = {"players":{"infafox":{"numGames":16,"mostPlayed":["Zagara","Greymane","Garrosh","Falstad","Tychus","Alarak","Johanna","Diablo","Mephisto","Dehaka"],"KDA":2.3859649122807016,"Takedowns":8.5,"Deaths":3.5625,"KillParticipation":0.8818580907396698,"HeroDamage":66192.875,"DPM":3052.656798768207,"DamageTaken":61238.875,"Healing":305.75,"HPM":596.5865811204626,"SiegeDamage":85989.5,"TeamfightHeroDamage":31979.6875,"TeamfightHealingDone":0,"TeamfightDamageTaken":39799.5,"ExperienceContribution":11023.6875,"XPM":518.103020925218,"TimeCCdEnemyHeroes":92.4375,"TimeRootingEnemyHeroes":3.25,"TimeSilencingEnemyHeroes":4.5625,"TimeStunningEnemyHeroes":17.0625,"TimeSpentDead":140.125,"length":1216.07421875,"TimeSpentDeadPct":0.11484304292647471},"Cauthon":{"numGames":22,"mostPlayed":["Johanna","E.T.C.","Varian","Sonya","Anub'arak","Imperius","Dehaka"],"KDA":3.3877551020408165,"Takedowns":7.545454545454546,"Deaths":2.227272727272727,"KillParticipation":0.8698533852669191,"HeroDamage":28076.590909090908,"DPM":1458.5136890659926,"DamageTaken":75616.72727272728,"Healing":1788.090909090909,"HPM":1228.4020259285896,"SiegeDamage":55636.77272727273,"TeamfightHeroDamage":18502.227272727272,"TeamfightHealingDone":475.1363636363636,"TeamfightDamageTaken":52185,"ExperienceContribution":8712.318181818182,"XPM":458.5960452664967,"TimeCCdEnemyHeroes":71.86363636363636,"TimeRootingEnemyHeroes":0,"TimeSilencingEnemyHeroes":4.181818181818182,"TimeStunningEnemyHeroes":15.954545454545455,"TimeSpentDead":94.5,"length":1159.5056818181818,"TimeSpentDeadPct":0.0785774091824139},"SrMacofCheez":{"numGames":19,"mostPlayed":["Rehgar","Lunara","Stukov","Sylvanas","Anduin","Valla"],"KDA":2.8636363636363638,"Takedowns":6.631578947368421,"Deaths":2.3157894736842106,"KillParticipation":0.8569688109161793,"HeroDamage":32386.105263157893,"DPM":1664.6158417592662,"DamageTaken":34076.89473684211,"Healing":39903.78947368421,"HPM":2053.0382817499158,"SiegeDamage":58480.84210526316,"TeamfightHeroDamage":15762.473684210527,"TeamfightHealingDone":6052.0526315789475,"TeamfightDamageTaken":17801.526315789473,"ExperienceContribution":8347.421052631578,"XPM":425.29990115126276,"TimeCCdEnemyHeroes":1124.421052631579,"TimeRootingEnemyHeroes":2.263157894736842,"TimeSilencingEnemyHeroes":8,"TimeStunningEnemyHeroes":2.8947368421052633,"TimeSpentDead":95.47368421052632,"length":1152.3322368421052,"TimeSpentDeadPct":0.08231760109685993},"Kobo":{"numGames":19,"mostPlayed":["Tassadar","Chromie","Mephisto","Blaze","Zagara","Leoric","Dehaka","Xul","Junkrat"],"KDA":2.923076923076923,"Takedowns":6,"Deaths":2.0526315789473686,"KillParticipation":0.7954825632457212,"HeroDamage":48706,"DPM":2566.879618620024,"DamageTaken":30134.157894736843,"Healing":157.73684210526315,"HPM":191.37622188207663,"SiegeDamage":108504.57894736843,"TeamfightHeroDamage":19732.36842105263,"TeamfightHealingDone":0,"TeamfightDamageTaken":18087.526315789473,"ExperienceContribution":11895.736842105263,"XPM":631.8718102756864,"TimeCCdEnemyHeroes":404.10526315789474,"TimeRootingEnemyHeroes":4.578947368421052,"TimeSilencingEnemyHeroes":3.1578947368421053,"TimeStunningEnemyHeroes":10.157894736842104,"TimeSpentDead":87.36842105263158,"length":1135.4769736842106,"TimeSpentDeadPct":0.07543414587502706},"LeoRice":{"numGames":17,"mostPlayed":["Blaze","Dehaka","Leoric","Yrel","Chen"],"KDA":2.511111111111111,"Takedowns":6.647058823529412,"Deaths":2.6470588235294117,"KillParticipation":0.7692806677326801,"HeroDamage":33616.41176470588,"DPM":1682.1918605091698,"DamageTaken":72658.35294117648,"Healing":91,"HPM":951.0337847047351,"SiegeDamage":133696.64705882352,"TeamfightHeroDamage":17728.470588235294,"TeamfightHealingDone":0,"TeamfightDamageTaken":40539.82352941176,"ExperienceContribution":18403.470588235294,"XPM":924.5099330950453,"TimeCCdEnemyHeroes":164.52941176470588,"TimeRootingEnemyHeroes":0,"TimeSilencingEnemyHeroes":5,"TimeStunningEnemyHeroes":18.941176470588236,"TimeSpentDead":107.52941176470588,"length":1187.797794117647,"TimeSpentDeadPct":0.09252915221054507},"Patienc3":{"numGames":7,"mostPlayed":["Brightwing","Stukov","Uther","Deckard"],"KDA":2.3125,"Takedowns":5.285714285714286,"Deaths":2.2857142857142856,"KillParticipation":0.7609497645211931,"HeroDamage":15345,"DPM":797.839437571146,"DamageTaken":25322.85714285714,"Healing":80720.14285714286,"HPM":4000.899459075635,"SiegeDamage":26839.85714285714,"TeamfightHeroDamage":6555.857142857143,"TeamfightHealingDone":12583.142857142857,"TeamfightDamageTaken":13923.42857142857,"ExperienceContribution":5518.428571428572,"XPM":268.9680611600504,"TimeCCdEnemyHeroes":125.14285714285714,"TimeRootingEnemyHeroes":5.714285714285714,"TimeSilencingEnemyHeroes":35.57142857142857,"TimeStunningEnemyHeroes":8.428571428571429,"TimeSpentDead":94.85714285714286,"length":1212.642857142857,"TimeSpentDeadPct":0.08239578393771184},"GreekFire":{"numGames":5,"mostPlayed":["Malfurion","Lucio","Stukov","Rehgar"],"KDA":5.142857142857143,"Takedowns":7.2,"Deaths":1.4,"KillParticipation":0.9736842105263158,"HeroDamage":15557,"DPM":726.7193956809056,"DamageTaken":22063.4,"Healing":87324.2,"HPM":4170.689962080844,"SiegeDamage":13356.6,"TeamfightHeroDamage":6997,"TeamfightHealingDone":13027.2,"TeamfightDamageTaken":11500.6,"ExperienceContribution":4240.2,"XPM":207.6060092864687,"TimeCCdEnemyHeroes":1154.2,"TimeRootingEnemyHeroes":8.6,"TimeSilencingEnemyHeroes":25.8,"TimeStunningEnemyHeroes":14.4,"TimeSpentDead":61.8,"length":1215.475,"TimeSpentDeadPct":0.045804250009265114},"Gokue":{"numGames":7,"mostPlayed":["Junkrat","Falstad","Thrall","Greymane","Tassadar","Medivh"],"KDA":2.3333333333333335,"Takedowns":5,"Deaths":2.142857142857143,"KillParticipation":0.8255847953216374,"HeroDamage":37244.857142857145,"DPM":2034.946091999942,"DamageTaken":28558.571428571428,"Healing":1156.7142857142858,"HPM":345.7096694103811,"SiegeDamage":94329.14285714286,"TeamfightHeroDamage":12804,"TeamfightHealingDone":58,"TeamfightDamageTaken":14578.714285714286,"ExperienceContribution":11970.285714285714,"XPM":613.0893296989418,"TimeCCdEnemyHeroes":120.42857142857143,"TimeRootingEnemyHeroes":9.285714285714286,"TimeSilencingEnemyHeroes":3.142857142857143,"TimeStunningEnemyHeroes":2.5714285714285716,"TimeSpentDead":73.71428571428571,"length":1084.6160714285713,"TimeSpentDeadPct":0.07223976589260328}},"team":{"NumGames":24,"TeamKDA":0.7279411764705882,"AvgKDA":2.982529361042049,"Takedowns":198,"Deaths":272,"AvgHeroDamage":188750.875,"AvgHealing":81096.45833333333,"AvgTimeCCdEnemyHeroes":1816.625,"AvgTimeRootingEnemyHeroes":13.75,"AvgTimeSilencingEnemyHeroes":40.291666666666664,"AvgTimeStunningEnemyHeroes":58.083333333333336,"AvgTimeDead":478.2083333333333}};
+
+    const menu = document.getElementById("menu");
+    function toggleMenu() {
+      if (menu.style.display === "block") {
+        menu.style.display = "none";
+      } else {
+        menu.style.display = "block";
+      }
+    } 
 
     const description = {
       'numgames': "# of Games",

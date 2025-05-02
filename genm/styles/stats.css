@@ -1,0 +1,45 @@
+.stats-section {
+  margin-bottom: 2rem;
+}
+.team-stats, .player-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(345px, 1fr));
+  gap: 1rem;
+}
+.stat-card {
+  background: #1a1a1a;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 2px solid #333;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+.stat-card h3 {
+  margin-top: 0;
+  border-bottom: 1px solid #ff5500;
+  padding-bottom: 0.3rem;
+}
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.3rem;
+  transition: font-size 0.3s ease;
+}
+.stat-row:hover {
+  font-size: 125%;
+}
+.top-heroes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.top-heroes img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  margin: auto;
+}

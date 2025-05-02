@@ -1,0 +1,46 @@
+.roster-section {
+  margin-bottom: 2rem;
+}
+.player-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+.player-card {
+  background-color: #1a1a1a;
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  border: 2px solid #333;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.player-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+.player-card img.profile {
+  width: 150px;
+  height: 180px;
+  border-radius: 15px;
+  object-fit: cover;
+  margin-bottom: 0.5rem;
+}
+.player-card img.flag {
+  width: 34px;
+  height: 20px;
+  vertical-align: middle;
+  margin-left: 5px;
+  object-fit: contain;
+  float: right;
+}
+.player-name {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin: 0.5rem 0 0.25rem;
+}
+.player-role {
+  font-size: 0.9rem;
+  color: #aaa;
+  text-align: left;
+}
