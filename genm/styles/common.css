@@ -4,9 +4,6 @@ body {
   background-color: #111;
   color: #f0f0f0;
 }
-img {
-  max-width: 100%;
-}
 a {
   color: #ff5500;
   text-decoration: none;
@@ -90,4 +87,7 @@ h2 {
 .pagination button.active {
   background: #ff5500;
   font-weight: bold;
+}
+img {
+  max-width: 100%;
 }
