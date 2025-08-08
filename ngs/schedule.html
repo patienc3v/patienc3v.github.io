@@ -2,8 +2,9 @@
 <head>
     <title>NGS Match Schedule</title>
     <script>/*<![CDATA[*/
-var season = 19;
-var divisions = ["Heroic", "A", "B-East-East", "B-West-West", "C", "D", "E"]; 
+var season = 20;
+var divisions = ["Heroic", "Nexus", "A", "B-East", "B-West", "C", "D", "D-West"]; 
+var translations = {"D": "D-East"};
 const version = 2.2; var teamsToFollow = []; var teams = {}; var teamToggle = {}; var buffer = 60; buffer *= 60000; var currentStep = 0; var totalSteps = divisions.length + 1; var data; var configuration;
       var loaded = false;
       function updatePercentage() {
@@ -60,7 +61,7 @@ const version = 2.2; var teamsToFollow = []; var teams = {}; var teamToggle = {}
             }
             function loadFilter() {
                 var selector = document.getElementById("selector"); var teamTable = "<table width='100%'>"; teamTable += "<thead><tr>"; teamTable += "<td class='padding'>Division</td><td class='padding'>Teams</td>"; teamTable += "</tr></thead>"; teamTable += "<tbody>"; for (var index = 0; index < divisions.length; index++) {
-                    teamTable += "<tr>"; var div = divisions[index]; teamTable += "<td class='padding'>" + div + "</td>"; teamTable += "<td class='padding'>"
+                    teamTable += "<tr>"; var div = divisions[index]; teamTable += "<td class='padding'>" + (translations[div] || div) + "</td>"; teamTable += "<td class='padding'>"
                     var teamsToDisplay = teams[div]; for (var team of teamsToDisplay) { teamTable += '<button class="' + (teamToggle[div][team] ? "buttonOn" : "buttonOff") + '" onClick=\"javascript:toggleTeam(' + index + ",\'" + team + '\');\" id="' + team + '">' + team + '</button>\n'; }
                     teamTable += "</td></tr>";
                 }
