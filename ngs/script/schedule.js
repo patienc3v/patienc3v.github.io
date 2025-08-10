@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const season = 20;
     const divisions = ['heroic', 'nexus', 'a', 'b-east', 'b-west', 'c', 'd', 'd-west'];
+    const divOrder = ['Heroic', 'Nexus'];
     let divisionLookup = {};
 
     // --- DOM Elements ---
@@ -236,13 +237,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const team1Logo = teamLogoMap.get(match.team1) || '';
             const team2Logo = teamLogoMap.get(match.team2) || '';
             const matchTime = new Date(match.time).toLocaleString([], { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+            let divisionName = divisionNameMap.get(match.divisionId);
+            divisionName = divOrder.includes(divisionName) ? divisionName + " Division" : "Division " + divisionName;
 
             let linksHTML = '';
-            if (match.twitchUrl) linksHTML = `<a href="${match.twitchUrl}" target="_blank" class="twitch-link">Twitch</a>`;
-            if (match.youtubeUrl) linksHTML = `<a href="${match.youtubeUrl}" target="_blank" class="youtube-link">VOD</a>`;
+            if (match.twitchUrl) {
+                const twitchUser = match.twitchUrl.split('/').pop() || 'Twitch';
+                linksHTML = `<a href="${match.twitchUrl}" target="_blank" class="twitch-link">${twitchUser}</a>`;
+            }
+            if (match.youtubeUrl) linksHTML += `<a href="${match.youtubeUrl}" target="_blank" class="youtube-link">${twitchUser}</a>`;
 
             sectionHTML += `
                 <article class="match">
+                    <div class="match-division">${divisionName}</div>
                     <div class="team-info">
                         <img src="${team1Logo}" alt="${match.team1} Logo" class="team-logo">
                         <span class="team-name">${match.team1}</span>
@@ -250,7 +257,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span class="vs">VS</span>
                     <div class="team-info right">
                         <span class="team-name">${match.team2}</span>
-                        <img src="${team2Logo}" alt="${match.team2} Logo" class="team-logo" onerror="this.onerror = null; this.src = 'https://s3.amazonaws.com/ngs-image-storage/defaultTeamLogo.png';">
+                        <img src="${team2Logo}" alt="${match.team2} Logo" class="team-logo">
                     </div>
                     <div class="match-details">
                         <div class="match-time">${matchTime}</div>
