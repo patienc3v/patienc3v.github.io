@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let divisionLookup = {};
 
     // --- DOM Elements ---
+    const body = document.body;
     const scheduleContainer = document.getElementById('schedule-container');
     const teamsListContainer = document.getElementById('teams-list-container');
-    const sidebar = document.getElementById('favorites-sidebar');
-    const toggleBtn = document.getElementById('toggle-favorites-btn');
+    const toggleBtn = document.getElementById('toggle-sidebar-btn');
     const loadingContainer = document.getElementById('loading-container');
 
     // --- API & Data ---
@@ -32,10 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function setupEventListeners() {
         teamsListContainer.addEventListener('click', handleFavoriteClick);
 
-        // Add logic to lock body scroll when sidebar is open on mobile
+        // Single toggle button for all sidebar functionality
         toggleBtn.addEventListener('click', () => {
-            const isOpen = sidebar.classList.toggle('open');
-            body.classList.toggle('sidebar-open', isOpen);
+            body.classList.toggle('sidebar-is-open');
         });
     }
 
@@ -236,7 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
         matches.forEach(match => {
             const team1Logo = teamLogoMap.get(match.team1) || '';
             const team2Logo = teamLogoMap.get(match.team2) || '';
-            const matchTime = new Date(match.time).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' });
+            const matchTime = new Date(match.time).toLocaleString([], { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
 
             let linksHTML = '';
             if (match.twitchUrl) linksHTML = `<a href="${match.twitchUrl}" target="_blank" class="twitch-link">Twitch</a>`;
