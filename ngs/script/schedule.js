@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const teamsListContainer = document.getElementById('teams-list-container');
     const toggleBtn = document.getElementById('toggle-sidebar-btn');
     const loadingContainer = document.getElementById('loading-container');
+    const favAllBtn = document.getElementById('fav-all-btn');
+    const favNoneBtn = document.getElementById('fav-none-btn');
 
     // --- API & Data ---
     // Replace these with your actual API endpoints
@@ -37,6 +39,24 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleBtn.addEventListener('click', () => {
             body.classList.toggle('sidebar-is-open');
         });
+
+        favAllBtn.addEventListener('click', () => {
+            allDivisions.forEach(division => {
+                division.teams.forEach(team => favoriteTeams.add(team.name));
+            });
+            updateAfterBulkFavoriteChange();
+        });
+
+        favNoneBtn.addEventListener('click', () => {
+            favoriteTeams.clear();
+            updateAfterBulkFavoriteChange();
+        });
+    }
+
+    function updateAfterBulkFavoriteChange() {
+        saveFavorites();
+        renderFavoritesList();
+        renderFilteredMatches();
     }
 
     // --- Data Fetching & Loading ---
