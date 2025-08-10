@@ -1,0 +1,161 @@
+/* style.css */
+:root {
+    --primary-color: #121212;
+    --secondary-color: #1f1f1f;
+    --accent-color: #f76300;
+    --text-color: #ffffff;
+    --font-family: 'Orbitron', sans-serif;
+}
+
+body {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    font-family: var(--font-family);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* --- Main Page Header --- */
+#page-header {
+    background-color: var(--secondary-color);
+    padding: 15px 20px;
+    text-align: center;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--accent-color);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    z-index: 20;
+    flex-shrink: 0;
+}
+
+#page-header h1 {
+    margin: 0;
+    font-size: 2em;
+    color: var(--accent-color);
+    text-shadow: 0 0 10px var(--accent-color);
+}
+
+/* --- Content Wrapper --- */
+#content-wrapper {
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+/* --- Favorites Sidebar --- */
+#favorites-sidebar {
+    width: 280px;
+    background-color: var(--secondary-color);
+    padding: 20px;
+    height: 100%;
+    overflow-y: auto;
+    border-right: 2px solid var(--accent-color);
+    box-shadow: 5px 0 15px rgba(247, 99, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    flex-shrink: 0;
+}
+
+#favorites-sidebar h2 {
+    text-align: center;
+    color: var(--accent-color);
+    margin-top: 0;
+}
+
+/* Collapsible Division List */
+.division-select details { margin-bottom: 10px; }
+.division-select summary { font-size: 1.2em; font-weight: bold; cursor: pointer; padding: 10px; background-color: #252525; border-radius: 5px; list-style: none; }
+.division-select summary::before { content: '▶ '; display: inline-block; transition: transform 0.2s; }
+.division-select details[open] summary::before { transform: rotate(90deg); }
+
+/* --- New Click-to-Favorite Styles --- */
+.teams-list {
+    padding: 10px 5px;
+}
+
+.team-favorite-item {
+    padding: 10px 15px;
+    margin: 5px 0;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-weight: bold;
+    border: 1px solid transparent;
+}
+
+.team-favorite-item:hover {
+    background-color: #333;
+}
+
+.team-favorite-item.active {
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    border-color: var(--accent-color);
+    text-shadow: none;
+}
+.team-favorite-item.active::before {
+    content: '★ ';
+    color: var(--primary-color);
+}
+
+
+/* --- Main Content --- */
+#main-content {
+    flex-grow: 1;
+    padding: 20px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+#main-content header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    color: var(--accent-color);
+    text-shadow: 0 0 10px var(--accent-color);
+}
+
+#main-content header h1 { font-size: 1.5em; }
+#toggle-favorites-btn { display: none; background: var(--secondary-color); border: 1px solid var(--accent-color); color: var(--accent-color); font-size: 1.5em; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
+#schedule-container { display: flex; flex-direction: column; gap: 30px; }
+
+/* --- Loading/Progress Bar Styles --- */
+#loading-container { display: none; flex-direction: column; align-items: center; justify-content: center; padding: 60px 20px; width: 100%; }
+#loading-container.active { display: flex; }
+.loading-text { margin-bottom: 20px; font-size: 1.5em; color: var(--accent-color); }
+.progress-bar { width: 80%; max-width: 400px; height: 10px; background-color: #252525; border-radius: 5px; overflow: hidden; border: 1px solid var(--accent-color); }
+.progress-bar::before { content: ''; display: block; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, var(--accent-color), transparent); border-radius: 5px; animation: loading-animation 1.5s infinite linear; }
+@keyframes loading-animation { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+
+/* --- Match Styles --- */
+.division { background-color: var(--secondary-color); border: 1px solid var(--accent-color); border-radius: 8px; padding: 20px; box-shadow: 0 0 15px rgba(247, 99, 0, 0.2); }
+.division-title { font-size: 2em; margin-bottom: 20px; border-bottom: 2px solid var(--accent-color); padding-bottom: 10px; }
+.match { display: grid; grid-template-columns: 1fr auto 1fr auto; align-items: center; gap: 15px; padding: 15px; background-color: #252525; border-radius: 5px; margin-bottom: 10px; transition: transform 0.2s ease; }
+.match:hover { transform: scale(1.01); }
+.team-info { display: flex; align-items: center; gap: 15px; }
+.team-info.right { justify-content: flex-end; text-align: right; grid-column: 3; }
+.team-logo { width: 80px; height: 80px; border-radius: 50%; object-fit: contain; background-color: #333; }
+.team-name { font-size: 1.2em; font-weight: bold; }
+.vs { color: var(--accent-color); font-size: 1.5em; grid-column: 2; }
+.match-details { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; grid-column: 4; }
+.match-time { font-size: 1.1em; }
+.stream-links a { margin-left: 10px; text-decoration: none; font-weight: bold; padding: 5px 10px; border-radius: 5px; }
+.twitch-link { background-color: #9146FF; color: white; }
+.youtube-link { background-color: #FF0000; color: white; }
+.no-matches { text-align: center; font-size: 1.5em; color: var(--accent-color); padding: 40px; }
+
+/* --- Responsive Styles --- */
+@media (max-width: 768px) {
+    body { height: auto; overflow: visible; }
+    #content-wrapper { flex-direction: column; height: auto; overflow: visible; }
+    #favorites-sidebar { width: 100%; height: 100vh; position: fixed; top: 0; left: 0; transform: translateX(-100%); z-index: 1000; box-sizing: border-box; }
+    #favorites-sidebar.open { transform: translateX(0); }
+    #main-content { height: auto; overflow-y: visible; }
+    #toggle-favorites-btn { display: block; }
+    .match { grid-template-columns: 1fr auto 1fr; grid-template-rows: auto auto; row-gap: 10px; }
+    .match-details { grid-column: 1 / -1; grid-row: 2; align-items: center; flex-direction: row; justify-content: center; }
+}
