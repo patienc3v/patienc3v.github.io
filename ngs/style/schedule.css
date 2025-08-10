@@ -192,6 +192,7 @@ body:not(.sidebar-is-open) #favorites-sidebar {
     }
     .team-info.right {
         grid-column: 3;
+        flex-direction: column-reverse; /* Reverse the order to put logo on top */
     }
     .vs {
         grid-row: 1;
