@@ -15,7 +15,7 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    overflow: hidden;
+    overflow: hidden; /* Lock scroll on desktop */
 }
 
 /* --- Main Page Header --- */
@@ -102,10 +102,7 @@ body:not(.sidebar-is-open) #favorites-sidebar {
     margin-top: 0;
     white-space: nowrap;
 }
-.teams-list {
-    padding: 10px 5px;
-    white-space: nowrap;
-}
+.teams-list { padding: 10px 5px; white-space: nowrap; }
 .division-select details { margin-bottom: 10px; }
 .division-select summary { font-size: 1.2em; font-weight: bold; cursor: pointer; padding: 10px; background-color: #252525; border-radius: 5px; list-style: none; }
 .division-select summary::before { content: '▶ '; display: inline-block; transition: transform 0.2s; }
@@ -129,7 +126,7 @@ body:not(.sidebar-is-open) #favorites-sidebar {
 .match:hover { transform: scale(1.01); }
 .team-info { display: flex; align-items: center; gap: 15px; }
 .team-info.right { justify-content: flex-end; text-align: right; grid-column: 3; }
-.team-logo { width: 40px; height: 40px; border-radius: 50%; object-fit: contain; background-color: #333; }
+.team-logo { width: 60px; height: 60px; border-radius: 50%; object-fit: contain; background-color: #333; }
 .team-name { font-size: 1.2em; font-weight: bold; }
 .vs { color: var(--accent-color); font-size: 1.5em; grid-column: 2; }
 .match-details { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; grid-column: 4; }
@@ -143,13 +140,12 @@ body:not(.sidebar-is-open) #favorites-sidebar {
 @media (max-width: 768px) {
     body {
         height: auto;
-        overflow: auto; /* Allow body to scroll by default */
+        overflow: auto; /* Allow body to scroll */
     }
     body.sidebar-is-open {
         overflow: hidden; /* Lock scroll ONLY when sidebar is open */
     }
     #page-header h1 { font-size: 1.5em; }
-    #content-wrapper { flex-direction: column; height: auto; overflow: visible; }
     
     /* Mobile Sidebar is a fixed overlay */
     #favorites-sidebar {
@@ -167,12 +163,51 @@ body:not(.sidebar-is-open) #favorites-sidebar {
     body.sidebar-is-open #favorites-sidebar {
         transform: translateX(0);
     }
+    /* Make toggle button fixed and always visible */
+    #toggle-sidebar-btn {
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        z-index: 1001; /* Higher than the sidebar */
+    }
 
-    #main-content { height: auto; overflow-y: visible; padding: 15px; }
+    #main-content {
+        overflow-y: visible; /* Let the body handle scrolling */
+    }
+
     .division-title { font-size: 1.5em; }
-    .match { grid-template-columns: 1fr; grid-template-rows: auto auto auto auto; justify-items: center; gap: 10px; padding: 15px; }
-    .team-info { grid-column: 1; }
-    .team-info.right { justify-content: flex-start; grid-row: 3; }
-    .vs { grid-row: 2; }
-    .match-details { grid-column: 1; grid-row: 4; flex-direction: row; justify-content: center; }
+    
+    /* Updated Mobile Match Layout */
+    .match {
+        grid-template-columns: 1fr auto 1fr; /* Teams on one line */
+        grid-template-rows: auto auto;      /* A row for teams, a row for details */
+        gap: 10px;
+        padding: 15px;
+        justify-items: center;
+    }
+    .team-info {
+        grid-row: 1; /* All team info on the first row */
+        flex-direction: column; /* Stack logo above name */
+        gap: 5px;
+    }
+    .team-info.right {
+        grid-column: 3;
+    }
+    .vs {
+        grid-row: 1;
+        grid-column: 2;
+        align-self: center; /* Center the VS vertically */
+    }
+    .match-details {
+        grid-column: 1 / -1; /* Span all columns */
+        grid-row: 2;         /* Move to the second row */
+        flex-direction: column; /* Stack time and links vertically */
+        align-items: center;    /* Center the details */
+        gap: 8px;
+        margin-top: 10px;
+        text-align: center;
+    }
+    .team-name {
+        font-size: 1em; /* Slightly smaller font for mobile */
+    }
 }
