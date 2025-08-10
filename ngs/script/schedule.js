@@ -31,6 +31,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function setupEventListeners() {
         teamsListContainer.addEventListener('click', handleFavoriteClick);
+
+        // Add logic to lock body scroll when sidebar is open on mobile
+        toggleBtn.addEventListener('click', () => {
+            const isOpen = sidebar.classList.toggle('open');
+            body.classList.toggle('sidebar-open', isOpen);
+        });
     }
 
     // --- Data Fetching & Loading ---
