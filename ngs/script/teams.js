@@ -6,7 +6,7 @@ let seasonDataCache = {};
 const divisionOrder = ['Storm', 'Heroic', 'Nexus', 'A', 'AE', 'AW', 'B', 'BE', 'BNE', 'BSE', 'BW', 'C', 'CE', 'CW', 'D', 'DE', 'DNE', 'DSE', 'DW', 'E', 'EE', 'EW'];
 
 const statCategories = {
-    avgKDA: { title: 'KDA', type: 'numeric' },
+    avgKDA: { title: 'K/D/A Ratio', type: 'numeric' },
     heroPool: { title: 'Hero Pool', type: 'numeric' },
     levelTime: {
         title: 'Time (s) to Reach Level',
