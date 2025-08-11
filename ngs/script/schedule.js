@@ -282,7 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (match.youtubeUrl) linksHTML += `<a href="${match.youtubeUrl}" target="_blank" class="youtube-link">${twitchUser}</a>`;
 
             sectionHTML += `
-                <article class="match">
+                <article class="match" data-matchUrl="${match.matchUrl}">
                     <div class="match-division">${divisionName}</div>
                     <div class="team-info">
                         <img src="${team1Logo}" alt="${match.team1} Logo" class="team-logo">
