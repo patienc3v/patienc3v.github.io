@@ -2,7 +2,7 @@
 const CURRENT_SEASON = 19;
 const MIN_SEASON = 6;
 
-const DIVISION_ORDER = ['Heroic', 'Nexus', 'A', 'AE', 'AW', 'B', 'BE', 'BW', 'C', 'CE', 'CW', 'D', 'DE', 'DW', 'E', 'EE', 'EW'];
+const DIVISION_ORDER = ['Storm', 'Heroic', 'Nexus', 'A', 'AE', 'AW', 'B', 'BE', 'BNE', 'BSE', 'BW', 'C', 'CE', 'CW', 'D', 'DE', 'DNE', 'DSE', 'DW', 'E', 'EE', 'EW'];
 
 const statCategories = [
     { key: 'KDA', name: 'K/D/A Ratio', sort: 'desc', format: 'float' },
