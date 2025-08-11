@@ -134,33 +134,52 @@ function getDivisionsForSeason(seasonData) {
 
 function renderStatTiles(seasonData) {
     const showDivisionIndicator = filters.divisions.length > 1;
-    const filteredData = seasonData.filter(player =>
+    const isSearchActive = filters.searchTerms.length > 0;
+
+    // First, apply base filters for division and min games
+    const baseFilteredData = seasonData.filter(player =>
         filters.divisions.includes(player.division) && player.nGames >= filters.minGP
     );
 
     dom.statsGrid.innerHTML = '';
     statCategories.forEach(cat => {
-        const sortedData = [...filteredData].sort((a, b) =>
-            cat.sort === 'desc' ? b[cat.key] - a[cat.key] : a[cat.key] - b[cat.key]
-        ).slice(0, filters.playerCount);
+        // 1. Sort and Rank ALL eligible players to establish the true rank
+        const rankedAllPlayers = [...baseFilteredData]
+            .sort((a, b) => {
+                const valA = a[cat.key] || 0;
+                const valB = b[cat.key] || 0;
+                return cat.sort === 'desc' ? valB - valA : valA - valB;
+            })
+            .map((player, index) => ({ ...player, rank: index + 1 }));
+
+        // 2. Decide which players to display
+        let playersToDisplay;
+        if (isSearchActive) {
+            // If searching, filter the already-ranked list
+            playersToDisplay = rankedAllPlayers.filter(player =>
+                filters.searchTerms.some(term => player.name.toLowerCase().includes(term))
+            );
+        } else {
+            // Otherwise, just take the top X players
+            playersToDisplay = rankedAllPlayers.slice(0, filters.playerCount);
+        }
 
         const tile = document.createElement('div');
         tile.className = 'stat-tile';
 
-        const tableRowsHTML = sortedData.map((player, index) => {
-            const isHighlighted = filters.searchTerms.some(term => player.name.toLowerCase().includes(term));
+        const tableRowsHTML = playersToDisplay.map(player => {
             const divisionIndicatorHTML = showDivisionIndicator ? `<span class="division-indicator">${player.division}</span>` : '';
             const statValue = formatStatValue(player[cat.key], cat.format);
 
             return `
-                <tr class="${isHighlighted ? 'highlighted' : ''}">
-                    <td class="rank">${index + 1}</td>
+                <tr>
+                    <td class="rank">${player.rank}</td>
                     <td><div class="player-cell"><span>${player.name}</span>${divisionIndicatorHTML}</div></td>
                     <td class="stat-value">${statValue}</td>
                     <td class="gp-cell">${player.nGames}</td>
                     <td class="links-cell">
-                        <a href="${player.link1}" target="_blank" rel="noopener noreferrer" title="View ${player.name} HeroesProfile Profile"><img src="images/hots.png" alt="View ${player.name} HeroesProfile Profile"></a>
-                        <a href="${player.link2}" target="_blank" rel="noopener noreferrer" title="View ${player.name} NGS Profile History"><img src="images/ngs.png" alt="View ${player.name} NGS Profile History"></a>
+                        <a href="${player.link1}" target="_blank" rel="noopener noreferrer" title="View Player Profile">👤</a>
+                        <a href="${player.link2}" target="_blank" rel="noopener noreferrer" title="View Match History">🔗</a>
                     </td>
                 </tr>
             `;
@@ -168,10 +187,82 @@ function renderStatTiles(seasonData) {
         
         const catName = cat.name || cat.key;
         const catColumn = cat.alt || cat.key;
+
         tile.innerHTML = `<h3>${catName} <span>${cat.sort === 'desc' ? '↓' : '↑'}</span></h3>
             <table>
-                <thead><tr><th class="rank">#</th><th>Player</th><th>${catColumn.replace('_', ' ')}</th><th>GP</th><th>Links</th></tr></thead>
-                <tbody>${tableRowsHTML || '<tr><td colspan="5" style="text-align:center; padding: 20px;">No players match criteria.</td></tr>'}</tbody>
+                <thead><tr><th class="rank">#</th><th>Player</th><th>${catColumn}</th><th>GP</th><th>Links</th></tr></thead>
+                <tbody>${tableRowsHTML || `<tr><td colspan="5" style="text-align:center; padding: 20px;">${isSearchActive ? 'No searched players match criteria.' : 'No players match criteria.'}</td></tr>`}</tbody>
+            </table>`;
+        dom.statsGrid.appendChild(tile);
+    });
+}
+
+function renderStatTiles(seasonData) {
+    const showDivisionIndicator = filters.divisions.length > 1;
+    const isSearchActive = filters.searchTerms.length > 0;
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+    const baseFilteredData = seasonData.filter(player =>
+        filters.divisions.includes(player.division) && player.nGames >= filters.minGP
+    );
+
+    dom.statsGrid.innerHTML = '';
+    statCategories.forEach(cat => {
+        const rankedAllPlayers = [...baseFilteredData]
+            .sort((a, b) => {
+                const valA = a[cat.key] || 0;
+                const valB = b[cat.key] || 0;
+                return cat.sort === 'desc' ? valB - valA : valA - valB;
+            })
+            .map((player, index) => ({ ...player, rank: index + 1 }));
+
+        let playersToDisplay;
+        if (isSearchActive) {
+            playersToDisplay = rankedAllPlayers.filter(player =>
+                filters.searchTerms.some(term => player.name.toLowerCase().includes(term))
+            );
+        } else {
+            playersToDisplay = rankedAllPlayers.slice(0, filters.playerCount);
+        }
+
+        const tile = document.createElement('div');
+        tile.className = 'stat-tile';
+        // Add collapsed class by default on mobile
+        if (isMobile) {
+            tile.classList.add('collapsed');
+        }
+
+        const tableRowsHTML = playersToDisplay.map(player => {
+            const divisionIndicatorHTML = showDivisionIndicator ? `<span class="division-indicator">${player.division}</span>` : '';
+            const statValue = formatStatValue(player[cat.key], cat.format);
+
+            return `
+                <tr>
+                    <td class="rank">${player.rank}</td>
+                    <td><div class="player-cell"><span>${player.name}</span>${divisionIndicatorHTML}</div></td>
+                    <td class="stat-value">${statValue}</td>
+                    <td class="gp-cell">${player.nGames}</td>
+                    <td class="links-cell">
+                        <a href="${player.link1}" target="_blank" rel="noopener noreferrer" title="View Player Profile">👤</a>
+                        <a href="${player.link2}" target="_blank" rel="noopener noreferrer" title="View Match History">🔗</a>
+                    </td>
+                </tr>
+            `;
+        }).join('');
+        
+        const catName = cat.name || cat.key;
+        const catColumn = cat.alt || cat.key;
+        const tableId = `tile-table-${cat.key}`;
+        tile.innerHTML = `
+            <h3>
+                <button class="tile-toggle-btn" aria-expanded="${!isMobile}" aria-controls="${tableId}">
+                    <span>${catName}</span>
+                    <span>${cat.sort === 'desc' ? '↓' : '↑'}</span>
+                </button>
+            </h3>
+            <table id="${tableId}">
+                <thead><tr><th class="rank">#</th><th>Player</th><th>${catColumn}</th><th>GP</th><th>Links</th></tr></thead>
+                <tbody>${tableRowsHTML || `<tr><td colspan="5" style="text-align:center; padding: 20px;">${isSearchActive ? 'No searched players match criteria.' : 'No players match criteria.'}</td></tr>`}</tbody>
             </table>`;
         dom.statsGrid.appendChild(tile);
     });
@@ -229,6 +320,16 @@ function handleSearch() {
     const query = dom.searchInput.value.trim().toLowerCase();
     filters.searchTerms = query ? query.split(',').map(term => term.trim()).filter(Boolean) : [];
     renderStatTiles(dataCache[filters.season]);
+}
+
+function handleTileToggle(event) {
+    const toggleBtn = event.target.closest('.tile-toggle-btn');
+    if (!toggleBtn || !window.matchMedia('(max-width: 768px)').matches) {
+        return; // Only run on mobile, and only on the button
+    }
+    const tile = toggleBtn.closest('.stat-tile');
+    const isCollapsed = tile.classList.toggle('collapsed');
+    toggleBtn.setAttribute('aria-expanded', !isCollapsed);
 }
 
 // --- Autocomplete Handlers ---
@@ -292,6 +393,7 @@ async function init() {
     document.addEventListener('click', (e) => {
         if (!dom.searchWrapper.contains(e.target)) dom.suggestionsBox.innerHTML = '';
     });
+    dom.statsGrid.addEventListener('click', handleTileToggle); // New listener for collapsing tiles
     
     const currentYear = new Date().getFullYear();
     dom.copyright.innerHTML = `Copyright © ${currentYear} Patienc3. All Rights Reserved.`;

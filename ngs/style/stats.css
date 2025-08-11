@@ -5,7 +5,6 @@
     --ngs-text-primary: #f5f5f7;
     --ngs-text-secondary: #a4a4a8;
     --ngs-blue: #4a90e2;
-    --ngs-purple: #9013fe;
     --ngs-orange: #F2692E; 
     --ngs-border: #404044;
 }
@@ -27,8 +26,6 @@ body {
 }
 .header h1 { margin: 0; font-size: 1.8em; }
 .header p { margin: 5px 0 0; color: var(--ngs-text-secondary); }
-.header #misc { font-size: 80%; }
-.header #misc a { color:#fff; }
 
 /* --- Controls Section --- */
 .controls-container {
@@ -172,11 +169,24 @@ button:active { transform: scale(0.98); }
     overflow: hidden;
 }
 .stat-tile h3 {
-    background-color: #33363a; margin: 0; padding: 12px 15px;
+    background-color: #33363a; margin: 0; padding: 0; /* Padding moved to button */
     font-size: 1.1em; border-bottom: 1px solid var(--ngs-border);
     display: flex; justify-content: space-between;
 }
-.stat-tile h3 span { color: var(--ngs-text-secondary); }
+.tile-toggle-btn { /* New style for the header button */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 12px 15px;
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+}
+.tile-toggle-btn span:last-child { color: var(--ngs-text-secondary); }
+
 .stat-tile table { width: 100%; border-collapse: collapse; }
 .stat-tile th, .stat-tile td {
     padding: 10px 12px; text-align: left;
@@ -218,11 +228,6 @@ button:active { transform: scale(0.98); }
     color: var(--ngs-blue);
 }
 
-
-.highlighted { background-color: rgba(144, 19, 254, 0.2) !important; }
-.highlighted td:first-child { border-left: 3px solid var(--ngs-purple); }
-
-
 /* --- Mobile Responsive Styles --- */
 @media (max-width: 768px) {
     body {
@@ -249,5 +254,25 @@ button:active { transform: scale(0.98); }
 
     .header h1 {
         font-size: 1.5em;
+    }
+
+    /* Collapsible Tile Styles */
+    .tile-toggle-btn {
+        cursor: pointer;
+    }
+    .tile-toggle-btn::after {
+        content: '›';
+        font-size: 1.8em;
+        font-weight: bold;
+        transition: transform 0.2s ease-in-out;
+        margin-left: 10px;
+    }
+
+    .stat-tile.collapsed .tile-toggle-btn::after {
+        transform: rotate(90deg);
+    }
+
+    .stat-tile.collapsed table {
+        display: none;
     }
 }
