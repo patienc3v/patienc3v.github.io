@@ -4,7 +4,7 @@ const CURRENT_SEASON = 19;
 let seasonDataCache = {};
 
 const divisionOrder = ['Storm', 'Heroic', 'Nexus', 'A', 'AE', 'AW', 'B', 'BE', 'BNE', 'BSE', 'BW', 'C', 'CE', 'CW', 'D', 'DE', 'DNE', 'DSE', 'DW', 'E', 'EE', 'EW'];
-const divOrder = ['Heroic', 'Nexus'];
+const divOrder = ['Storm', 'Heroic', 'Nexus'];
 
 const statCategories = {
     avgKDA: { title: 'K/D/A Ratio', type: 'numeric' },
@@ -66,21 +66,8 @@ const statCategories = {
         ]
     },
 
-    theoreticalXP: {
-        title: 'Minion XP vs. Theoretical Max',
-        type: 'stacked',
-        keys: ['minionXP', 'maxMinionXP'],
-        labels: ['Minion XP', 'Theoretical Max'],
-        colors: [
-            'rgba(60, 99, 130, 0.8)',  // Dark Blue
-            'rgba(217, 83, 79, 0.8)',  // Red
-            'rgba(240, 173, 78, 0.8)', // Orange
-            'rgba(92, 184, 92, 0.8)',  // Green
-            'rgba(91, 192, 222, 0.8)', // Light Blue
-            'rgba(155, 89, 182, 0.8)', // Purple
-            'rgba(149, 165, 166, 0.8)' // Grey
-        ]
-    },
+
+    minionXPperc: { title: '% of Theoretical Max Minion XP Gained', type: 'numerical' },
 
     timeSpentDead: { title: 'Time Spent Dead', type: 'time' },
     matchLength: { title: 'Match Length', type: 'time' },
@@ -107,6 +94,8 @@ function parseCSV(csvText) {
             const value = values[j].trim();
             entry[headers[j]] = !isNaN(value) && value !== '' ? Number(value) : value;
         }
+        entry['minionXPperc'] = 100.0 * entry['minionXP'] / entry['maxMinionXP'];
+
         data.push(entry);
     }
     return data;
