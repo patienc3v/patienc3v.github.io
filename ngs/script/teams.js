@@ -163,8 +163,8 @@ function updateDivisionSelector() {
     
     divisionsForSeason.forEach(division => {
         const option = document.createElement('option');
-        option.value = divOrder.includes(division) ? division + " Division" : "Division " + division;
-        option.textContent = division;
+        option.textContent = divOrder.includes(division) ? division + " Division" : "Division " + division;
+        option.value = division;
         divisionSelect.appendChild(option);
     });
 
