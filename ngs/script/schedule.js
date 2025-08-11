@@ -51,6 +51,9 @@ document.addEventListener('DOMContentLoaded', () => {
             favoriteTeams.clear();
             updateAfterBulkFavoriteChange();
         });
+
+	// Add a single event listener for match clicks
+        scheduleContainer.addEventListener('click', handleMatchClick);
     }
 
     function updateAfterBulkFavoriteChange() {
@@ -115,7 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
             division["teams"].sort((a, b) => {
                 return a["name"] > b["name"];
             });
-            console.log(division);
         });
         return jsonData;
     }
@@ -129,8 +131,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const awayTeam = match["away"]["teamName"];
             const matchTime = new Date(parseInt(match["scheduledTime"]["startTime"])).toISOString();
             const casterUrl = match["casterUrl"];
+            const matchUrl = "https://www.nexusgamingseries.org/match/view/" + match["matchId"];
+
             jsonData.push({
                 "id": matchID,
+                "matchUrl": matchUrl,
                 "divisionId": divisionLookup[division],
                 "team1": homeTeam,
                 "team2": awayTeam,
@@ -140,10 +145,9 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             matchID++;
         });
-        console.log(jsonData);
         return jsonData;
     }
-    
+
     function buildDataMaps() {
         allDivisions.forEach(division => {
             divisionNameMap.set(division.id, division.name);
@@ -183,6 +187,19 @@ document.addEventListener('DOMContentLoaded', () => {
         renderFilteredMatches();
     }
 
+    function handleMatchClick(event) {
+        // If a link inside the card was clicked (e.g., Twitch/VOD), let it navigate normally.
+        if (event.target.closest('a')) {
+            return;
+        }
+
+        // Find the parent match article that was clicked
+        const matchArticle = event.target.closest('.match');
+        if (matchArticle) {
+            const matchUrl = matchArticle.dataset.matchUrl;
+            window.open(matchUrl, '_blank').focus();
+        }
+    }
     // --- Rendering Logic ---
     function renderFavoritesList() {
         let content = '';
@@ -213,7 +230,6 @@ document.addEventListener('DOMContentLoaded', () => {
         while (scheduleContainer.firstChild && scheduleContainer.firstChild !== loadingContainer) {
             scheduleContainer.removeChild(scheduleContainer.lastChild);
         }
-        console.log(scheduleContainer.childNodes.length);
         if (favoriteTeams.size === 0) {
             scheduleContainer.insertAdjacentHTML('beforeend', `<div class="no-matches">Select your favorite teams to see their schedule!</div>`);
             return;
@@ -227,8 +243,6 @@ document.addEventListener('DOMContentLoaded', () => {
             scheduleContainer.insertAdjacentHTML('beforeend', `<div class="no-matches">No matches found for your selected teams.</div>`);
             return;
         }
-
-        console.log(filteredMatches);
 
         const now = new Date();
         const upcomingMatches = filteredMatches
