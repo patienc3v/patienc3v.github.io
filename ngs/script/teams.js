@@ -2,6 +2,7 @@
 const MIN_SEASON = 16;
 const CURRENT_SEASON = 19;
 let seasonDataCache = {};
+let selectedTeams = new Set();
 
 const divisionOrder = ['Storm', 'Heroic', 'Nexus', 'A', 'AE', 'AW', 'B', 'BE', 'BNE', 'BSE', 'BW', 'C', 'CE', 'CW', 'D', 'DE', 'DNE', 'DSE', 'DW', 'E', 'EE', 'EW'];
 const divOrder = ['Storm', 'Heroic', 'Nexus'];
@@ -78,6 +79,7 @@ const seasonSelect = document.getElementById('season-select');
 const divisionSelect = document.getElementById('division-select');
 const statsContainer = document.getElementById('stats-container');
 const timestampSpan = document.getElementById('update-timestamp');
+const teamFilterContainer = document.getElementById('team-filter-container'); 
 let charts = {};
 
 // --- DATA LOADING (No changes in this section) ---
@@ -130,6 +132,33 @@ function populateSeasonSelector() {
     }
 }
 
+function updateTeamFilter() {
+    const selectedSeason = parseInt(seasonSelect.value);
+    const selectedDivision = divisionSelect.value;
+    const seasonData = seasonDataCache[selectedSeason]?.data || [];
+
+    // Find all unique teams for the current view and sort them alphabetically
+    const availableTeams = [...new Set(
+        seasonData
+            .filter(d => d.division === selectedDivision)
+            .map(d => d.team)
+    )].sort((a, b) => a.localeCompare(b)); // MODIFIED: Added alphabetical sort
+
+    // By default, select all available teams
+    selectedTeams.clear();
+    availableTeams.forEach(team => selectedTeams.add(team));
+
+    // Render the buttons
+    teamFilterContainer.innerHTML = '';
+    availableTeams.forEach(team => {
+        const button = document.createElement('div');
+        button.className = 'team-toggle-button selected';
+        button.textContent = team;
+        button.dataset.teamName = team;
+        teamFilterContainer.appendChild(button);
+    });
+}
+
 function updateDivisionSelector() {
     const selectedSeason = parseInt(seasonSelect.value);
     const seasonData = seasonDataCache[selectedSeason]?.data || [];
@@ -165,6 +194,7 @@ function updateDivisionSelector() {
 function updateCharts() {
     const selectedSeason = parseInt(seasonSelect.value);
     const selectedDivision = divisionSelect.value;
+    
     const seasonInfo = seasonDataCache[selectedSeason];
     if (seasonInfo?.lastModified) {
         const date = new Date(seasonInfo.lastModified);
@@ -172,14 +202,20 @@ function updateCharts() {
     } else {
         timestampSpan.textContent = "N/A";
     }
+
     const seasonData = seasonInfo?.data || [];
+
+    // **MODIFIED**: Filter data based on the selectedTeams set
     const filteredData = seasonData
-        .filter(d => d.division === selectedDivision)
+        .filter(d => d.division === selectedDivision && selectedTeams.has(d.team))
         .sort((a, b) => a.team.localeCompare(b.team));
+
     const labels = filteredData.map(d => d.team);
+
     Object.keys(statCategories).forEach(key => {
         const category = statCategories[key];
         const chart = charts[key];
+        
         if (chart) {
             chart.data.labels = labels;
             if (category.type === 'stacked') {
@@ -193,6 +229,7 @@ function updateCharts() {
         }
     });
 }
+
 function formatTime(seconds) {
     const m = Math.floor(seconds / 60);
     const s = seconds % 60;
@@ -266,8 +303,45 @@ async function init() {
     populateSeasonSelector();
     updateDivisionSelector();
     createCharts();
+
+    // Initial UI setup
+    updateTeamFilter();
     updateCharts();
 
+    // --- EVENT LISTENERS ---
+
+    // Handles toggling a team's selection state
+    teamFilterContainer.addEventListener('click', (event) => {
+        const target = event.target;
+        if (target.classList.contains('team-toggle-button')) {
+            const teamName = target.dataset.teamName;
+            if (selectedTeams.has(teamName)) {
+                selectedTeams.delete(teamName);
+                target.classList.remove('selected');
+                target.classList.add('deselected');
+            } else {
+                selectedTeams.add(teamName);
+                target.classList.remove('deselected');
+                target.classList.add('selected');
+            }
+            updateCharts(); // Redraw charts with the new selection
+        }
+    });
+
+    seasonSelect.addEventListener('change', async () => {
+        const selectedSeason = parseInt(seasonSelect.value);
+        await loadSeason(selectedSeason);
+        updateDivisionSelector();
+        updateTeamFilter(); // Reset teams when season changes
+        updateCharts();
+    });
+
+    divisionSelect.addEventListener('change', () => {
+        updateTeamFilter(); // Reset teams when division changes
+        updateCharts();
+    });
+
+    // Mobile collapsible listener remains the same
     statsContainer.addEventListener('click', (event) => {
         if (event.target.classList.contains('collapsible-header') && window.matchMedia('(max-width: 768px)').matches) {
             const tile = event.target.closest('.stat-tile');
@@ -285,14 +359,6 @@ async function init() {
             }
         }
     });
-
-    seasonSelect.addEventListener('change', async () => {
-        const selectedSeason = parseInt(seasonSelect.value);
-        await loadSeason(selectedSeason);
-        updateDivisionSelector();
-        updateCharts();
-    });
-    divisionSelect.addEventListener('change', updateCharts);
 }
 
 document.addEventListener('DOMContentLoaded', init);

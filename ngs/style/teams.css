@@ -94,6 +94,46 @@
      gap: 20px;
  }
  
+#team-filter-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--primary-accent);
+    border-radius: 8px;
+ }
+
+ .team-toggle-button {
+    padding: 5px 12px;
+    border-radius: 16px;
+    font-size: 0.8em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    user-select: none;
+    border: 1px solid #404044;
+    background-color: #1a1a1d;
+ }
+
+ .team-toggle-button.selected {
+    background-color: #4a90e2;
+    border-color: #4a90e2;
+    color: var(--text-secondary);
+ }
+
+ .team-toggle-button.deselected {
+    background-color: transparent;
+    color: var(--text-secondary);
+    border-color: var(--primary-accent);
+    opacity: 0.7;
+ }
+
+ .team-toggle-button:hover {
+    opacity: 1;
+ }
+
  .stat-tile {
      background-color: var(--bg-secondary);
      padding: 20px;
