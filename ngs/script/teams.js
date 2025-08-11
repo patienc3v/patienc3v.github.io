@@ -1,5 +1,5 @@
 // --- CONFIG & GLOBAL DATA ---
-const MIN_SEASON = 6;
+const MIN_SEASON = 16;
 const CURRENT_SEASON = 19;
 let seasonDataCache = {};
 
