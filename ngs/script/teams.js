@@ -67,7 +67,7 @@ const statCategories = {
     },
 
 
-    minionXPperc: { title: '% of Theoretical Max Minion XP Gained', type: 'numerical' },
+    minionXPperc: { title: '% of Max Minion XP Gained', type: 'numerical' },
 
     timeSpentDead: { title: 'Time Spent Dead', type: 'time' },
     matchLength: { title: 'Match Length', type: 'time' },
