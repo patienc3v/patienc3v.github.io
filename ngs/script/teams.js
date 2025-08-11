@@ -34,7 +34,7 @@ const statCategories = {
 
     ccTime: { title: 'Total CC Time', type: 'time' },
 
-    levelTime: {
+    ccBreakdown: {
         title: 'CC Time (s) Breakdown',
         type: 'stacked',
         keys: ['stunTime', 'silenceTime', 'rootTime'],
