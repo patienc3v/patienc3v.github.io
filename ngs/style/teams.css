@@ -1,0 +1,195 @@
+/* --- Custom Properties for Theming --- */
+ :root {
+     --bg-primary: #1a1a2e;
+     --bg-secondary: #16213e;
+     --primary-accent: #F2692E;
+     --secondary-accent: #3ab7ac;
+     --text-primary: #F2692E;
+     --text-secondary: #ffffff;
+     --border-color: #F2692E;
+ }
+ 
+ body {
+     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+     background-color: var(--bg-primary);
+     color: var(--text-secondary);
+     margin: 0;
+     padding: 20px;
+ }
+ 
+ header {
+     background-color: var(--bg-secondary);
+     padding: 20px;
+     border-radius: 8px;
+     border: 1px solid var(--primary-accent);
+     margin-bottom: 20px;
+     display: flex;
+     align-items: center;
+     justify-content: space-between; 
+     gap: 20px;
+ }
+
+ .header-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.last-updated {
+    font-size: 0.85em;
+    color: #ccc;
+    text-align: right;
+    flex-shrink: 0; /* Prevents this from shrinking on smaller desktop screens */
+}
+
+#update-timestamp {
+    font-weight: bold;
+    color: var(--secondary-accent);
+}
+ 
+ header h1 {
+     margin: 0;
+     font-size: 1.75em;
+     color: #fff;
+     text-transform: uppercase;
+     letter-spacing: 0.5px;
+ }
+ 
+ .selectors {
+     display: flex;
+     gap: 15px;
+ }
+ 
+ .selector-group {
+     display: flex;
+     flex-direction: column;
+ }
+ 
+ .selector-group label {
+     font-size: 0.9em;
+     color: var(--text-secondary);
+     margin-bottom: 5px;
+     text-transform: uppercase;
+ }
+ 
+ select {
+     padding: 10px 15px;
+     border-radius: 6px;
+     border: 1px solid var(--primary-accent);
+     background-color: var(--bg-primary);
+     color: var(--text-secondary);
+     font-size: 1em;
+     appearance: none;
+     -webkit-appearance: none;
+     background-image: url('data:image/svg+xml;utf8,<svg fill="#F2692E" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+     background-repeat: no-repeat;
+     background-position-x: 95%;
+     background-position-y: center;
+     padding-right: 30px;
+ }
+ 
+ #stats-container {
+     display: grid;
+     grid-template-columns: repeat(3, 1fr);
+     gap: 20px;
+ }
+ 
+ .stat-tile {
+     background-color: var(--bg-secondary);
+     padding: 20px;
+     border-radius: 8px;
+     border: 1px solid var(--primary-accent);
+     position: relative;
+ }
+ 
+ .stat-tile h2 {
+     margin-top: 0;
+     color: #fff;
+     border-bottom: 2px solid var(--border-color);
+     padding-bottom: 10px;
+ }
+
+/*
+==============================================
+MOBILE STYLES
+==============================================
+*/
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header-left {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    header h1 {
+        font-size: 1.5em;
+    }
+
+    .selectors {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+    }
+
+    select {
+        width: 100%;
+    }
+
+    .last-updated {
+        text-align: left;
+        margin-top: 15px;
+        width: 100%;
+    }
+
+    #stats-container {
+        grid-template-columns: 1fr;
+    }
+    
+    /* --- NEW COLLAPSIBLE STYLES --- */
+
+    /* Style the header to look clickable */
+    .collapsible-header {
+        cursor: pointer;
+        position: relative;
+        user-select: none; /* Prevents text selection on tap */
+    }
+
+    /* Add a "+" icon by default */
+    .collapsible-header::after {
+        content: '+';
+        position: absolute;
+        right: 0px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1.75em;
+        font-weight: bold;
+        color: var(--primary-accent);
+    }
+    
+    /* Change icon to a "-" when the tile is active/expanded */
+    .stat-tile.active .collapsible-header::after {
+        content: '−';
+    }
+
+    /* The chart content container */
+    .chart-content {
+        max-height: 0; /* Collapsed by default */
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+    }
+
+    /* The state when the tile is expanded */
+    .stat-tile.active .chart-content {
+        max-height: 400px; /* Set a height large enough for the chart */
+        transition: max-height 0.5s ease-in;
+    }
+}
