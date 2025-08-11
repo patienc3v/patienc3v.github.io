@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patienc3's Nexus Portal - Stats & Schedules</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .hero-bg {
+            background-image: url('https://images.blz-contentstack.com/v3/assets/blta565ae3223b62a29/blt375d201665392792/5e584434b6788f72b89e91a5/machines-of-war_1920x1200.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .card-hover-effect {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover-effect:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        /* Custom colors from nexusgamingseries.net */
+        .bg-ngs-blue { background-color: #00aeff; }
+        .hover\:bg-ngs-blue-dark:hover { background-color: #0099e0; }
+        .text-ngs-blue { color: #00aeff; }
+        .border-ngs-blue { border-color: #00aeff; }
+
+        .bg-ngs-purple { background-color: #a626d4; }
+        .hover\:bg-ngs-purple-dark:hover { background-color: #9020b8; }
+        .text-ngs-purple { color: #a626d4; }
+        .border-ngs-purple { border-color: #a626d4; }
+
+        .bg-ngs-gold { background-color: #f59e0b; }
+        .hover\:bg-ngs-gold-dark:hover { background-color: #d97706; }
+        .text-ngs-gold { color: #f59e0b; }
+        .border-ngs-gold { border-color: #f59e0b; }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <!-- Hero Section -->
+    <div class="hero-bg">
+        <div class="bg-black bg-opacity-75 min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8">
+            
+            <header class="text-center mb-10">
+                <!-- Logos -->
+                <div class="flex justify-center items-center gap-4 sm:gap-8 mb-6">
+                    <img src="https://upload.wikimedia.org/wikipedia/fr/thumb/7/7a/Heroes_of_the_Storm_Logo.png/250px-Heroes_of_the_Storm_Logo.png" alt="Nexus Gaming Series Logo" class="h-16 sm:h-20" onerror="this.style.display='none'">
+                    <img src="https://www.nexusgamingseries.org/assets/Lettermark.png" alt="Heroes of the Storm Logo" class="h-14 sm:h-16" onerror="this.style.display='none'">
+                </div>
+
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black uppercase tracking-wider text-shadow-lg">Patienc3's Nexus Portal</h1>
+                <p class="text-lg sm:text-xl lg:text-2xl text-ngs-blue mt-4 font-semibold">All the NGS data you need. All in one place.</p>
+            </header>
+
+            <!-- Main Content: Call to Action Cards -->
+            <main class="w-full max-w-6xl">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+
+                    <!-- Player Statistics Dashboard Card -->
+                    <div class="card-hover-effect bg-gray-800 bg-opacity-80 backdrop-blur-sm rounded-2xl overflow-hidden border border-ngs-blue/30">
+                        <div class="p-6 md:p-8 text-center flex flex-col h-full">
+                            <div class="flex justify-center mb-4">
+                                <svg class="w-16 h-16 text-ngs-blue" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 4.5v15m6-15v15m-10.875 0h15.75c.621 0 1.125-.504 1.125-1.125V5.625c0-.621-.504-1.125-1.125-1.125H4.125C3.504 4.5 3 5.004 3 5.625v12.75c0 .621.504 1.125 1.125 1.125z" />
+                                </svg>
+                            </div>
+                            <h2 class="text-2xl md:text-3xl font-bold mb-3">Player Statistics</h2>
+                            <p class="text-gray-300 mb-6 flex-grow">Dive deep into player performance and track your favorite players.</p>
+                            <a href="stats.html" class="mt-auto inline-block bg-ngs-blue hover:bg-ngs-blue-dark text-white font-bold py-3 px-6 md:px-8 rounded-lg transition-colors duration-300">
+                                View Player Dashboard
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Team Statistics Dashboard Card -->
+                    <div class="card-hover-effect bg-gray-800 bg-opacity-80 backdrop-blur-sm rounded-2xl overflow-hidden border border-ngs-gold/30">
+                        <div class="p-6 md:p-8 text-center flex flex-col h-full">
+                            <div class="flex justify-center mb-4">
+                                <svg class="w-16 h-16 text-ngs-gold" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+                                </svg>
+                            </div>
+                            <h2 class="text-2xl md:text-3xl font-bold mb-3">Team Statistics</h2>
+                            <p class="text-gray-300 mb-6 flex-grow">Analyze teams' performance such as average KDA, hero damage and more to see who truly dominates the Nexus.</p>
+                            <a href="#" class="mt-auto inline-block bg-ngs-gold hover:bg-ngs-gold-dark text-white font-bold py-3 px-6 md:px-8 rounded-lg transition-colors duration-300">
+                                Coming soon...
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Match Schedule Card -->
+                    <div class="card-hover-effect bg-gray-800 bg-opacity-80 backdrop-blur-sm rounded-2xl overflow-hidden border border-ngs-purple/30">
+                        <div class="p-6 md:p-8 text-center flex flex-col h-full">
+                            <div class="flex justify-center mb-4">
+                                <svg class="w-16 h-16 text-ngs-purple" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0h18M12 12.75h.008v.008H12v-.008z" />
+                                </svg>
+                            </div>
+                            <h2 class="text-2xl md:text-3xl font-bold mb-3">Match Schedule</h2>
+                            <p class="text-gray-300 mb-6 flex-grow">Check out upcoming/past matches and stream/vod links. Follow your favorite teams.</p>
+                            <a href="schedule.html" class="mt-auto inline-block bg-ngs-purple hover:bg-ngs-purple-dark text-white font-bold py-3 px-6 md:px-8 rounded-lg transition-colors duration-300">
+                                See Match Schedule
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+
+            <!-- Footer -->
+            <footer class="text-center mt-12">
+                <p class="text-gray-400 mt-2">Powered by the Nexus. For the community, by the community.</p>
+                <p class="text-gray-500 mt-2">Visit the official <a href="https://nexusgamingseries.net" target="_blank" rel="noopener noreferrer" class="text-ngs-blue hover:underline">Nexus Gaming Series</a> website.</p>
+                <p class="text-gray-500 mt-2" id="copyright">Copyright © 2025 Patienc3. All Rights Reserved.</p>
+            </footer>
+        </div>
+    </div>
+
+</body>
+</html>
