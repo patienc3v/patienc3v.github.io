@@ -4,6 +4,7 @@ const CURRENT_SEASON = 19;
 let seasonDataCache = {};
 
 const divisionOrder = ['Storm', 'Heroic', 'Nexus', 'A', 'AE', 'AW', 'B', 'BE', 'BNE', 'BSE', 'BW', 'C', 'CE', 'CW', 'D', 'DE', 'DNE', 'DSE', 'DW', 'E', 'EE', 'EW'];
+const divOrder = ['Heroic', 'Nexus'];
 
 const statCategories = {
     avgKDA: { title: 'K/D/A Ratio', type: 'numeric' },
@@ -162,7 +163,7 @@ function updateDivisionSelector() {
     
     divisionsForSeason.forEach(division => {
         const option = document.createElement('option');
-        option.value = division;
+        option.value = divOrder.includes(division) ? division + " Division" : "Division " + division;
         option.textContent = division;
         divisionSelect.appendChild(option);
     });
