@@ -1,5 +1,5 @@
 // --- 1. CONFIGURATION ---
-const CURRENT_SEASON = 19;
+const CURRENT_SEASON = 20;
 const MIN_SEASON = 6;
 
 const DIVISION_ORDER = ['Storm', 'Heroic', 'Nexus', 'A', 'AE', 'AW', 'B', 'BE', 'BNE', 'BSE', 'BW', 'C', 'CE', 'CW', 'D', 'DE', 'DNE', 'DSE', 'DW', 'E', 'EE', 'EW'];
