@@ -130,7 +130,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const homeTeam = match["home"]["teamName"];
             const awayTeam = match["away"]["teamName"];
             const matchTime = new Date(parseInt(match["scheduledTime"]["startTime"])).toISOString();
-            const casterUrl = match["casterUrl"];
+            let casterUrl = match["casterUrl"];
+            // sanity check on the casterUrl
+            if (casterUrl) {
+                if (!casterUrl.toLowerCase().startsWith("http")) {
+                    if (!casterUrl.toLowerCase().startsWith("twitch.tv/") && !casterUrl.toLowerCase().startsWith("www.twitch.tv/")) {
+                        casterUrl = "www.twitch.tv/" + casterUrl;
+                    }
+                    casterUrl = "https://" + casterUrl;
+                }
+            }
+            const vodUrl = match["vodLinks"].length > 0 ? match["vodLinks"][0] : null;
             const matchUrl = "https://www.nexusgamingseries.org/match/view/" + match["matchId"];
 
             jsonData.push({
@@ -141,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 "team2": awayTeam,
                 "time": matchTime,
                 "twitchUrl": casterUrl,
-                "youtueUrl": null
+                "youtueUrl": vodUrl
             })
             matchID++;
         });
@@ -279,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const twitchUser = match.twitchUrl.split('/').pop() || 'Twitch';
                 linksHTML = `<a href="${match.twitchUrl}" target="_blank" class="twitch-link">${twitchUser}</a>`;
             }
-            if (match.youtubeUrl) linksHTML += `<a href="${match.youtubeUrl}" target="_blank" class="youtube-link">${twitchUser}</a>`;
+            if (match.youtubeUrl) linksHTML = `<a href="${match.youtubeUrl}" target="_blank" class="youtube-link">${twitchUser}</a>`;
 
             sectionHTML += `
                 <article class="match" data-match-url="${match.matchUrl}">
