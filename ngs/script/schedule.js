@@ -214,10 +214,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderFavoritesList() {
         let content = '';
         allDivisions.forEach(division => {
+            let divisionName = divOrder.includes(division.name) ? division.name + " Division" : "Division " + division.name;
             content += `
                 <div class="division-select">
                     <details closed>
-                        <summary>${division.name}</summary>
+                        <summary>${divisionName}</summary>
                         <div class="teams-list">
                             ${division.teams.map(team => `
                                 <div 

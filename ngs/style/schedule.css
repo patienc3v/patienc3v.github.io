@@ -128,7 +128,7 @@ body:not(.sidebar-is-open) #favorites-sidebar {
 .teams-list { padding: 10px 5px; white-space: nowrap; }
 .division-select details { margin-bottom: 10px; }
 .division-select summary { font-size: 1.2em; font-weight: bold; cursor: pointer; padding: 10px; background-color: #252525; border-radius: 5px; list-style: none; }
-.division-select summary::before { content: '▶ '; display: inline-block; transition: transform 0.2s; }
+.division-select summary::before { content: '▶ '; display: inline-block; transition: transform 0.2s; margin-right: 10px;}
 .division-select details[open] summary::before { transform: rotate(90deg); }
 .team-favorite-item { padding: 10px 15px; margin: 5px 0; border-radius: 5px; cursor: pointer; transition: background-color 0.2s ease; font-weight: bold; border: 1px solid transparent; }
 .team-favorite-item:hover { background-color: #333; }
