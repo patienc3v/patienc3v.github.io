@@ -41,7 +41,7 @@ const dom = {
     statsGrid: document.getElementById('stats-grid'),
     suggestionsBox: document.getElementById('suggestions-box'),
     searchWrapper: document.querySelector('.search-wrapper'),
-    lastUpdate: document.getElementById('lastUpdate'),
+    lastUpdate: document.getElementById('update-timestamp'),
     copyright: document.getElementById('copyright')
 };
 
@@ -67,7 +67,7 @@ async function fetchAndParseCSV(season) {
         const lines = csvText.trim().split('\n');
         const header = lines[1].split(',').map(h => h.trim());
 
-        dom.lastUpdate.innerHTML = `Last updated: ${lines[0].trim()}`;
+        dom.lastUpdate.innerHTML = `${lines[0].trim()}`;
         
         return lines.slice(2).map(line => {
             const values = line.split(',');
@@ -210,7 +210,13 @@ function renderDivisionToggles(divisionsForSeason) {
         toggle.className = 'division-toggle';
         toggle.textContent = divisionName;
         toggle.dataset.division = divisionName;
-        if (filters.divisions.includes(divisionName)) toggle.classList.add('active');
+        if (filters.divisions.includes(divisionName)) {
+            toggle.classList.add('selected');
+            toggle.classList.remove('deselected');
+        } else {
+            toggle.classList.add('deselected');
+            toggle.classList.remove('selected');
+        }
         dom.divisionToggles.appendChild(toggle);
     });
 }
@@ -237,7 +243,8 @@ function handleDivisionClick(event) {
     const divisionName = toggle.dataset.division;
     const index = filters.divisions.indexOf(divisionName);
     (index > -1) ? filters.divisions.splice(index, 1) : filters.divisions.push(divisionName);
-    toggle.classList.toggle('active');
+    toggle.classList.toggle('selected');
+    toggle.classList.toggle('deselected');
     localStorage.setItem(`divisions_${filters.season}`, JSON.stringify(filters.divisions));
     renderStatTiles(dataCache[filters.season]);
 }

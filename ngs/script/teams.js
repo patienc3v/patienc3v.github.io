@@ -1,6 +1,6 @@
 // --- CONFIG & GLOBAL DATA ---
-const MIN_SEASON = 16;
 const CURRENT_SEASON = 20;
+const MIN_SEASON = 16;
 let seasonDataCache = {};
 let selectedTeams = new Set();
 
@@ -250,7 +250,7 @@ function createCharts() {
         title.textContent = category.title;
         
         const chartContent = document.createElement('div');
-        chartContent.className = 'chart-content';
+        chartContent.classList.add('chart-content');
         
         const canvas = document.createElement('canvas');
         
