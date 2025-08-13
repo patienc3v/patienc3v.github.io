@@ -178,8 +178,8 @@ function renderStatTiles(seasonData) {
                     <td class="stat-value">${statValue}</td>
                     <td class="gp-cell">${player.nGames}</td>
                     <td class="links-cell">
-                        <a href="${player.link1}" target="_blank" rel="noopener noreferrer" title="View Player Profile">👤</a>
-                        <a href="${player.link2}" target="_blank" rel="noopener noreferrer" title="View Match History">🔗</a>
+                        <a href="${player.link1}" target="_blank" rel="noopener noreferrer" title="View Player Profile"><img src="images/hots.png" alt="${player.name} HeroesProfile Profile"></a>
+                        <a href="${player.link2}" target="_blank" rel="noopener noreferrer" title="View Match History"><img src="images/ngs.png" alt="${player.name} NGS HeroesProfile Profile"></a>
                     </td>
                 </tr>
             `;
