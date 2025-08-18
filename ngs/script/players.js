@@ -4,6 +4,12 @@ const MIN_SEASON = 6;
 
 const DIVISION_ORDER = ['Storm', 'Heroic', 'Nexus', 'A', 'AE', 'AW', 'B', 'BE', 'BNE', 'BSE', 'BW', 'C', 'CE', 'CW', 'D', 'DE', 'DNE', 'DSE', 'DW', 'E', 'EE', 'EW'];
 
+const DIVISION_NAME = {
+    20: {
+        'D': 'DE'
+    }
+}
+
 const statCategories = [
     { key: 'KDA', name: 'K/D/A Ratio', sort: 'desc', format: 'float' },
     { key: 'Takedowns', sort: 'desc', format: 'float' },
@@ -65,11 +71,12 @@ async function fetchAndParseCSV(season) {
         
         const csvText = await response.text();
         const lines = csvText.trim().split('\n');
-        const header = lines[1].split(',').map(h => h.trim());
-
-        dom.lastUpdate.innerHTML = `${lines[0].trim()}`;
+        const header = lines[0].split(',').map(h => h.trim());
+        const lastModified = response.headers.get('Last-Modified');
+        const date = new Date(lastModified);
+        dom.lastUpdate.innerHTML = date.toLocaleString();
         
-        return lines.slice(2).map(line => {
+        return lines.slice(1).map(line => {
             const values = line.split(',');
             const playerObject = {};
             header.forEach((key, index) => {
@@ -82,7 +89,12 @@ async function fetchAndParseCSV(season) {
                     playerObject["link1"] = `https://heroesprofile.com/Player/${playerName}/${playerID}/1`;
                     playerObject["link2"] = `https://heroesprofile.com/Esports/NGS/Player/${playerName}/${playerID}?season=${season}`;
                 } else {
-                    playerObject[key] = isNaN(Number(value)) || value === '' ? value : Number(value);
+                    if (key === "division") {
+                        playerObject[key] = (DIVISION_NAME[season] || {})[value] || value;
+                        console.log(playerObject[key] );
+                    } else {
+                        playerObject[key] = isNaN(Number(value)) || value === '' ? value : Number(value);
+                    }
                 }
             });
             playerObject.season = season;
