@@ -202,23 +202,25 @@ function renderStatTiles(seasonData) {
                     <td class="stat-value">${statValue}</td>
                     <td class="gp-cell">${player.nGames}</td>
                     <td class="links-cell">
-                        <a href="${player.link1}" target="_blank" rel="noopener noreferrer" title="View Player Profile">👤</a>
-                        <a href="${player.link2}" target="_blank" rel="noopener noreferrer" title="View Match History">🔗</a>
+                        <a href="${player.link1}" target="_blank" rel="noopener noreferrer" title="View Player Profile"><img src="images/hots.png" alt="${player.name} HeroesProfile Profile"></a>
+                        <a href="${player.link2}" target="_blank" rel="noopener noreferrer" title="View Match History"><img src="images/ngs.png" alt="${player.name} NGS HeroesProfile Profile"></a>
                     </td>
                 </tr>
             `;
         }).join('');
-        
+
+        const catName = cat.name || cat.key;
+        const catColumn = cat.alt || cat.key;
         const tableId = `tile-table-${cat.key}`;
         tile.innerHTML = `
             <h3>
                 <button class="tile-toggle-btn" aria-expanded="${!isMobile}" aria-controls="${tableId}">
-                    <span>${cat.name}</span>
+                    <span>${catName}</span>
                     <span>${cat.sort === 'desc' ? '↓' : '↑'}</span>
                 </button>
             </h3>
             <table id="${tableId}">
-                <thead><tr><th class="rank">#</th><th>Player</th><th>${cat.key.replace('_', ' ')}</th><th>GP</th><th>Links</th></tr></thead>
+                <thead><tr><th class="rank">#</th><th>Player</th><th>${catColumn}</th><th>GP</th><th>Links</th></tr></thead>
                 <tbody>${tableRowsHTML || `<tr><td colspan="5" style="text-align:center; padding: 20px;">${isSearchActive ? 'No searched players match criteria.' : 'No players match criteria.'}</td></tr>`}</tbody>
             </table>`;
         dom.statsGrid.appendChild(tile);
