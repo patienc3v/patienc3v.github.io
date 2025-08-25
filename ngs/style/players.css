@@ -168,10 +168,19 @@ input[type="range"]::-webkit-slider-thumb {
 .suggestion-item {
     padding: 10px 12px;
     cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .suggestion-item:hover {
     background-color: var(--ngs-blue);
+}
+
+.suggestion-type {
+    font-size: 0.8em;
+    font-style: italic;
+    color: var(--ngs-text-secondary);
 }
 
 button {
@@ -195,6 +204,7 @@ button:active { transform: scale(0.98); }
     grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
     gap: 20px;
 }
+
 .stat-tile {
     background-color: var(--ngs-light-bg);
     border: 1px solid var(--ngs-border);
@@ -202,11 +212,22 @@ button:active { transform: scale(0.98); }
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     overflow: hidden;
 }
+
 .stat-tile h3 {
     background-color: #33363a; margin: 0; padding: 0; /* Padding moved to button */
     font-size: 1.1em; border-bottom: 1px solid var(--ngs-border);
     display: flex; justify-content: space-between;
 }
+
+.team-name {
+ font-size: 0.85em;
+ font-style: italic;
+ color: var(--ngs-text-secondary);
+ white-space: nowrap; /* Ensures team name stays in one line */
+ overflow: hidden;
+ text-overflow: ellipsis; /* Optional: adds an ellipsis (...) if it overflows */
+}
+
 .tile-toggle-btn { /* New style for the header button */
     display: flex;
     justify-content: space-between;

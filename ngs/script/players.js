@@ -91,7 +91,6 @@ async function fetchAndParseCSV(season) {
                 } else {
                     if (key === "division") {
                         playerObject[key] = (DIVISION_NAME[season] || {})[value] || value;
-                        console.log(playerObject[key] );
                     } else {
                         playerObject[key] = isNaN(Number(value)) || value === '' ? value : Number(value);
                     }
@@ -164,8 +163,15 @@ function renderStatTiles(seasonData) {
             .map((player, index) => ({ ...player, rank: index + 1 }));
 
         let playersToDisplay;
+        let teamsToDisplay;
         if (isSearchActive) {
             playersToDisplay = rankedAllPlayers.filter(player =>
+                filters.searchTerms.some(term => 
+                    player.name.toLowerCase().includes(term) ||
+                    (player.team.length > 0 && player.team.toLowerCase().includes(term))
+                )
+            );
+            teamsTo = rankedAllPlayers.filter(player =>
                 filters.searchTerms.some(term => player.name.toLowerCase().includes(term))
             );
         } else {
@@ -174,41 +180,45 @@ function renderStatTiles(seasonData) {
 
         const tile = document.createElement('div');
         tile.className = 'stat-tile';
-        // Add collapsed class by default on mobile
         if (isMobile) {
             tile.classList.add('collapsed');
         }
 
         const tableRowsHTML = playersToDisplay.map(player => {
             const divisionIndicatorHTML = showDivisionIndicator ? `<span class="division-indicator">${player.division}</span>` : '';
+            const teamIndicatorHTML =  `<span class="team-name">${player.team.length == 0 ? '---' : player.team}</span>`;
             const statValue = formatStatValue(player[cat.key], cat.format);
 
             return `
                 <tr>
                     <td class="rank">${player.rank}</td>
-                    <td><div class="player-cell"><span>${player.name}</span>${divisionIndicatorHTML}</div></td>
+                    <td>
+                        <div class="player-cell">
+                            <span>${player.name}</span>
+                            ${teamIndicatorHTML}
+                            ${divisionIndicatorHTML}
+                        </div>
+                    </td>
                     <td class="stat-value">${statValue}</td>
                     <td class="gp-cell">${player.nGames}</td>
                     <td class="links-cell">
-                        <a href="${player.link1}" target="_blank" rel="noopener noreferrer" title="View Player Profile"><img src="images/hots.png" alt="${player.name} HeroesProfile Profile"></a>
-                        <a href="${player.link2}" target="_blank" rel="noopener noreferrer" title="View Match History"><img src="images/ngs.png" alt="${player.name} NGS HeroesProfile Profile"></a>
+                        <a href="${player.link1}" target="_blank" rel="noopener noreferrer" title="View Player Profile">👤</a>
+                        <a href="${player.link2}" target="_blank" rel="noopener noreferrer" title="View Match History">🔗</a>
                     </td>
                 </tr>
             `;
         }).join('');
         
-        const catName = cat.name || cat.key;
-        const catColumn = cat.alt || cat.key;
         const tableId = `tile-table-${cat.key}`;
         tile.innerHTML = `
             <h3>
                 <button class="tile-toggle-btn" aria-expanded="${!isMobile}" aria-controls="${tableId}">
-                    <span>${catName}</span>
+                    <span>${cat.name}</span>
                     <span>${cat.sort === 'desc' ? '↓' : '↑'}</span>
                 </button>
             </h3>
             <table id="${tableId}">
-                <thead><tr><th class="rank">#</th><th>Player</th><th>${catColumn}</th><th>GP</th><th>Links</th></tr></thead>
+                <thead><tr><th class="rank">#</th><th>Player</th><th>${cat.key.replace('_', ' ')}</th><th>GP</th><th>Links</th></tr></thead>
                 <tbody>${tableRowsHTML || `<tr><td colspan="5" style="text-align:center; padding: 20px;">${isSearchActive ? 'No searched players match criteria.' : 'No players match criteria.'}</td></tr>`}</tbody>
             </table>`;
         dom.statsGrid.appendChild(tile);
@@ -240,7 +250,12 @@ async function loadSeason(season) {
     const seasonData = await getSeasonData(season);
     if (!seasonData || !seasonData.length) return;
 
-    allPlayerNames = [...new Set(seasonData.map(p => p.name))];
+    // Populate autocomplete options with players and teams for the season
+    const playerNames = seasonData.map(p => p.name);
+    const teamNames = seasonData.map(p => p.team).filter(team => team && typeof team === 'string' && team.length > 0);
+    uniqueTeamNames = new Set(teamNames);
+    allAutocompleteOptions = [...new Set([...playerNames, ...teamNames])];
+
     const divisionsForSeason = getDivisionsForSeason(seasonData);
     const savedDivisions = JSON.parse(localStorage.getItem(`divisions_${season}`));
     filters.divisions = savedDivisions !== null ? savedDivisions : [...divisionsForSeason];
@@ -291,13 +306,19 @@ function handleSearchInput(event) {
     const value = event.target.value;
     const searchParts = value.split(',');
     const currentPart = searchParts[searchParts.length - 1].trim().toLowerCase();
-    if (currentPart.length === 0) { dom.suggestionsBox.innerHTML = ''; return; }
-    const matches = allPlayerNames.filter(name => name.toLowerCase().includes(currentPart));
-    dom.suggestionsBox.innerHTML = '';
+    
+    dom.suggestionsBox.innerHTML = ''; // Clear previous suggestions
+    if (currentPart.length === 0) return;
+    
+    const matches = allAutocompleteOptions.filter(option => 
+        option && typeof option === 'string' && option.toLowerCase().includes(currentPart)
+    );
+
     matches.forEach(name => {
         const item = document.createElement('div');
         item.className = 'suggestion-item';
-        item.textContent = name;
+        const isTeam = uniqueTeamNames.has(name);
+        item.innerHTML = `<span>${name}</span> <span class="suggestion-type">${isTeam ? 'Team' : 'Player'}</span>`;
         item.addEventListener('click', () => handleSuggestionClick(name));
         dom.suggestionsBox.appendChild(item);
     });
