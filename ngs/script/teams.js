@@ -11,7 +11,7 @@ const statCategories = {
     avgKDA: { title: 'K/D/A Ratio', type: 'numeric' },
     heroPool: { title: 'Hero Pool', type: 'numeric', format: 'int'},
     levelTime: {
-        title: 'Time (s) to Reach Level',
+        title: 'Time to Reach Level',
         type: 'stacked',
         keys: ['levelTime4', 'levelTime7', 'levelTime10', 'levelTime13', 'levelTime16' ],
         labels: ['4', '7', '10', '13', '16'],
@@ -37,7 +37,7 @@ const statCategories = {
     ccTime: { title: 'Total CC Time', type: 'time' },
 
     ccBreakdown: {
-        title: 'CC Time (s) Breakdown',
+        title: 'CC Time Breakdown',
         type: 'stacked',
         keys: ['stunTime', 'silenceTime', 'rootTime'],
         labels: ['Stun', 'Silence', 'Root'],
