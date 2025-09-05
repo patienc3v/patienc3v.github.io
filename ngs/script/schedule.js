@@ -256,7 +256,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const now = new Date();
+        let now = new Date();
+	now.setTime(now.getTime() - 2 * 60 * 60 * 1000);
         const upcomingMatches = filteredMatches
             .filter(match => new Date(match.time) > now)
             .sort((a, b) => new Date(a.time) - new Date(b.time));
