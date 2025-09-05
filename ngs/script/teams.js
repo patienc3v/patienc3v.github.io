@@ -9,7 +9,7 @@ const divOrder = ['Storm', 'Heroic', 'Nexus'];
 
 const statCategories = {
     avgKDA: { title: 'K/D/A Ratio', type: 'numeric' },
-    heroPool: { title: 'Hero Pool', type: 'numeric' },
+    heroPool: { title: 'Hero Pool', type: 'numeric', format: 'int'},
     levelTime: {
         title: 'Time (s) to Reach Level',
         type: 'stacked',
@@ -23,7 +23,8 @@ const statCategories = {
             'rgba(91, 192, 222, 0.8)', // Light Blue
             'rgba(155, 89, 182, 0.8)', // Purple
             'rgba(149, 165, 166, 0.8)' // Grey
-        ]
+        ],
+        format: 'time'
     },
     HDM: { title: 'Hero Damage per Minute', type: 'numeric' },
     HLDM: { title: 'Healing per Minute', type: 'numeric' },
@@ -48,7 +49,8 @@ const statCategories = {
             'rgba(91, 192, 222, 0.8)', // Light Blue
             'rgba(155, 89, 182, 0.8)', // Purple
             'rgba(149, 165, 166, 0.8)' // Grey
-        ]
+        ],
+        format: 'time'
     },
 
     xpBreakdown: {
@@ -233,7 +235,18 @@ function updateCharts() {
 function formatTime(seconds) {
     const m = Math.floor(seconds / 60);
     const s = seconds % 60;
-    return `${m}:${s.toString().padStart(2, '0')}`;
+    return `${m}:${(s < 10 ? "0" : "") + formatNumber(s, 0)}`;
+}
+
+function formatNumber(number, decimalPlaces) {
+  const options = {
+    minimumFractionDigits: decimalPlaces,
+    maximumFractionDigits: decimalPlaces,
+    useGrouping: true // This enables the thousands separator
+  };
+
+  // 'en-US' locale typically uses comma for thousands and dot for decimal
+  return new Intl.NumberFormat('en-US', options).format(number);
 }
 
 function createCharts() {
@@ -288,9 +301,11 @@ function createCharts() {
             config.data.datasets = [{ label: category.title, data: [], backgroundColor: 'rgba(242, 105, 46, 0.7)', borderColor: 'rgba(242, 105, 46, 1)', borderWidth: 1 }];
         }
 
-        if (category.type === 'time') {
+        if (category.type === 'time' || category.format == 'time') {
             config.options.scales.y.ticks.callback = value => formatTime(value);
             config.options.plugins.tooltip.callbacks.label = context => formatTime(context.raw);
+        } else {
+            config.options.plugins.tooltip.callbacks.label = context => formatNumber(context.raw, category.format && category.format == 'int' ? 0 : 2);
         }
         charts[key] = new Chart(canvas, config);
     });
