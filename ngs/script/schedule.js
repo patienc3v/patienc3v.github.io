@@ -140,7 +140,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     casterUrl = "https://" + casterUrl;
                 }
             }
-            const vodUrl = match["vodLinks"].length > 0 ? match["vodLinks"][0] : null;
+            const vodLinks = match["vodLinks"].filter(vodUrl => vodUrl.includes("youtube") || vodUrl.includes("youtu.be"));
+            const vodUrl = vodLinks.length > 0 ? match["vodLinks"][0] : null;
             const matchUrl = "https://www.nexusgamingseries.org/match/view/" + match["matchId"];
 
             jsonData.push({
@@ -150,8 +151,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 "team1": homeTeam,
                 "team2": awayTeam,
                 "time": matchTime,
-                "twitchUrl": casterUrl,
-                "youtueUrl": vodUrl
+                "twitchUrl": casterUrl && casterUrl.endsWith("/") ? casterUrl.substring(0, casterUrl.length - 1) : casterUrl,
+                "youtubeUrl": vodUrl
             })
             matchID++;
         });
@@ -289,8 +290,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (match.twitchUrl) {
                 const twitchUser = match.twitchUrl.split('/').pop() || 'Twitch';
                 linksHTML = `<a href="${match.twitchUrl}" target="_blank" class="twitch-link">${twitchUser}</a>`;
+                if (match.youtubeUrl) {
+                    linksHTML = `<a href="${match.youtubeUrl}" target="_blank" class="youtube-link">${twitchUser}</a>`;
+                }
             }
-            if (match.youtubeUrl) linksHTML = `<a href="${match.youtubeUrl}" target="_blank" class="youtube-link">${twitchUser}</a>`;
 
             sectionHTML += `
                 <article class="match" data-match-url="${match.matchUrl}">
