@@ -48,216 +48,57 @@
     <p>&copy; 2025 Gen.M Esports. All rights reserved.</p>
   </footer>
   <script>
-    const roster = [
-{
-	"name": "infafox",
-	"role": "Tank",
-	"country": "usa",
-	"bid": 690175,
-	"active": true,
-},
-{
-	"name": "Ace",
-	"role": "Assassin",
-	"country": "usa",
-	"bid": 279912,
-	"active": false,
-},
-{
-	"name": "RandyNewman",
-	"role": "Flex",
-	"country": "usa",
-	"bid": 8421631,
-	"active": false,
-	"picture": "randynewman.png"
-},
-{
-	"name": "Ectar",
-	"role": "Healer",
-	"country": "usa",
-	"bid": 369687,
-	"active": false,
-	"picture": "ectar.png"
-},
-{
-	"name": "Majesty",
-	"role": "Offlaner",
-	"country": "usa",
-	"bid": 6206532,
-	"active": true,
-	"picture": "majesty.png"
-},
-{
-	"name": "DuffMcWhalen",
-	"role": "Assasin",
-	"country": "usa",
-	"bid": 846273,
-	"active": false,
-	"picture": "duffmcwhalen.png"
-},
-{
-	"name": "Patienc3",
-	"role": "Healer",
-	"country": "south.korea",
-	"bid":591263,
-	"active": true,
-	"picture": "patienc3.png"
-},
-{
-	"name": "LeoRice",
-	"role": "Sub",
-	"country": "canada",
-	"bid":6690503,
-	"active": true,
-},
-{
-	"name": "bmeduho",
-	"role": "Offlaner",
-	"country": "usa",
-	"bid":6895524,
-	"active": false,
-},
-{
-	"name": "JohnBunyan",
-	"role": "Sub",
-	"country": "usa",
-	"bid":7845610,
-	"active": false,
-},
-{
-	"name": "French",
-	"role": "Flex",
-	"country": "usa",
-	"bid": 3754476,
-	"active": false,
-},
-{
-	"name": "IJustFizzed",
-	"role": "Offlane",
-	"country": "usa",
-	"bid":591263,
-	"active": false,
-},
-{
-	"name": "Joonin",
-	"role": "Sub",
-	"country": "usa",
-	"bid": 3754476,
-	"active": false,
-},
-{
-	"name": "Logicalia",
-	"role": "Flex",
-	"country": "usa",
-	"bid": 1880026,
-	"active": false,
-},
-{
-	"name": "RandiNuMan",
-	"role": "Healer",
-	"country": "usa",
-	"bid": 3754476,
-	"active": false,
-},
-{
-	"name": "Tax1k",
-	"role": "Tank",
-	"country": "usa",
-	"bid": 507986,
-	"active": false,
-  "picture": "tax1k.png"
-},
-{
-	"name": "Yonners",
-	"role": "Assassin",
-	"country": "usa",
-	"bid": 5152170,
-	"active": false,
-},
-{
-	"name": "Cauthon",
-	"role": "Tank",
-	"country": "usa",
-	"bid": 2004752,
-	"active": false,
-},
-{
-	"name": "GreekFire",
-	"role": "Sub",
-	"country": "usa",
-	"bid": 10725023,
-	"active": false,
-},
-{
-	"name": "Kobo",
-	"role": "Assassin",
-	"country": "usa",
-	"bid": 8007331,
-	"active": false,
-},
-{
-  "name": "SrMacofCheez",
-  "role": "Healer",
-  "country": "usa",
-  "bid": 4973177,
-  "active": false,
-},
-{
-  "name": "Solien",
-  "role": "Assassin",
-  "country": "canada",
-  "bid": 6405877,
-  "active": true,
-},
-{
-  "name": "Psyqo",
-  "role": "Assassin",
-  "country": "canada",
-  "bid": 918724,
-  "active": true,
-},
-{
-  "name": "Wholefoods",
-  "role": "Sub",
-  "country": "usa",
-  "bid": 8267894,
-  "active": true,
-}
-]
+    let roster = [];
 
-const menu = document.getElementById("menu");
-function toggleMenu() {
-  if (menu.style.display === "block") {
-    menu.style.display = "none";
-  } else {
-    menu.style.display = "block";
-  }
-} 
+    const menu = document.getElementById("menu");
+    const sections = [true, false];
 
-const sections = [true, false];
+  	async function fetchData() {      
+      try {
+        const response = await fetch("data/roster.json");
+        
+        if (!response.ok) {
+            throw new Error('Error while retrieving the team data.');
+        }
 
-sections.forEach((section) => {
-  console.log(section);
-  const container = document.getElementById(section ? "active" : "inactive");
+        roster = await response.json();
 
-  roster.forEach((player) => {
-    if (player.active == section) {
-      const card = document.createElement("div");
-      card.className = "player-card";
-      if (!player.picture) {
-        console.log(player.name);
-        player.picture = "profile.generic.png";
+      } catch (error) {
+        console.error('Failed to fetch data:', error);
+      } finally {
+        sections.forEach((section) => {
+          console.log(section);
+          const container = document.getElementById(section ? "active" : "inactive");
+
+          roster.forEach((player) => {
+            if (player.active == section) {
+              const card = document.createElement("div");
+              card.className = "player-card";
+              if (!player.picture) {
+                console.log(player.name);
+                player.picture = "profile.generic.png";
+              }
+              card.innerHTML = `
+                <img class="profile" src="images/profile/${player.picture}" alt="${player.name}">
+                <div class="player-name">${player.name}</div>
+                <div class="player-role">${player.role} <img class="flag" src="images/flags/${player.country}.png" alt="BR"></div>
+              `;
+              container.appendChild(card);
+            } 
+          });
+        });
       }
-      card.innerHTML = `
-        <img class="profile" src="images/profile/${player.picture}" alt="${player.name}">
-        <div class="player-name">${player.name}</div>
-        <div class="player-role">${player.role} <img class="flag" src="images/flags/${player.country}.png" alt="BR"></div>
-      `;
-      container.appendChild(card);
-    } 
-  });
-});
+    }
 
+    function toggleMenu() {
+      if (menu.style.display === "block") {
+        menu.style.display = "none";
+      } else {
+        menu.style.display = "block";
+      }
+    }
+
+    fetchData();
   </script>
 </body>
 </html>
