@@ -107,12 +107,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const division= team["divisionConcat"];
             const divisionName = team["divisionDisplayName"];
             const logo = team["logo"] || "defaultTeamLogo.png";
-            
-            jsonData[divisionLookup[division] - 1]["name"] = divisionName;
-            jsonData[divisionLookup[division] - 1]["teams"].push({
-                "name": teamName,
-                "logoUrl": encodeURI("https://s3.amazonaws.com/ngs-image-storage/" + logo)
-            })
+            if (division != null) {
+	        jsonData[divisionLookup[division] - 1]["name"] = divisionName;
+        	jsonData[divisionLookup[division] - 1]["teams"].push({
+                    "name": teamName,
+	            "logoUrl": encodeURI("https://s3.amazonaws.com/ngs-image-storage/" + logo)
+        	})
+            }
         });
         jsonData.forEach((division) => {
             division["teams"].sort((a, b) => {
