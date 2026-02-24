@@ -34,7 +34,7 @@
 	"role": "Offlaner",
 	"country": "usa",
 	"bid": 6206532,
-	"active": true,
+	"active": false,
 	"picture": "majesty.png"
 },
 {
@@ -58,7 +58,7 @@
 	"role": "Sub",
 	"country": "canada",
 	"bid":6690503,
-	"active": true
+	"active": false
 },
 {
 	"name": "bmeduho",
@@ -79,7 +79,7 @@
 	"role": "Flex",
 	"country": "usa",
 	"bid": 3754476,
-	"active": false
+	"active": true
 },
 {
 	"name": "IJustFizzed",
@@ -136,7 +136,7 @@
 	"role": "Sub",
 	"country": "usa",
 	"bid": 10725023,
-	"active": false
+	"active": true
 },
 {
 	"name": "Kobo",
@@ -171,6 +171,27 @@
 	"role": "Sub",
 	"country": "usa",
 	"bid": 8267894,
-	"active": true
+	"active": false
+},
+{
+	"name": "Storm",
+	"role": "Offlaner",
+	"country": "usa",
+	"bid": 1242027,
+	"active": false
+},
+{
+	"name": "Jamster",
+	"role": "Offlaner",
+	"country": "usa",
+	"bid": 3632542,
+	"active": false
+},
+{
+	"name": "Thisguy",
+	"role": "Tank",
+	"country": "usa",
+	"bid": 6342570,
+	"active": false
 }
 ]
