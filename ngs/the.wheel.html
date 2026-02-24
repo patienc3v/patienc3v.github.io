@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gen.M Esports: The Wheels</title>
+    <style type="text/css">
+        * {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #0f0f11;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    margin: 0;
+}
+
+.page-title {
+    color: #ff5500; 
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 36px;
+    margin-top: 0;
+    margin-bottom: 30px;
+    text-align: center;
+    text-shadow: 0 4px 10px rgba(255, 85, 0, 0.4);
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    max-width: 1600px; /* Widened to fit 3 wheels perfectly */
+}
+
+.wheel-container {
+    background: #1e1e24;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+    border: 1px solid #333;
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h2 {
+    margin-top: 0;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.canvas-wrapper {
+    position: relative;
+    margin: 20px 0;
+}
+
+.pointer {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 35px solid #ff5500; 
+    z-index: 10;
+    filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.8));
+    transition: border-top-color 0.1s ease; 
+}
+
+canvas {
+}
+
+.controls {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.action-btn, .add-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #111;
+    text-transform: uppercase;
+}
+
+.action-btn:disabled, .add-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.spin-btn { background-color: #ff5500; color: #fff;}
+.spin-btn:hover:not(:disabled) { 
+    background-color: #ff7733; 
+    box-shadow: 0 0 10px rgba(255, 85, 0, 0.4);
+}
+
+.reset-btn { background-color: #555; color: #fff; }
+.reset-btn:hover:not(:disabled) { background-color: #777; }
+
+.add-btn {
+    background-color: #ffffff;
+    width: 100%;
+    margin-top: 10px;
+}
+.add-btn:hover:not(:disabled) { background-color: #dddddd; }
+
+.boost-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    background: #2a2a30;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-weight: bold;
+    color: #ddd;
+    border: 1px solid #444;
+}
+
+.boost-control input {
+    width: 70px;
+    padding: 6px;
+    background: #111;
+    color: #ff5500;
+    border: 1px solid #555;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.choices-ui {
+    width: 100%;
+    max-height: 220px;
+    overflow-y: auto;
+    padding-right: 10px;
+    margin-bottom: 10px;
+}
+
+.choice-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+    align-items: center;
+}
+
+.choice-row input[type="text"], .choice-row input[type="number"] {
+    padding: 8px;
+    background: #111;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 4px;
+}
+
+.choice-row input[type="text"] { flex: 1; }
+.choice-row input[type="number"] { width: 80px; color: #ff5500; font-weight: bold; }
+
+.delete-btn {
+    background-color: #b33939; 
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.delete-btn:disabled { background-color: #552222; }
+
+.results-panel {
+    width: 100%;
+    background: #2a2a30;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    min-height: 120px;
+    border: 1px solid #444;
+}
+
+.results-panel h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #aaa;
+    text-transform: uppercase;
+}
+
+.results-panel ul {
+    margin: 0;
+    padding-left: 20px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.single-winner-text {
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 18px;
+    padding-left: 5px;
+}
+
+.custom-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    background: #1e1e24;
+    color: #ff5500;
+    padding: 25px 50px;
+    border: 2px solid #ff5500;
+    border-radius: 4px;
+    font-size: 24px;
+    font-weight: bold;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease-out;
+    z-index: 3000;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+}
+
+.custom-popup.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+    </style>
+    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <h1 class="page-title">Gen.M Esports: The Wheels</h1>
+
+    <div class="container">
+        
+        <div class="wheel-container" id="left-wheel-ui">
+            <h2>Map Bans</h2>
+            <div class="canvas-wrapper">
+                <div class="pointer"></div>
+                <canvas id="canvas-left" width="400" height="400"></canvas>
+            </div>
+            <div class="controls">
+                <button class="action-btn spin-btn" id="spin-left">Spin (4x)</button>
+                <button class="action-btn reset-btn" id="reset-left">Reset Wheel</button>
+            </div>
+            <div class="results-panel">
+                <ul id="results-left"></ul>
+            </div>
+            <div class="choices-ui" id="choices-left"></div>
+            <button class="add-btn" id="add-left">+ Add New Choice</button>
+        </div>
+
+        <div class="wheel-container" id="middle-wheel-ui">
+            <h2>Drafter</h2>
+            <div class="canvas-wrapper">
+                <div class="pointer"></div>
+                <canvas id="canvas-middle" width="400" height="400"></canvas>
+            </div>
+            <div class="controls">
+                <button class="action-btn spin-btn" id="spin-middle">Spin</button>
+                <button class="action-btn reset-btn" id="reset-middle">Reset Wheel</button>
+            </div>
+            <div class="results-panel">
+                <div id="last-winner-middle" class="single-winner-text"></div>
+            </div>
+            <div class="choices-ui" id="choices-middle"></div>
+            <button class="add-btn" id="add-middle">+ Add New Choice</button>
+        </div>
+
+        <div class="wheel-container" id="right-wheel-ui">
+            <h2>Player Draft</h2>
+            <div class="canvas-wrapper">
+                <div class="pointer"></div>
+                <canvas id="canvas-right" width="400" height="400"></canvas>
+            </div>
+            <div class="controls">
+                <button class="action-btn spin-btn" id="spin-right">Spin (5x)</button>
+                <button class="action-btn reset-btn" id="reset-right">Reset Wheel</button>
+            </div>
+            
+            <div class="boost-control">
+                <label for="boost-right">Boost Unpicked on Reset:</label>
+                <input type="number" id="boost-right" step="0.1" min="0" value="0.25">
+            </div>
+
+            <div class="results-panel">
+                <ul id="results-right"></ul>
+            </div>
+            <div class="choices-ui" id="choices-right"></div>
+            <button class="add-btn" id="add-right">+ Add New Choice</button>
+        </div>
+
+    </div>
+
+    <div id="custom-popup" class="custom-popup">
+        <div id="custom-popup-text"></div>
+    </div>
+
+    <script>
+// Shared Audio Context for the browser's native sound synthesizer
+let audioCtx;
+let femaleVoice;
+
+var playerSound = {
+    "Patienc3": "Patience",
+    "Psyqo": "Psycho"
+};
+
+function initAudio() {
+    if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    var voices = window.speechSynthesis.getVoices();
+    // Filter to find a female voice - names vary by OS/Browser
+    femaleVoice = voices.find(voice => 
+        voice.name.includes('Female') || 
+        voice.name.includes('Zira') || 
+        voice.name.includes('Samantha')
+    );    
+}
+
+function announceWinner(player, text) {
+    if ('speechSynthesis' in window) {
+        // Cancel any currently speaking text so it doesn't overlap
+        window.speechSynthesis.cancel();
+        
+        const utterance = new SpeechSynthesisUtterance((playerSound[player] ?? player) + text);
+
+
+        if (femaleVoice) {
+            utterance.voice = femaleVoice;
+        }
+        
+        window.speechSynthesis.speak(utterance);
+    }
+}
+
+
+function playTickSound() {
+    if (!audioCtx) return;
+    const osc = audioCtx.createOscillator();
+    const gainNode = audioCtx.createGain();
+    
+    osc.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+    
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(10, audioCtx.currentTime + 0.05);
+    
+    gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+    
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.05);
+}
+
+function playWinSound() {
+    if (!audioCtx) return;
+    const osc = audioCtx.createOscillator();
+    const gainNode = audioCtx.createGain();
+    
+    osc.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+    
+    osc.type = 'triangle';
+    const now = audioCtx.currentTime;
+    
+    osc.frequency.setValueAtTime(523.25, now);         
+    osc.frequency.setValueAtTime(659.25, now + 0.1);   
+    osc.frequency.setValueAtTime(783.99, now + 0.2);   
+    osc.frequency.setValueAtTime(1046.50, now + 0.3);  
+    
+    gainNode.gain.setValueAtTime(0, now);
+    gainNode.gain.linearRampToValueAtTime(0.2, now + 0.05);
+    gainNode.gain.setValueAtTime(0.2, now + 0.3);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.8);
+    
+    osc.start(now);
+    osc.stop(now + 0.8);
+}
+
+class CustomWheel {
+    // We now accept the specific number of spins instead of a boolean
+    constructor(id, initialChoices, spinCount) {
+        this.id = id;
+        this.canvas = document.getElementById(`canvas-${id}`);
+        this.ctx = this.canvas.getContext('2d');
+        
+        this.spinCount = spinCount;
+        this.isMultiSpin = spinCount > 1;
+        
+        this.choices = initialChoices.map((c, i) => ({ ...c, id: i }));
+        this.baselineChoices = JSON.parse(JSON.stringify(this.choices));
+        this.nextChoiceId = this.choices.length;
+        
+        this.currentAngle = 0;
+        this.isSpinning = false;
+        this.multiSpinCount = 0;
+        this.lastActiveIndex = -1; 
+        
+        this.colors = [
+            '#ff5500', '#FFC300', '#E63946', '#FF0054', '#00A8E8', 
+            '#1A508B', '#2EC4B6', '#7209B7', '#38B000', '#8D99AE', 
+            '#333333'
+        ];
+        
+        this.uiList = document.getElementById(`choices-${id}`);
+        this.spinBtn = document.getElementById(`spin-${id}`);
+        this.resetBtn = document.getElementById(`reset-${id}`);
+        this.addBtn = document.getElementById(`add-${id}`);
+        
+        this.resultsList = document.getElementById(`results-${id}`);
+        this.singleWinnerEl = document.getElementById(`last-winner-${id}`);
+        this.boostInput = document.getElementById(`boost-${id}`);
+        
+        this.pointerEl = document.querySelector(`#${id}-wheel-ui .pointer`);
+        
+        this.logoLoaded = false;
+        this.logoImg = new Image();
+        this.logoImg.src = 'https://patienc3v.github.io/genm/images/gen.m.png';
+        this.logoImg.onload = () => {
+            this.logoLoaded = true;
+            this.drawWheel(); 
+        };
+        
+        this.initEvents();
+        this.renderUI();
+        this.drawWheel();
+    }
+
+    initEvents() {
+        this.spinBtn.addEventListener('click', () => {
+            initAudio(); 
+            this.startSpinSequence();
+        });
+        
+        this.resetBtn.addEventListener('click', () => this.reset());
+        this.addBtn.addEventListener('click', () => {
+            const newChoice = { 
+                id: this.nextChoiceId++, 
+                text: `Choice ${this.baselineChoices.length + 1}`, 
+                weight: 1.0 
+            };
+            
+            this.choices.push({ ...newChoice });
+            this.baselineChoices.push({ ...newChoice });
+            
+            this.renderUI();
+            this.drawWheel();
+        });
+    }
+
+    renderUI() {
+        this.uiList.innerHTML = '';
+        
+        this.choices.forEach((choice, index) => {
+            const row = document.createElement('div');
+            row.className = 'choice-row';
+            
+            const textInput = document.createElement('input');
+            textInput.type = 'text';
+            textInput.value = choice.text;
+            textInput.disabled = this.isSpinning;
+            textInput.addEventListener('input', (e) => {
+                this.choices[index].text = e.target.value;
+                const baseRef = this.baselineChoices.find(c => c.id === choice.id);
+                if (baseRef) baseRef.text = e.target.value;
+                this.drawWheel();
+            });
+
+            const weightInput = document.createElement('input');
+            weightInput.type = 'number';
+            weightInput.min = '0.01';
+            weightInput.step = '0.1';
+            weightInput.value = choice.weight;
+            weightInput.disabled = this.isSpinning;
+            weightInput.addEventListener('change', (e) => {
+                let val = parseFloat(e.target.value);
+                if (isNaN(val) || val <= 0) val = 0.1;
+                e.target.value = val;
+                
+                this.choices[index].weight = val;
+                const baseRef = this.baselineChoices.find(c => c.id === choice.id);
+                if (baseRef) baseRef.weight = val;
+                this.drawWheel();
+            });
+
+            const delBtn = document.createElement('button');
+            delBtn.className = 'delete-btn';
+            delBtn.innerText = 'X';
+            delBtn.disabled = this.isSpinning || this.choices.length <= 1;
+            delBtn.addEventListener('click', () => {
+                if (this.choices.length > 1) {
+                    const deletedId = this.choices[index].id;
+                    this.choices.splice(index, 1);
+                    const baseIdx = this.baselineChoices.findIndex(c => c.id === deletedId);
+                    if (baseIdx > -1) this.baselineChoices.splice(baseIdx, 1);
+                    this.renderUI();
+                    this.drawWheel();
+                }
+            });
+
+            row.appendChild(textInput);
+            row.appendChild(weightInput);
+            row.appendChild(delBtn);
+            this.uiList.appendChild(row);
+        });
+        
+        this.spinBtn.disabled = this.isSpinning || this.choices.length <= 1;
+        this.addBtn.disabled = this.isSpinning;
+    }
+
+    drawWheel() {
+        const w = this.canvas.width;
+        const h = this.canvas.height;
+        const cx = w / 2;
+        const cy = h / 2;
+        const radius = Math.min(w, h) / 2 - 10;
+
+        this.ctx.clearRect(0, 0, w, h);
+
+        if (this.choices.length === 0) return;
+
+        const totalWeight = this.choices.reduce((sum, c) => sum + c.weight, 0);
+        let startAngle = this.currentAngle;
+
+        for (let i = 0; i < this.choices.length; i++) {
+            const choice = this.choices[i];
+            const sliceAngle = (choice.weight / totalWeight) * 2 * Math.PI;
+            const color = this.colors[i % this.colors.length];
+
+            this.ctx.beginPath();
+            this.ctx.moveTo(cx, cy);
+            this.ctx.arc(cx, cy, radius, startAngle, startAngle + sliceAngle);
+            this.ctx.closePath();
+            this.ctx.fillStyle = color;
+            this.ctx.fill();
+            this.ctx.lineWidth = 2;
+            this.ctx.strokeStyle = '#0f0f11'; 
+            this.ctx.stroke();
+
+            this.ctx.save();
+            this.ctx.translate(cx, cy);
+            this.ctx.rotate(startAngle + sliceAngle / 2);
+            this.ctx.textAlign = 'right';
+            this.ctx.fillStyle = '#fff';
+            this.ctx.font = 'bold 20px sans-serif';
+            this.ctx.shadowColor = 'rgba(0,0,0,0.9)';
+            this.ctx.shadowBlur = 6;
+            this.ctx.fillText(choice.text, radius - 20, 6);
+            this.ctx.restore();
+
+            startAngle += sliceAngle;
+        }
+
+        const hubRadius = 45;
+        this.ctx.save(); 
+        this.ctx.translate(cx, cy); 
+        this.ctx.rotate(this.currentAngle); 
+        
+        this.ctx.beginPath();
+        this.ctx.arc(0, 0, hubRadius, 0, 2 * Math.PI);
+        this.ctx.fillStyle = '#1e1e24';
+        this.ctx.fill();
+        this.ctx.lineWidth = 3;
+        this.ctx.strokeStyle = '#ff5500'; 
+        this.ctx.stroke();
+
+        if (this.logoLoaded) {
+            const imgSize = 65;
+            this.ctx.drawImage(this.logoImg, -imgSize / 2, -imgSize / 2, imgSize, imgSize);
+        } else {
+            this.ctx.fillStyle = '#ff5500';
+            this.ctx.textAlign = 'center';
+            this.ctx.textBaseline = 'middle';
+            this.ctx.font = 'bold 16px sans-serif';
+            this.ctx.fillText('GEN.M', 0, 0);
+        }
+        this.ctx.restore(); 
+
+        this.updatePointerColor(totalWeight);
+    }
+
+    updatePointerColor(totalWeight) {
+        let offset = (Math.PI * 1.5 - this.currentAngle) % (Math.PI * 2);
+        if (offset < 0) offset += Math.PI * 2;
+
+        let currentSliceStart = 0;
+        let activeIndex = -1;
+
+        for (let i = 0; i < this.choices.length; i++) {
+            const sliceAngle = (this.choices[i].weight / totalWeight) * 2 * Math.PI;
+            if (offset >= currentSliceStart && offset < currentSliceStart + sliceAngle) {
+                activeIndex = i;
+                break;
+            }
+            currentSliceStart += sliceAngle;
+        }
+
+        if (activeIndex !== -1) {
+            if (this.isSpinning && this.lastActiveIndex !== -1 && this.lastActiveIndex !== activeIndex) {
+                playTickSound();
+            }
+            this.lastActiveIndex = activeIndex;
+
+            if (this.pointerEl) {
+                const activeColor = this.colors[activeIndex % this.colors.length];
+                this.pointerEl.style.borderTopColor = activeColor;
+            }
+        }
+    }
+
+    async startSpinSequence() {
+        if (this.choices.length <= 1 || this.isSpinning) return;
+        
+        this.isSpinning = true;
+        this.lastActiveIndex = -1; 
+        this.renderUI(); 
+
+        if (this.isMultiSpin) {
+            this.multiSpinCount = 0;
+            this.resultsList.innerHTML = '';
+            await this.performMultiSpin();
+        } else {
+            await this.spin();
+        }
+
+        this.isSpinning = false;
+        this.renderUI(); 
+    }
+
+    async performMultiSpin() {
+        // Now dynamic based on the spinCount property
+        while (this.multiSpinCount < this.spinCount && this.choices.length > 1) {
+            await this.spin();
+            this.multiSpinCount++;
+            
+            if (this.multiSpinCount < this.spinCount && this.choices.length > 1) {
+                await new Promise(res => setTimeout(res, 800));
+            }
+        }
+    }
+
+    spin() {
+        return new Promise(resolve => {
+            const spinTime = 3000 + Math.random() * 2000; 
+            const startAngle = this.currentAngle;
+            const totalRotation = (Math.PI * 2 * (5 + Math.random() * 5)); 
+            
+            let startTime = null;
+
+            const animate = (timestamp) => {
+                if (!startTime) startTime = timestamp;
+                const elapsed = timestamp - startTime;
+                
+                if (elapsed < spinTime) {
+                    const t = elapsed / spinTime;
+                    const easeOut = 1 - Math.pow(1 - t, 3);
+                    this.currentAngle = startAngle + totalRotation * easeOut;
+                    this.drawWheel();
+                    requestAnimationFrame(animate);
+                } else {
+                    this.currentAngle = startAngle + totalRotation;
+                    this.drawWheel();
+                    this.calculateWinner(resolve);
+                }
+            };
+            requestAnimationFrame(animate);
+        });
+    }
+
+    calculateWinner(resolve) {
+        const totalWeight = this.choices.reduce((sum, c) => sum + c.weight, 0);
+        
+        let offset = (Math.PI * 1.5 - this.currentAngle) % (Math.PI * 2);
+        if (offset < 0) offset += Math.PI * 2;
+
+        let currentSliceStart = 0;
+        let winningIndex = -1;
+
+        for (let i = 0; i < this.choices.length; i++) {
+            const sliceAngle = (this.choices[i].weight / totalWeight) * 2 * Math.PI;
+            if (offset >= currentSliceStart && offset < currentSliceStart + sliceAngle) {
+                winningIndex = i;
+                break;
+            }
+            currentSliceStart += sliceAngle;
+        }
+
+        if (winningIndex !== -1) {
+            const winner = this.choices[winningIndex];
+            
+            playWinSound();
+
+            confetti({
+                particleCount: 150,
+                spread: 80,
+                shapes: ['square'],
+                colors: [...this.colors, '#ffffff'], 
+                origin: { y: 0.5 },
+                zIndex: 2000
+            });
+            
+            // Determine Custom Win Message based on Wheel Type
+            const winMessage = this.id === 'left' 
+                ? ` is banned!` : (this.id === 'right' ?
+                `, you are playing!` : `, you are drafting!`);
+            console.log(this.id);
+            announceWinner(`${winner.text}`, winMessage);
+            this.showCustomPopup(`${winner.text}${winMessage}`).then(() => {
+                if (this.isMultiSpin && this.resultsList) {
+                    const li = document.createElement('li');
+                    li.innerText = winner.text;
+                    this.resultsList.appendChild(li);
+                } else if (!this.isMultiSpin && this.singleWinnerEl) {
+                    this.singleWinnerEl.innerText = winner.text;
+                }
+
+                this.choices.splice(winningIndex, 1);
+                
+                this.renderUI();
+                this.drawWheel();
+                resolve();
+            });
+        } else {
+            resolve();
+        }
+    }
+
+    showCustomPopup(message) {
+        return new Promise(resolve => {
+            const popup = document.getElementById('custom-popup');
+            const popupText = document.getElementById('custom-popup-text');
+            
+            popupText.innerText = message;
+            popup.classList.add('show');
+            
+            setTimeout(() => {
+                popup.classList.remove('show');
+                resolve();
+            }, 1500); 
+        });
+    }
+
+    reset() {
+        if (this.isMultiSpin && this.boostInput) {
+            let boostVal = parseFloat(this.boostInput.value);
+            if (!isNaN(boostVal) && boostVal > 0) {
+                this.choices.forEach(unpickedChoice => {
+                    const baseRef = this.baselineChoices.find(c => c.id === unpickedChoice.id);
+                    if (baseRef) {
+                        baseRef.weight += boostVal;
+                        baseRef.weight = Math.round(baseRef.weight * 1000) / 1000;
+                    }
+                });
+            }
+        }
+
+        this.choices = JSON.parse(JSON.stringify(this.baselineChoices));
+        this.currentAngle = 0;
+        this.isSpinning = false;
+        this.lastActiveIndex = -1;
+        
+        if (this.isMultiSpin && this.resultsList) {
+            this.resultsList.innerHTML = '';
+        } else if (!this.isMultiSpin && this.singleWinnerEl) {
+            this.singleWinnerEl.innerText = '';
+        }
+        
+        this.renderUI();
+        this.drawWheel();
+    }
+}
+
+const playerChoices = [
+    { text: 'French', weight: 1.0 },
+    { text: 'Greekfire', weight: 1.0 },
+    { text: 'Infafox', weight: 1.0 },
+    { text: 'Jamster', weight: 1.0 },
+    { text: 'Patienc3', weight: 1.0 },
+    { text: 'Psyqo', weight: 1.0 },
+    { text: 'Solien', weight: 1.0 },
+    { text: 'Storm', weight: 1.0 },
+    { text: 'ThisGuy', weight: 1.0 }
+];
+
+const mapChoices = [
+    { text: 'Alterac Pass', weight: 1.0 },
+    { text: 'Battlefield of Eternity', weight: 1.0 },
+    { text: 'Braxis Holdout', weight: 1.0 },
+    { text: 'Cursed Hollow', weight: 1.0 },
+    { text: 'Dragon Shire', weight: 1.0 },
+    { text: 'Garden of Terror', weight: 1.0 },
+    { text: 'Infernal Shrines', weight: 1.0 },
+    { text: 'Sky Temple', weight: 1.0 },
+    { text: 'Tomb of the Spider Queen', weight: 1.0 },
+    { text: 'Towers of Doom', weight: 1.0 },
+    { text: 'Volskaya Foundry', weight: 1.0 }
+];
+
+
+// Instantiating all three wheels with exact spin counts
+document.addEventListener('DOMContentLoaded', () => {
+    new CustomWheel('left', mapChoices, 4);
+    new CustomWheel('middle', playerChoices, 1);
+    new CustomWheel('right', playerChoices, 5);
+});
+    </script>
+</body>
+</html>
