@@ -320,6 +320,9 @@ var playerSound = {
     "Psyqo": "Psycho"
 };
 
+// Global registry to allow wheels to communicate with each other
+window.wheelInstances = {};
+
 function initAudio() {
     if (!audioCtx) {
         audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -327,13 +330,14 @@ function initAudio() {
     if (audioCtx.state === 'suspended') {
         audioCtx.resume();
     }
+
     var voices = window.speechSynthesis.getVoices();
     // Filter to find a female voice - names vary by OS/Browser
     femaleVoice = voices.find(voice => 
         voice.name.includes('Female') || 
         voice.name.includes('Zira') || 
         voice.name.includes('Samantha')
-    );    
+    );  
 }
 
 function announceWinner(player, text) {
@@ -351,7 +355,6 @@ function announceWinner(player, text) {
         window.speechSynthesis.speak(utterance);
     }
 }
-
 
 function playTickSound() {
     if (!audioCtx) return;
@@ -398,7 +401,6 @@ function playWinSound() {
 }
 
 class CustomWheel {
-    // We now accept the specific number of spins instead of a boolean
     constructor(id, initialChoices, spinCount) {
         this.id = id;
         this.canvas = document.getElementById(`canvas-${id}`);
@@ -648,7 +650,6 @@ class CustomWheel {
     }
 
     async performMultiSpin() {
-        // Now dynamic based on the spinCount property
         while (this.multiSpinCount < this.spinCount && this.choices.length > 1) {
             await this.spin();
             this.multiSpinCount++;
@@ -719,12 +720,11 @@ class CustomWheel {
                 zIndex: 2000
             });
             
-            // Determine Custom Win Message based on Wheel Type
             const winMessage = this.id === 'left' 
                 ? ` is banned!` : (this.id === 'right' ?
                 `, you are playing!` : `, you are drafting!`);
-            console.log(this.id);
             announceWinner(`${winner.text}`, winMessage);
+
             this.showCustomPopup(`${winner.text}${winMessage}`).then(() => {
                 if (this.isMultiSpin && this.resultsList) {
                     const li = document.createElement('li');
@@ -765,12 +765,38 @@ class CustomWheel {
             let boostVal = parseFloat(this.boostInput.value);
             if (!isNaN(boostVal) && boostVal > 0) {
                 this.choices.forEach(unpickedChoice => {
+                    // 1. Boost this wheel locally
                     const baseRef = this.baselineChoices.find(c => c.id === unpickedChoice.id);
                     if (baseRef) {
                         baseRef.weight += boostVal;
                         baseRef.weight = Math.round(baseRef.weight * 1000) / 1000;
                     }
+
+                    // 2. Cross-Wheel Boost Logic: If this is the Right Wheel, look for the Middle Wheel
+                    if (this.id === 'right' && window.wheelInstances['middle']) {
+                        const midWheel = window.wheelInstances['middle'];
+                        
+                        // Find a match by exact text name in the Middle Wheel's baseline choices
+                        const midBaseRef = midWheel.baselineChoices.find(c => c.text === unpickedChoice.text);
+                        if (midBaseRef) {
+                            midBaseRef.weight += boostVal;
+                            midBaseRef.weight = Math.round(midBaseRef.weight * 1000) / 1000;
+                        }
+                        
+                        // Also update the active choices so the change shows instantly without needing to hit reset on the Middle Wheel
+                        const midActiveRef = midWheel.choices.find(c => c.text === unpickedChoice.text);
+                        if (midActiveRef) {
+                            midActiveRef.weight += boostVal;
+                            midActiveRef.weight = Math.round(midActiveRef.weight * 1000) / 1000;
+                        }
+                    }
                 });
+
+                // 3. Immediately redraw the Middle Wheel to visually apply the new weights
+                if (this.id === 'right' && window.wheelInstances['middle']) {
+                    window.wheelInstances['middle'].renderUI();
+                    window.wheelInstances['middle'].drawWheel();
+                }
             }
         }
 
@@ -782,7 +808,7 @@ class CustomWheel {
         if (this.isMultiSpin && this.resultsList) {
             this.resultsList.innerHTML = '';
         } else if (!this.isMultiSpin && this.singleWinnerEl) {
-            this.singleWinnerEl.innerText = '';
+            this.singleWinnerEl.innerText = 'None yet';
         }
         
         this.renderUI();
@@ -816,12 +842,11 @@ const mapChoices = [
     { text: 'Volskaya Foundry', weight: 1.0 }
 ];
 
-
-// Instantiating all three wheels with exact spin counts
 document.addEventListener('DOMContentLoaded', () => {
-    new CustomWheel('left', mapChoices, 4);
-    new CustomWheel('middle', playerChoices, 1);
-    new CustomWheel('right', playerChoices, 5);
+    // Registering all instances directly into the global window object
+    window.wheelInstances['left'] = new CustomWheel('left', mapChoices, 4);
+    window.wheelInstances['middle'] = new CustomWheel('middle', playerChoices, 1);
+    window.wheelInstances['right'] = new CustomWheel('right', playerChoices, 5);
 });
     </script>
 </body>
