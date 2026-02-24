@@ -178,20 +178,20 @@
 	"role": "Offlaner",
 	"country": "usa",
 	"bid": 1242027,
-	"active": false
+	"active": true
 },
 {
 	"name": "Jamster",
 	"role": "Offlaner",
 	"country": "usa",
 	"bid": 3632542,
-	"active": false
+	"active": true
 },
 {
 	"name": "Thisguy",
 	"role": "Tank",
 	"country": "usa",
 	"bid": 6342570,
-	"active": false
+	"active": true
 }
 ]
