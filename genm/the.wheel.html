@@ -340,22 +340,6 @@ function initAudio() {
     );  
 }
 
-function announceWinner(player, text) {
-    if ('speechSynthesis' in window) {
-        // Cancel any currently speaking text so it doesn't overlap
-        window.speechSynthesis.cancel();
-        
-        const utterance = new SpeechSynthesisUtterance((playerSound[player] ?? player) + text);
-
-
-        if (femaleVoice) {
-            utterance.voice = femaleVoice;
-        }
-        
-        window.speechSynthesis.speak(utterance);
-    }
-}
-
 function playTickSound() {
     if (!audioCtx) return;
     const osc = audioCtx.createOscillator();
@@ -373,6 +357,22 @@ function playTickSound() {
     
     osc.start();
     osc.stop(audioCtx.currentTime + 0.05);
+}
+
+function announceWinner(player, text) {
+    if ('speechSynthesis' in window) {
+        // Cancel any currently speaking text so it doesn't overlap
+        window.speechSynthesis.cancel();
+        
+        const utterance = new SpeechSynthesisUtterance((playerSound[player] ?? player) + text);
+
+
+        if (femaleVoice) {
+            utterance.voice = femaleVoice;
+        }
+        
+        window.speechSynthesis.speak(utterance);
+    }
 }
 
 function playWinSound() {
@@ -456,6 +456,9 @@ class CustomWheel {
         
         this.resetBtn.addEventListener('click', () => this.reset());
         this.addBtn.addEventListener('click', () => {
+            // Hard block to prevent adding choices if it's the locked left wheel
+            if (this.id === 'left') return; 
+
             const newChoice = { 
                 id: this.nextChoiceId++, 
                 text: `Choice ${this.baselineChoices.length + 1}`, 
@@ -473,6 +476,9 @@ class CustomWheel {
     renderUI() {
         this.uiList.innerHTML = '';
         
+        // Define if this wheel is completely locked from manual edits
+        const isLocked = this.id === 'left';
+        
         this.choices.forEach((choice, index) => {
             const row = document.createElement('div');
             row.className = 'choice-row';
@@ -480,7 +486,7 @@ class CustomWheel {
             const textInput = document.createElement('input');
             textInput.type = 'text';
             textInput.value = choice.text;
-            textInput.disabled = this.isSpinning;
+            textInput.disabled = this.isSpinning || isLocked;
             textInput.addEventListener('input', (e) => {
                 this.choices[index].text = e.target.value;
                 const baseRef = this.baselineChoices.find(c => c.id === choice.id);
@@ -493,7 +499,7 @@ class CustomWheel {
             weightInput.min = '0.01';
             weightInput.step = '0.1';
             weightInput.value = choice.weight;
-            weightInput.disabled = this.isSpinning;
+            weightInput.disabled = this.isSpinning || isLocked;
             weightInput.addEventListener('change', (e) => {
                 let val = parseFloat(e.target.value);
                 if (isNaN(val) || val <= 0) val = 0.1;
@@ -508,7 +514,7 @@ class CustomWheel {
             const delBtn = document.createElement('button');
             delBtn.className = 'delete-btn';
             delBtn.innerText = 'X';
-            delBtn.disabled = this.isSpinning || this.choices.length <= 1;
+            delBtn.disabled = this.isSpinning || this.choices.length <= 1 || isLocked;
             delBtn.addEventListener('click', () => {
                 if (this.choices.length > 1) {
                     const deletedId = this.choices[index].id;
@@ -526,8 +532,16 @@ class CustomWheel {
             this.uiList.appendChild(row);
         });
         
+        // Disable spin mechanics appropriately
         this.spinBtn.disabled = this.isSpinning || this.choices.length <= 1;
-        this.addBtn.disabled = this.isSpinning;
+        
+        // Hide the Add Button entirely if the wheel is locked
+        if (isLocked) {
+            this.addBtn.style.display = 'none';
+        } else {
+            this.addBtn.style.display = 'block';
+            this.addBtn.disabled = this.isSpinning;
+        }
     }
 
     drawWheel() {
@@ -549,6 +563,7 @@ class CustomWheel {
             const sliceAngle = (choice.weight / totalWeight) * 2 * Math.PI;
             const color = this.colors[i % this.colors.length];
 
+            // Draw the colored slice
             this.ctx.beginPath();
             this.ctx.moveTo(cx, cy);
             this.ctx.arc(cx, cy, radius, startAngle, startAngle + sliceAngle);
@@ -559,20 +574,37 @@ class CustomWheel {
             this.ctx.strokeStyle = '#0f0f11'; 
             this.ctx.stroke();
 
+            // Prepare text drawing
             this.ctx.save();
             this.ctx.translate(cx, cy);
             this.ctx.rotate(startAngle + sliceAngle / 2);
             this.ctx.textAlign = 'right';
             this.ctx.fillStyle = '#fff';
-            this.ctx.font = 'bold 20px sans-serif';
             this.ctx.shadowColor = 'rgba(0,0,0,0.9)';
             this.ctx.shadowBlur = 6;
-            this.ctx.fillText(choice.text, radius - 20, 6);
+            
+            // Dynamic Font Sizing Logic
+            // radius - 80 leaves plenty of breathing room around the 45px center hub
+            const maxTextWidth = radius - 80; 
+            let fontSize = 20; // Default max font size
+            this.ctx.font = `bold ${fontSize}px sans-serif`;
+            
+            // Shrink the font size if the text is too wide, stopping at 11px to maintain readability
+            while (this.ctx.measureText(choice.text).width > maxTextWidth && fontSize > 11) {
+                fontSize--;
+                this.ctx.font = `bold ${fontSize}px sans-serif`;
+            }
+
+            // Draw the text, using the canvas maxWidth squish ONLY as a last resort if 11px is still too wide
+            // fontSize * 0.3 slightly pushes the text down to keep it perfectly centered vertically in the slice
+            this.ctx.fillText(choice.text, radius - 20, fontSize * 0.3, maxTextWidth);
+            
             this.ctx.restore();
 
             startAngle += sliceAngle;
         }
 
+        // Draw Center Logo Hub
         const hubRadius = 45;
         this.ctx.save(); 
         this.ctx.translate(cx, cy); 
@@ -765,25 +797,21 @@ class CustomWheel {
             let boostVal = parseFloat(this.boostInput.value);
             if (!isNaN(boostVal) && boostVal > 0) {
                 this.choices.forEach(unpickedChoice => {
-                    // 1. Boost this wheel locally
                     const baseRef = this.baselineChoices.find(c => c.id === unpickedChoice.id);
                     if (baseRef) {
                         baseRef.weight += boostVal;
                         baseRef.weight = Math.round(baseRef.weight * 1000) / 1000;
                     }
 
-                    // 2. Cross-Wheel Boost Logic: If this is the Right Wheel, look for the Middle Wheel
                     if (this.id === 'right' && window.wheelInstances['middle']) {
                         const midWheel = window.wheelInstances['middle'];
                         
-                        // Find a match by exact text name in the Middle Wheel's baseline choices
                         const midBaseRef = midWheel.baselineChoices.find(c => c.text === unpickedChoice.text);
                         if (midBaseRef) {
                             midBaseRef.weight += boostVal;
                             midBaseRef.weight = Math.round(midBaseRef.weight * 1000) / 1000;
                         }
                         
-                        // Also update the active choices so the change shows instantly without needing to hit reset on the Middle Wheel
                         const midActiveRef = midWheel.choices.find(c => c.text === unpickedChoice.text);
                         if (midActiveRef) {
                             midActiveRef.weight += boostVal;
@@ -792,7 +820,6 @@ class CustomWheel {
                     }
                 });
 
-                // 3. Immediately redraw the Middle Wheel to visually apply the new weights
                 if (this.id === 'right' && window.wheelInstances['middle']) {
                     window.wheelInstances['middle'].renderUI();
                     window.wheelInstances['middle'].drawWheel();
