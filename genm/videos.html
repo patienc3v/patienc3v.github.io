@@ -72,7 +72,7 @@
     const opponents = [];
 
     const mainVideo = document.getElementById('mainVideo');
-    const videoItems = Array.from(document.querySelectorAll('.video-item'));
+    let videoItems;
     const seasonFilter = document.getElementById('seasonFilter');
     const opponentFilter = document.getElementById('opponentFilter');
     const typeFilter = document.getElementById('typeFilter');
@@ -110,6 +110,8 @@
 				seasons.push(video.season);
 				container.appendChild(item);
 			});
+
+			videoItems = Array.from(document.querySelectorAll('.video-item'));
 
 			const seasonOptions = [...new Set(seasons)].sort((a, b) => b - a);
 			const opponentOptions = [...new Set(opponents)].sort((a, b) => a.localeCompare(b));
