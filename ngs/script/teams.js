@@ -1,5 +1,5 @@
 // --- CONFIG & GLOBAL DATA ---
-const CURRENT_SEASON = 20;
+const CURRENT_SEASON = 21;
 const MIN_SEASON = 16;
 let seasonDataCache = {};
 let selectedTeams = new Set();
