@@ -1,7 +1,7 @@
 [
 {
 	"name": "infafox",
-	"role": "Tank",
+	"role": "Offlane",
 	"country": "usa",
 	"bid": 690175,
 	"active": true
@@ -157,14 +157,14 @@
 	"role": "Assassin",
 	"country": "canada",
 	"bid": 6405877,
-	"active": true
+	"active": false
 },
 {
 	"name": "Psyqo",
 	"role": "Assassin",
 	"country": "canada",
 	"bid": 918724,
-	"active": true
+	"active": false
 },
 {
 	"name": "Wholefoods",
@@ -178,18 +178,32 @@
 	"role": "Offlaner",
 	"country": "usa",
 	"bid": 1242027,
-	"active": true
+	"active": false
 },
 {
 	"name": "Jamster",
 	"role": "Offlaner",
 	"country": "usa",
 	"bid": 3632542,
+	"active": false
+},
+{
+	"name": "Gokue",
+	"role": "Tank",
+	"country": "usa",
+	"bid": 3458125,
+	"active": true
+},
+{
+	"name": "Kurama",
+	"role": "Assassin",
+	"country": "usa",
+	"bid": 4991390,
 	"active": true
 },
 {
 	"name": "Thisguy",
-	"role": "Tank",
+	"role": "Flex",
 	"country": "usa",
 	"bid": 6342570,
 	"active": true
