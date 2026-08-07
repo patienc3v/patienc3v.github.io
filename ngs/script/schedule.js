@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const season = 21;
-    const divisions = ['heroic', 'nexus', 'a', 'b-east', 'b-west', 'c', 'd'];
+    const season = 22;
+    const divisions = ['heroic', 'nexus', 'a', 'b-east', 'b-west', 'c-east', 'c-west'];
     const divOrder = ['Heroic', 'Nexus'];
     let divisionLookup = {};
 
