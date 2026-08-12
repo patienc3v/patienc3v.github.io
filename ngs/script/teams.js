@@ -1,5 +1,5 @@
 // --- CONFIG & GLOBAL DATA ---
-const CURRENT_SEASON = 21;
+const CURRENT_SEASON = 22;
 const MIN_SEASON = 16;
 let seasonDataCache = {};
 let selectedTeams = new Set();
@@ -183,7 +183,7 @@ function updateDivisionSelector() {
     
     divisionsForSeason.forEach(division => {
         const option = document.createElement('option');
-        option.textContent = divOrder.includes(division) ? division + " Division" : "Division " + division;
+        option.textContent = divOrder.includes(division) ? division + " Division" : "Division " + (DIVISION_NAME[selectedSeason][division] || division;
         option.value = division;
         divisionSelect.appendChild(option);
     });
